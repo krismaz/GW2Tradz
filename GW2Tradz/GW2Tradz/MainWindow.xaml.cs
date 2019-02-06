@@ -1,4 +1,5 @@
 ﻿using GW2Tradz.Networking;
+using GW2Tradz.Networking.viewmodels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,14 @@ namespace GW2Tradz
             var cache = new Cache();
             var silver = new Silveress();
             cache.Update(silver.FetchBasicInfo());
+            cache.UpdateHistory(silver.FetchHistory());
             MainGrid.ItemsSource = cache.Resolve();
+
+        }
+
+        private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Clipboard.SetText(e.AddedItems.OfType<Item>().First().Name);
         }
     }
 }

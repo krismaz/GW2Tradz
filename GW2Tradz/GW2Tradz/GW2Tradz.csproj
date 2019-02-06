@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CoinConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Networking\Cache.cs" />
     <Compile Include="Networking\Silveress.cs" />
+    <Compile Include="Networking\viewmodels\History.cs" />
     <Compile Include="Networking\viewmodels\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -27,6 +27,15 @@ namespace GW2Tradz.Networking
             }
         }
 
+        public void UpdateHistory(List<History> items)
+        {
+            var grouped = items.GroupBy(h => h.Id);
+            foreach(var entry in grouped)
+            {
+                _lookup[entry.Key].History = entry.ToList();
+            }
+        }
+
         public IEnumerable<Item> Resolve()
         {
             return _lookup.Values;
