@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GW2Tradz.Networking.viewmodels
+namespace GW2Tradz.Viewmodels
 {
     public class History
     {

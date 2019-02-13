@@ -1,5 +1,6 @@
-﻿using GW2Tradz.Networking;
-using GW2Tradz.Networking.viewmodels;
+﻿using GW2Tradz.Analyzers;
+using GW2Tradz.Networking;
+using GW2Tradz.Viewmodels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +31,18 @@ namespace GW2Tradz
             cache.Update(silver.FetchBasicInfo());
             cache.UpdateHistory(silver.FetchHistory());
             MainGrid.ItemsSource = cache.Resolve();
+            FlippingGrid.ItemsSource = new FlippingAnalyzer().Analyse(1300 * 100 * 100, cache);
 
         }
 
         private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Clipboard.SetText(e.AddedItems.OfType<Item>().First().Name);
+            Clipboard.SetText(e.AddedItems.OfType<Item>().FirstOrDefault()?.Name ?? "");
+        }
+
+        private void FlippingGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Clipboard.SetText(e.AddedItems.OfType<TradingAction>().FirstOrDefault()?.Item?.Name ?? "");
         }
     }
 }

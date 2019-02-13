@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GW2Tradz.Networking.viewmodels
+namespace GW2Tradz.Viewmodels
 {
     public class Item
     {
@@ -13,17 +13,19 @@ namespace GW2Tradz.Networking.viewmodels
         public int SellPrice { get; set; }
         public string Name { get; set; }
         public string Rarity { get; set; }
+        public int VendorValue { get; set; }
 
-        public void Update(Item other)
+    public void Update(Item other)
         {
             Id = other.Id;
             BuyPrice = other.BuyPrice;
             SellPrice = other.SellPrice;
             Name = other.Name ?? Name;
             Rarity = other.Rarity ?? Rarity;
+            VendorValue = other.VendorValue;
         }
 
-        public int FlipBuy => BuyPrice + 1;
+        public int FlipBuy => (BuyPrice != 0 ? BuyPrice : VendorValue*6/5) + 1;
         public int FlipSell => SellPrice - 1;
 
         public int FlippingProfit => (int)((FlipSell)*0.85) - (FlipBuy);

@@ -1,4 +1,4 @@
-﻿using GW2Tradz.Networking.viewmodels;
+﻿using GW2Tradz.Viewmodels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -18,7 +18,7 @@ namespace GW2Tradz.Networking
 
         public List<Item> FetchBasicInfo()
         {
-            var result = httpClient.GetAsync("https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,rarity").Result; //worst coding practice or worsest coding practice
+            var result = httpClient.GetAsync("https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,rarity,vendor_value").Result; //worst coding practice or worsest coding practice
             var content = result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<List<Item>>(content, jsonSettings);
         }

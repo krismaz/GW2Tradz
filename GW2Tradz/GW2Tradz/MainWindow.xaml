@@ -10,18 +10,34 @@
         <local:CoinConverter x:Key="coinConverter"/>
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="MainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="MainGrid_SelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Bought" Binding="{Binding BuyPrice, Converter={StaticResource coinConverter}}" />
-                <DataGridTextColumn Header="Sold" Binding="{Binding SellPrice, Converter={StaticResource coinConverter}}" />
-                <DataGridTextColumn Header="Profit" Binding="{Binding FlippingProfit, Converter={StaticResource coinConverter}}" />
-                <DataGridTextColumn Header="%Profit" Binding="{Binding FlippingPercentage, StringFormat=p0}" />
-                <DataGridTextColumn Header="Velocity" Binding="{Binding Velocity}" />
-                <DataGridTextColumn Header="GPD" Binding="{Binding GoldPerDay, Converter={StaticResource coinConverter}}"  />
-            </DataGrid.Columns>
-        </DataGrid>
+
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TabItem Header="Overview">
+                <DataGrid x:Name="MainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="MainGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Bought" Binding="{Binding BuyPrice, Converter={StaticResource coinConverter}}" />
+                        <DataGridTextColumn Header="Sold" Binding="{Binding SellPrice, Converter={StaticResource coinConverter}}" />
+                        <DataGridTextColumn Header="Profit" Binding="{Binding FlippingProfit, Converter={StaticResource coinConverter}}" />
+                        <DataGridTextColumn Header="%Profit" Binding="{Binding FlippingPercentage, StringFormat=p0}" />
+                        <DataGridTextColumn Header="Velocity" Binding="{Binding Velocity}" />
+                        <DataGridTextColumn Header="GPD" Binding="{Binding GoldPerDay, Converter={StaticResource coinConverter}}"  />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="FlippingAnalyser">
+                <DataGrid x:Name="FlippingGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
+                        <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" />
+                        <DataGridTextColumn Header="%Profit" Binding="{Binding ProfitPercentage, StringFormat=p0}" />
+                        <DataGridTextColumn Header="Profit" Binding="{Binding Profit, Converter={StaticResource coinConverter}}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>

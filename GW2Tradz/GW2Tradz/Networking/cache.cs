@@ -1,4 +1,4 @@
-﻿using GW2Tradz.Networking.viewmodels;
+﻿using GW2Tradz.Viewmodels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GW2Tradz.Networking
 {
-    class Cache
+    public class Cache
     {
         Dictionary<int, Item> _lookup = new Dictionary<int, Item> { };
 

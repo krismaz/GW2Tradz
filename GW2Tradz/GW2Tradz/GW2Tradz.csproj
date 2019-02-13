@@ -57,6 +57,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Analyzers\FlippingAnalyser.cs" />
+    <Compile Include="Analyzers\IAnalyzer.cs" />
     <Compile Include="CoinConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -74,8 +76,9 @@
   <ItemGroup>
     <Compile Include="Networking\Cache.cs" />
     <Compile Include="Networking\Silveress.cs" />
-    <Compile Include="Networking\viewmodels\History.cs" />
-    <Compile Include="Networking\viewmodels\Item.cs" />
+    <Compile Include="Viewmodels\TradingAction.cs" />
+    <Compile Include="Viewmodels\History.cs" />
+    <Compile Include="Viewmodels\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
