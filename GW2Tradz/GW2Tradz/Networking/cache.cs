@@ -9,36 +9,38 @@ namespace GW2Tradz.Networking
 {
     public class Cache
     {
-        Dictionary<int, Item> _lookup = new Dictionary<int, Item> { };
+        public Dictionary<int, Item> Lookup = new Dictionary<int, Item> { };
+        public List<Dye> Dyes { get; private set; }
 
         public void Update(List<Item> items)
         {
-            foreach(var item in items)
+            foreach (var item in items)
             {
                 //linq dictionary merge?
-                if(_lookup.TryGetValue(item.Id, out Item cached))
+                if (Lookup.TryGetValue(item.Id, out Item cached))
                 {
                     cached.Update(item);
                 }
                 else
                 {
-                    _lookup[item.Id] = item;
+                    Lookup[item.Id] = item;
                 }
             }
         }
 
-        public void UpdateHistory(List<History> items)
-        {
-            var grouped = items.GroupBy(h => h.Id);
-            foreach(var entry in grouped)
-            {
-                _lookup[entry.Key].History = entry.ToList();
-            }
-        }
+        public IEnumerable<Item> Items => Lookup.Values;
 
-        public IEnumerable<Item> Resolve()
+        public void Load()
         {
-            return _lookup.Values;
+            var silver = new Silveress();
+            var gw2 = new GW2();
+            Update(silver.FetchBasicInfo());
+            Dyes = gw2.FetchDyes();
+            foreach(var dye in Dyes.Where(d => d.Item.HasValue))
+            {
+                Lookup.TryGetValue(dye.Item.Value, out var item);
+                dye.ItemData = item;
+            }
         }
     }
 }

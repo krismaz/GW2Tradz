@@ -27,11 +27,10 @@ namespace GW2Tradz
         {
             InitializeComponent();
             var cache = new Cache();
-            var silver = new Silveress();
-            cache.Update(silver.FetchBasicInfo());
-            cache.UpdateHistory(silver.FetchHistory());
-            MainGrid.ItemsSource = cache.Resolve();
-            FlippingGrid.ItemsSource = new FlippingAnalyzer().Analyse(1300 * 100 * 100, cache);
+            cache.Load();
+            MainGrid.ItemsSource = cache.Items;
+            FlippingGrid.ItemsSource = new FlippingAnalyzer().Analyse(1000 * 100 * 100, cache);
+            DyeGrid.ItemsSource = new DyeSalvagingAnalyzer().Analyse(-1, cache);
 
         }
 

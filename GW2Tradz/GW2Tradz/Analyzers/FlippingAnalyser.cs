@@ -14,7 +14,7 @@ namespace GW2Tradz.Analyzers
         {
             var maxDeep = budget / 10;
             List<TradingAction> result = new List<TradingAction> { };
-            var items = cache.Resolve().Where(i => i.FlippingProfit > 0.2 && i.Velocity > 5 && i.GoldPerDay > 250000).OrderByDescending(i => i.FlippingPercentage);
+            var items = cache.Items.Where(i => i.FlippingProfit > 0.2 && i.Velocity > 5 && i.GoldPerDay > 250000).OrderByDescending(i => i.FlippingPercentage);
             foreach(var item in items)
             {
                 var itemBudget = Math.Min(budget, maxDeep);

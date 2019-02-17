@@ -14,8 +14,10 @@ namespace GW2Tradz.Viewmodels
         public string Name { get; set; }
         public string Rarity { get; set; }
         public int VendorValue { get; set; }
+        public float? WeekSellVelocity { get; set; }
+        public float? WeekBuyVelocity { get; set; }
 
-    public void Update(Item other)
+        public void Update(Item other)
         {
             Id = other.Id;
             BuyPrice = other.BuyPrice;
@@ -25,19 +27,13 @@ namespace GW2Tradz.Viewmodels
             VendorValue = other.VendorValue;
         }
 
-        public int FlipBuy => (BuyPrice != 0 ? BuyPrice : VendorValue*6/5) + 1;
+        public int FlipBuy => (BuyPrice != 0 ? BuyPrice : VendorValue * 6 / 5) + 1;
         public int FlipSell => SellPrice - 1;
 
-        public int FlippingProfit => (int)((FlipSell)*0.85) - (FlipBuy);
+        public int FlippingProfit => (int)((FlipSell) * 0.85) - (FlipBuy);
         public float FlippingPercentage => (float)(FlippingProfit) / (float)(FlipBuy);
 
-        public double SellV => History?.Select(h => h.SellVelocity).Average() ?? 0;
-        public double BuyV => History?.Select(h => h.BuyVelocity).Average() ?? 0;
-        public double Velocity => Math.Min(SellV, BuyV);
+        public double Velocity => Math.Min(WeekSellVelocity ?? 0, WeekBuyVelocity ?? 0);
         public int GoldPerDay => (int)(Velocity * FlippingProfit);
-
-
-        public List<History> History { get; set; }
-        
-}
+    }
 }
