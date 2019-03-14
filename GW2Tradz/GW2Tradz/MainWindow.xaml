@@ -48,6 +48,17 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
+            <TabItem Header="CraftingAnalyzer">
+                <DataGrid x:Name="CraftingGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
+                        <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" />
+                        <DataGridTextColumn Header="%Profit" Binding="{Binding ProfitPercentage, StringFormat=p0}" />
+                        <DataGridTextColumn Header="Profit" Binding="{Binding Profit, Converter={StaticResource coinConverter}}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
         </TabControl>
 
     </Grid>

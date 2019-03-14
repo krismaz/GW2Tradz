@@ -11,6 +11,7 @@ namespace GW2Tradz.Networking
     {
         public Dictionary<int, Item> Lookup = new Dictionary<int, Item> { };
         public List<Dye> Dyes { get; private set; }
+        public List<Recipe> Recipes { get; private set; }
 
         public void Update(List<Item> items)
         {
@@ -34,13 +35,16 @@ namespace GW2Tradz.Networking
         {
             var silver = new Silveress();
             var gw2 = new GW2();
+            var gw2Profits = new GW2Profits();
             Update(silver.FetchBasicInfo());
             Dyes = gw2.FetchDyes();
-            foreach(var dye in Dyes.Where(d => d.Item.HasValue))
+            foreach (var dye in Dyes.Where(d => d.Item.HasValue))
             {
                 Lookup.TryGetValue(dye.Item.Value, out var item);
                 dye.ItemData = item;
             }
+            Recipes = gw2.FetchRecipes();
+            Recipes.AddRange(gw2Profits.FetchRecipes().Where(r => r.Id < 0));
         }
     }
 }

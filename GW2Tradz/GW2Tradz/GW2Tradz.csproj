@@ -60,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Analyzers\CraftingAnalyzer.cs" />
     <Compile Include="Analyzers\DyeSalvagingAnalyzer.cs" />
     <Compile Include="Analyzers\FlippingAnalyser.cs" />
     <Compile Include="Analyzers\IAnalyzer.cs" />
@@ -72,6 +73,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Extensions.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -80,8 +82,10 @@
   <ItemGroup>
     <Compile Include="Networking\Cache.cs" />
     <Compile Include="Networking\GW2.cs" />
+    <Compile Include="Networking\GW2Profits.cs" />
     <Compile Include="Networking\Silveress.cs" />
     <Compile Include="Viewmodels\Dye.cs" />
+    <Compile Include="Viewmodels\Recipe.cs" />
     <Compile Include="Viewmodels\TradingAction.cs" />
     <Compile Include="Viewmodels\History.cs" />
     <Compile Include="Viewmodels\Item.cs" />
