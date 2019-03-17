@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using GW2NET;
 
 namespace GW2Tradz.Networking
 {
@@ -20,6 +21,7 @@ namespace GW2Tradz.Networking
             var result = httpClient.GetAsync("https://api.guildwars2.com/v2/colors?ids=all").Result; //worst coding practice or worsest coding practice
             var content = result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<List<Dye>>(content, jsonSettings);
+
         }
 
         public List<Recipe> FetchRecipes()
@@ -36,6 +38,8 @@ namespace GW2Tradz.Networking
             }
             return recipes;
         }
+
+
 
 
     }

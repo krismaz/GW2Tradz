@@ -22,7 +22,7 @@ namespace GW2Tradz.Analyzers
                 if (sale > cost)
                 {
                     var profit = (int)((sale - cost) * (int)dye.ItemData.WeekBuyVelocity);
-                    if (profit > 50 * 100)
+                    if (profit > Settings.EasyTaskCost)
                     {
                         result.Add(new TradingAction
                         {

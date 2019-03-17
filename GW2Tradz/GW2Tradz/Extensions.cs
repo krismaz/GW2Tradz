@@ -16,5 +16,13 @@ namespace GW2Tradz
                 source = source.Skip(chunksize);
             }
         }
+
+        public static int Gold(this int i) => i * 100 * 100;
+
+        public static int Silver(this int i) => i * 100;
+
+        public static double Percent(this int i) => ((double)i).Percent();
+
+        public static double Percent(this double d) => d / 100d;
     }
 }

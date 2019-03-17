@@ -24,9 +24,9 @@ namespace GW2Tradz.Analyzers
                 var item = items[recipe.OutputItemId];
                 var income = (int)(recipe.OutputItemCount * item.SellPrice * 0.85);
 
-                var cost = recipe.Ingredients.Sum(i => i.Count * (i.ItemId == -1 ? 1 : items[i.ItemId].BuyPrice));
+                var cost = recipe.Ingredients.Sum(i => i.Count * (i.ItemId == -1 ? 1 : items[i.ItemId].SellPrice));
                 var totalvelocity = Math.Min((item.WeekSellVelocity ?? 0) / recipe.OutputItemCount, recipe.Ingredients.Min(i => (i.ItemId == -1 ? float.PositiveInfinity : items[i.ItemId].WeekBuyVelocity ?? 0) / i.Count));
-                if((income-cost) * (int)totalvelocity > 5*100*100 && (float)(income - cost) / (float)cost > 0.1)
+                if(totalvelocity > Settings.VelocityUncertainty && (income-cost) * (int)totalvelocity > Settings.HardTaskCost && (float)(income - cost) / (float)cost > Settings.UnsafeMinumumMargin)
                 {
                     result.Add(new TradingAction
                     {
