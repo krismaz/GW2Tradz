@@ -10,8 +10,19 @@ namespace GW2Tradz.Viewmodels
     {
         public string Description{get; set; }
         public Item Item { get; set; }
-        public int Profit { get; set; }
-        public double ProfitPercentage { get; set; }
-        public int Amount { get; set; }
+        public int IncomePer { get; set; }
+        private int _maxAmount;
+        public int MaxAmount { get => _maxAmount; set { _maxAmount = Math.Max(0, value); } }
+        public int CostPer { get; set; }
+        public int BaseCost { get; set; }
+        public double SafeProfitPercentage { get; set; }
+
+
+        public int Amount => Math.Min(MaxAmount, (Settings.TotalGold / Settings.Spread) / CostPer);
+        public int TotalIncome => Amount * IncomePer;
+        public int TotalCost => Amount * CostPer + BaseCost;
+        public int Profit => TotalIncome - TotalCost;
+        public double ProfitPercentage => (double)Profit / (double)TotalCost;
+        public bool Safe => ProfitPercentage > SafeProfitPercentage;
     }
 }

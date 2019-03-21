@@ -10,6 +10,6 @@ namespace GW2Tradz.Analyzers
 {
     public interface IAnalyzer
     {
-        List<TradingAction> Analyse(int budget, Cache cache);   
+        List<TradingAction> Analyse(Cache cache);   
     }
 }

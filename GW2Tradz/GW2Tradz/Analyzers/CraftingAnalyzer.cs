@@ -11,7 +11,7 @@ namespace GW2Tradz.Analyzers
 {
     class CraftingAnalyzer : IAnalyzer
     {
-        public List<TradingAction> Analyse(int budget, Cache cache)
+        public List<TradingAction> Analyse(Cache cache)
         {
             var items = cache.Lookup;
             var validRecipes = cache.Recipes
@@ -19,24 +19,23 @@ namespace GW2Tradz.Analyzers
 
             var result = new List<TradingAction> { };
 
-            foreach(var recipe in validRecipes)
+            foreach (var recipe in validRecipes)
             {
                 var item = items[recipe.OutputItemId];
                 var income = (int)(recipe.OutputItemCount * item.SellPrice * 0.85);
 
                 var cost = recipe.Ingredients.Sum(i => i.Count * (i.ItemId == -1 ? 1 : items[i.ItemId].SellPrice));
                 var totalvelocity = Math.Min((item.WeekSellVelocity ?? 0) / recipe.OutputItemCount, recipe.Ingredients.Min(i => (i.ItemId == -1 ? float.PositiveInfinity : items[i.ItemId].WeekBuyVelocity ?? 0) / i.Count));
-                if(totalvelocity > Settings.VelocityUncertainty && (income-cost) * (int)totalvelocity > Settings.HardTaskCost && (float)(income - cost) / (float)cost > Settings.UnsafeMinumumMargin)
+                result.Add(new TradingAction
                 {
-                    result.Add(new TradingAction
-                    {
-                        Amount = (int)totalvelocity,
-                        Description = $"{item.Name} - {string.Join(", ", recipe.Disciplines)} ({string.Join(", ", recipe.Ingredients.Select(i => i.ItemId == -1 ? "Coin" : items[i.ItemId].Name))})",
-                        Item = item,
-                        Profit = (int)((income - cost) * totalvelocity),
-                        ProfitPercentage = (float)(income - cost) / (float)cost
-                    });
-                }
+                    MaxAmount = (int)totalvelocity - Settings.VelocityUncertainty,
+                    Description = $"{item.Name} - {string.Join(", ", recipe.Disciplines)} ({string.Join(", ", recipe.Ingredients.Select(i => i.ItemId == -1 ? "Coin" : items[i.ItemId].Name))})",
+                    Item = item,
+                    CostPer = cost,
+                    IncomePer = income,
+                    BaseCost = Settings.HardTaskCost,
+                    SafeProfitPercentage = Settings.UnsafeMinumumMargin
+                });
             }
             return result;
         }

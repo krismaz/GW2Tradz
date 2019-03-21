@@ -10,41 +10,21 @@ namespace GW2Tradz.Analyzers
 {
     class FlippingAnalyzer : IAnalyzer
     {
-        public List<TradingAction> Analyse(int budget, Cache cache)
+        public List<TradingAction> Analyse(Cache cache)
         {
-            var maxDeep = budget / 10;
             List<TradingAction> result = new List<TradingAction> { };
-            var items = cache.Items.Where(i => i.FlippingPercentage > Settings.UnsafeMinumumMargin && i.Velocity > Settings.VelocityUncertainty && i.GoldPerDay > Settings.MediumTaskCost).OrderByDescending(i => i.FlippingPercentage*50000 + i.GoldPerDay);
-            foreach(var item in items)
+            foreach (var item in cache.Items)
             {
-                var itemBudget = Math.Min(budget, maxDeep);
-                int proposal = (int)(item.Velocity) * item.FlipBuy;
-                if(proposal < itemBudget)
+                result.Add(new TradingAction
                 {
-                    budget -= proposal;
-                    result.Add(new TradingAction
-                    {
-                        Description = "Flip",
-                        Item = item,
-                        Amount = (int)(item.Velocity),
-                        Profit = item.FlippingProfit * (int)(item.Velocity),
-                        ProfitPercentage = item.FlippingPercentage
-                    });
-                }
-                else if (item.FlipBuy < itemBudget)
-                {
-                    var amount = itemBudget / item.FlipBuy;
-                    budget -= amount * item.FlipBuy;
-                    result.Add(new TradingAction
-                    {
-                        Description = "Flip",
-                        Item = item,
-                        Amount = amount,
-                        Profit = amount * item.FlippingProfit,
-                        ProfitPercentage = item.FlippingPercentage
-                    });
-                }
-               
+                    Description = "Flip",
+                    Item = item,
+                    MaxAmount = (int)(item.Velocity) - Settings.VelocityUncertainty,
+                    BaseCost = Settings.MediumTaskCost,
+                    CostPer = item.FlipBuy,
+                    IncomePer = item.FlipSell,
+                    SafeProfitPercentage = Settings.UnsafeMinumumMargin
+                });
             }
             return result;
 

@@ -10,30 +10,25 @@ namespace GW2Tradz.Analyzers
 {
     class DyeSalvagingAnalyzer : IAnalyzer
     {
-        public List<TradingAction> Analyse(int budget, Cache cache)
+        public List<TradingAction> Analyse(Cache cache)
         {
             var result = new List<TradingAction>();
             foreach (var dye in cache.Dyes.Where(d => d.ItemData != null))
             {
                 var salvage = Dye.Salvages[dye.Hue].Select(i => cache.Lookup[i]);
                 var salvageRate = Dye.SalvageRates[dye.ItemData.Rarity];
-                var sale = salvageRate * salvage.Select(i => i.SellPrice).Sum() / salvage.Count()*0.85;
+                var sale = salvageRate * salvage.Select(i => i.SellPrice).Sum() / salvage.Count() * 0.85;
                 var cost = dye.ItemData.FlipBuy + 3;
-                if (sale > cost)
+                result.Add(new TradingAction
                 {
-                    var profit = (int)((sale - cost) * (int)dye.ItemData.WeekBuyVelocity);
-                    if (profit > Settings.EasyTaskCost)
-                    {
-                        result.Add(new TradingAction
-                        {
-                            Amount = (int)dye.ItemData.WeekBuyVelocity,
-                            Description = "Buy and Salvage",
-                            Item = dye.ItemData,
-                            Profit = profit,
-                            ProfitPercentage = (sale - cost) / cost
-                        });
-                    }
-                }
+                    MaxAmount = (int)dye.ItemData.WeekBuyVelocity - Settings.VelocityUncertainty,
+                    Description = "Buy and Salvage",
+                    Item = dye.ItemData,
+                    IncomePer = (int)sale,
+                    CostPer = cost,
+                    BaseCost = Settings.EasyTaskCost,
+                    SafeProfitPercentage = Settings.SafeMinimumMargin
+                });
             }
             return result;
         }

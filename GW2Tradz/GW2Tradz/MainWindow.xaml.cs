@@ -29,9 +29,13 @@ namespace GW2Tradz
             var cache = new Cache();
             cache.Load();
             MainGrid.ItemsSource = cache.Items;
-            FlippingGrid.ItemsSource = new FlippingAnalyzer().Analyse(Settings.TotalGold, cache);
-            DyeGrid.ItemsSource = new DyeSalvagingAnalyzer().Analyse(-1, cache);
-            CraftingGrid.ItemsSource = new CraftingAnalyzer().Analyse(-1, cache);
+            var flipping = new FlippingAnalyzer();
+            var dyes = new DyeSalvagingAnalyzer();
+            var crafting = new CraftingAnalyzer();
+            FlippingGrid.ItemsSource = flipping.Analyse(cache);
+            DyeGrid.ItemsSource = dyes.Analyse(cache);
+            CraftingGrid.ItemsSource = crafting.Analyse(cache);
+            CombinedGrid.ItemsSource = new CombiningAnalyzer { Analyzers = new List<IAnalyzer> { flipping, dyes, crafting } }.Analyse(cache);
 
         }
 
