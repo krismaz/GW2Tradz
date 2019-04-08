@@ -38,6 +38,20 @@ namespace GW2Tradz.Networking
             return recipes;
         }
 
+        public Dictionary<int, int> FetchCurrentSells()
+        {
+            var maxPage = 0;
+            List<Listing> listings = new List<Listing> { };
+            for(int page = 0; page<= maxPage; page++)
+            {
+                var result = httpClient.GetAsync($"https://api.guildwars2.com/v2/commerce/transactions/current/sells?access_token={Settings.ApiKey}&page={page}").Result; //worst coding practice or worsest coding practice
+                var content = result.Content.ReadAsStringAsync().Result;
+                maxPage = int.Parse(result.Headers.GetValues("X-Page-Total").FirstOrDefault())-1;
+                listings.AddRange(JsonConvert.DeserializeObject<List<Listing>>(content, jsonSettings));
+            }
+            return listings.GroupBy(l => l.ItemId, l => l.Quantity).ToDictionary(g => g.Key, g => g.Sum());
+        }
+
 
 
 

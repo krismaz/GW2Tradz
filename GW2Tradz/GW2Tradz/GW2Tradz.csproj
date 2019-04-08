@@ -86,8 +86,10 @@
     <Compile Include="Networking\GW2Profits.cs" />
     <Compile Include="Networking\Silveress.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Util\DefaultDictionary.cs" />
     <Compile Include="Viewmodels\Dye.cs" />
     <Compile Include="Viewmodels\Recipe.cs" />
+    <Compile Include="Viewmodels\Listing.cs" />
     <Compile Include="Viewmodels\TradingAction.cs" />
     <Compile Include="Viewmodels\History.cs" />
     <Compile Include="Viewmodels\Item.cs" />

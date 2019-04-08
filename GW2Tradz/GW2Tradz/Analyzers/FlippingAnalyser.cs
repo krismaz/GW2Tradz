@@ -19,7 +19,7 @@ namespace GW2Tradz.Analyzers
                 {
                     Description = "Flip",
                     Item = item,
-                    MaxAmount = (int)(item.Velocity) - Settings.VelocityUncertainty,
+                    MaxAmount = (int)(item.Velocity) - Settings.VelocityUncertainty - cache.CurrentSells[item.Id],
                     BaseCost = Settings.MediumTaskCost,
                     CostPer = item.FlipBuy,
                     IncomePer = item.FlipSell,

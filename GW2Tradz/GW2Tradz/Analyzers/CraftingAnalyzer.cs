@@ -22,16 +22,16 @@ namespace GW2Tradz.Analyzers
             foreach (var recipe in validRecipes)
             {
                 var item = items[recipe.OutputItemId];
-                var income = (int)(recipe.OutputItemCount * item.SellPrice * 0.85);
+                var income = (int)(item.SellPrice * 0.85);
 
-                var cost = recipe.Ingredients.Sum(i => i.Count * (i.ItemId == -1 ? 1 : items[i.ItemId].SellPrice));
-                var totalvelocity = Math.Min((item.WeekSellVelocity ?? 0) / recipe.OutputItemCount, recipe.Ingredients.Min(i => (i.ItemId == -1 ? float.PositiveInfinity : items[i.ItemId].WeekBuyVelocity ?? 0) / i.Count));
+                var cost = recipe.Ingredients.Sum(i => i.Count * (i.ItemId == -1 ? 1 : items[i.ItemId].SellPrice))/recipe.OutputItemCount;
+                var totalvelocity = item.WeekSellVelocity ?? 0;
                 result.Add(new TradingAction
                 {
-                    MaxAmount = (int)totalvelocity - Settings.VelocityUncertainty,
+                    MaxAmount = (int)totalvelocity - Settings.VelocityUncertainty - cache.CurrentSells[recipe.OutputItemId],
                     Description = $"{item.Name} - {string.Join(", ", recipe.Disciplines)} ({string.Join(", ", recipe.Ingredients.Select(i => i.ItemId == -1 ? "Coin" : items[i.ItemId].Name))})",
                     Item = item,
-                    CostPer = cost,
+                    CostPer = (int)cost,
                     IncomePer = income,
                     BaseCost = Settings.HardTaskCost,
                     SafeProfitPercentage = Settings.UnsafeMinumumMargin

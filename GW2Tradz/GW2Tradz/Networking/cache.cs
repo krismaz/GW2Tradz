@@ -1,4 +1,5 @@
-﻿using GW2Tradz.Viewmodels;
+﻿using GW2Tradz.Util;
+using GW2Tradz.Viewmodels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace GW2Tradz.Networking
         public Dictionary<int, Item> Lookup = new Dictionary<int, Item> { };
         public List<Dye> Dyes { get; private set; }
         public List<Recipe> Recipes { get; private set; }
+        public DefaultDictionary<int, int> CurrentSells { get; private set; }
 
         public void Update(List<Item> items)
         {
@@ -45,6 +47,7 @@ namespace GW2Tradz.Networking
             }
             Recipes = gw2.FetchRecipes();
             Recipes.AddRange(gw2Profits.FetchRecipes().Where(r => r.Id < 0));
+            CurrentSells = new DefaultDictionary<int, int>(gw2.FetchCurrentSells());
         }
     }
 }
