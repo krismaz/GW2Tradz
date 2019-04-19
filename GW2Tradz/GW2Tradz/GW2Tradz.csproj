@@ -63,6 +63,7 @@
     <Compile Include="Analyzers\CombiningAnalyzer.cs" />
     <Compile Include="Analyzers\CraftingAnalyzer.cs" />
     <Compile Include="Analyzers\DyeSalvagingAnalyzer.cs" />
+    <Compile Include="Analyzers\EctoAnalyzer.cs" />
     <Compile Include="Analyzers\FlippingAnalyser.cs" />
     <Compile Include="Analyzers\IAnalyzer.cs" />
     <Compile Include="CoinConverter.cs" />

@@ -32,10 +32,12 @@ namespace GW2Tradz
             var flipping = new FlippingAnalyzer();
             var dyes = new DyeSalvagingAnalyzer();
             var crafting = new CraftingAnalyzer();
+            var ecto = new EctoAnalyzer();
             FlippingGrid.ItemsSource = flipping.Analyse(cache);
             DyeGrid.ItemsSource = dyes.Analyse(cache);
             CraftingGrid.ItemsSource = crafting.Analyse(cache);
-            CombinedGrid.ItemsSource = new CombiningAnalyzer { Analyzers = new List<IAnalyzer> { flipping, dyes, crafting } }.Analyse(cache);
+            EctoGrid.ItemsSource = ecto.Analyse(cache);
+            CombinedGrid.ItemsSource = new CombiningAnalyzer { Analyzers = new List<IAnalyzer> { flipping, dyes, crafting, ecto } }.Analyse(cache);
 
         }
 

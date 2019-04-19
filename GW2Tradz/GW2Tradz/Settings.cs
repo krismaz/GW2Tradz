@@ -8,8 +8,8 @@ namespace GW2Tradz
 {
     public static class Settings
     {
-        public static int TotalGold = 1250.Gold();
-        public static int Spread = 15;
+        public static int TotalGold = 500.Gold();
+        public static int Spread = 10;
         public static int EasyTaskCost = 50.Silver();
         public static int MediumTaskCost = 2.Gold();
         public static int HardTaskCost = 10.Gold();

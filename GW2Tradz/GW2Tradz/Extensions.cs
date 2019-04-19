@@ -24,5 +24,9 @@ namespace GW2Tradz
         public static double Percent(this int i) => ((double)i).Percent();
 
         public static double Percent(this double d) => d / 100d;
+
+        public static double AfterTP(this double d) => d * 0.85d;
+
+        public static int AfterTP(this int i) => (int)(i * 0.85d);
     }
 }
