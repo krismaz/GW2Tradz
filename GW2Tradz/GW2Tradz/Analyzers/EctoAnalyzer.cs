@@ -22,7 +22,7 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction
             {
-                MaxAmount = (int)(dust.WeekSellVelocity ?? 0),
+                MaxAmount = (int)(dust.WeekSellVelocity ?? 0) - cache.CurrentSells[dust.Id],
                 Description = $"Sell",
                 Item = dust,
                 CostPer = (int)dustcost,
@@ -44,7 +44,7 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction
             {
-                MaxAmount = (int)(dust.WeekSellVelocity ?? 0),
+                MaxAmount = (int)(dust.WeekSellVelocity ?? 0) - cache.CurrentSells[master.Id],
                 Description = $"Sell",
                 Item = master,
                 CostPer = (int)dustcost,
@@ -66,11 +66,11 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction
             {
-                MaxAmount = (int)(dust.WeekSellVelocity ?? 0),
+                MaxAmount = (int)(dust.WeekSellVelocity ?? 0) - cache.CurrentSells[potent.Id],
                 Description = $"Sell",
-                Item = master,
+                Item = potent,
                 CostPer = (int)(dustcost * 1.2),
-                IncomePer = master.SellPrice.AfterTP(),
+                IncomePer = potent.SellPrice.AfterTP(),
                 BaseCost = 0,
                 SafeProfitPercentage = Settings.SafeMinimumMargin
             });
@@ -79,9 +79,9 @@ namespace GW2Tradz.Analyzers
             {
                 MaxAmount = (int)(dust.WeekSellVelocity ?? 0),
                 Description = $"InstaSell",
-                Item = master,
-                CostPer = (int)(dustcost*1.2),
-                IncomePer = master.BuyPrice.AfterTP(),
+                Item = potent,
+                CostPer = (int)(dustcost * 1.2),
+                IncomePer = potent.BuyPrice.AfterTP(),
                 BaseCost = 0,
                 SafeProfitPercentage = 0
             });
