@@ -25,7 +25,7 @@ namespace GW2Tradz.Analyzers
                 var income = (int)(item.SellPrice * 0.85);
 
                 var cost = recipe.Ingredients.Sum(i => i.Count * (i.ItemId == -1 ? 1 : items[i.ItemId].SellPrice))/recipe.OutputItemCount;
-                var totalvelocity = item.WeekSellVelocity ?? 0;
+                var totalvelocity = item.AdjustedSellVelocity;
                 result.Add(new TradingAction
                 {
                     MaxAmount = (int)totalvelocity - Settings.VelocityUncertainty - cache.CurrentSells[recipe.OutputItemId],

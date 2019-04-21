@@ -22,8 +22,8 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction
             {
-                MaxAmount = (int)(dust.WeekSellVelocity ?? 0) - cache.CurrentSells[dust.Id],
-                Description = $"Sell",
+                MaxAmount = (int)(dust.WeekSellVelocity ?? 0) - Settings.VelocityUncertainty - cache.CurrentSells[dust.Id],
+                Description = $"Ecto Salvage and Sell",
                 Item = dust,
                 CostPer = (int)dustcost,
                 IncomePer = dust.SellPrice.AfterTP(),
@@ -34,7 +34,7 @@ namespace GW2Tradz.Analyzers
             result.Add(new TradingAction
             {
                 MaxAmount = (int)(dust.WeekSellVelocity ?? 0),
-                Description = $"InstaSell",
+                Description = $"Ecto Salvage and InstaSell",
                 Item = dust,
                 CostPer = (int)dustcost,
                 IncomePer = dust.BuyPrice.AfterTP(),
@@ -44,8 +44,8 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction
             {
-                MaxAmount = (int)(dust.WeekSellVelocity ?? 0) - cache.CurrentSells[master.Id],
-                Description = $"Sell",
+                MaxAmount = (int)(dust.WeekSellVelocity ?? 0) - Settings.VelocityUncertainty - cache.CurrentSells[master.Id],
+                Description = $"Ecto Salvage and Sell",
                 Item = master,
                 CostPer = (int)dustcost,
                 IncomePer = master.SellPrice.AfterTP(),
@@ -56,7 +56,7 @@ namespace GW2Tradz.Analyzers
             result.Add(new TradingAction
             {
                 MaxAmount = (int)(dust.WeekSellVelocity ?? 0),
-                Description = $"InstaSell",
+                Description = $"Ecto Salvage and InstaSell",
                 Item = master,
                 CostPer = (int)dustcost,
                 IncomePer = master.BuyPrice.AfterTP(),
@@ -66,8 +66,8 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction
             {
-                MaxAmount = (int)(dust.WeekSellVelocity ?? 0) - cache.CurrentSells[potent.Id],
-                Description = $"Sell",
+                MaxAmount = (int)(dust.WeekSellVelocity ?? 0) - Settings.VelocityUncertainty - cache.CurrentSells[potent.Id],
+                Description = $"Ecto Salvage and Sell",
                 Item = potent,
                 CostPer = (int)(dustcost * 1.2),
                 IncomePer = potent.SellPrice.AfterTP(),
@@ -78,7 +78,7 @@ namespace GW2Tradz.Analyzers
             result.Add(new TradingAction
             {
                 MaxAmount = (int)(dust.WeekSellVelocity ?? 0),
-                Description = $"InstaSell",
+                Description = $"Ecto Salvage and InstaSell",
                 Item = potent,
                 CostPer = (int)(dustcost * 1.2),
                 IncomePer = potent.BuyPrice.AfterTP(),

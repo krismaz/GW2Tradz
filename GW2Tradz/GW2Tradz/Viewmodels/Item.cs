@@ -16,6 +16,8 @@ namespace GW2Tradz.Viewmodels
         public int VendorValue { get; set; }
         public float? WeekSellVelocity { get; set; }
         public float? WeekBuyVelocity { get; set; }
+        public float AdjustedBuyVelocity => (WeekBuyVelocity ?? 0) / Settings.VelocityFactor;
+        public float AdjustedSellVelocity => (WeekSellVelocity ?? 0) / Settings.VelocityFactor;
 
         public void Update(Item other)
         {
@@ -33,7 +35,7 @@ namespace GW2Tradz.Viewmodels
         public int FlippingProfit => (int)((FlipSell) * 0.85) - (FlipBuy);
         public float FlippingPercentage => (float)(FlippingProfit) / (float)(FlipBuy);
 
-        public double Velocity => Math.Min(WeekSellVelocity ?? 0, WeekBuyVelocity ?? 0);
+        public double Velocity => Math.Min(AdjustedBuyVelocity, AdjustedSellVelocity);
         public int GoldPerDay => (int)(Velocity * FlippingProfit);
     }
 }
