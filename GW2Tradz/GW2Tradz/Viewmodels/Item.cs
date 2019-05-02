@@ -16,6 +16,7 @@ namespace GW2Tradz.Viewmodels
         public int VendorValue { get; set; }
         public float? WeekSellVelocity { get; set; }
         public float? WeekBuyVelocity { get; set; }
+        public float? YearSellAvg { get; set; }
         public float AdjustedBuyVelocity => (WeekBuyVelocity ?? 0) / Settings.VelocityFactor;
         public float AdjustedSellVelocity => (WeekSellVelocity ?? 0) / Settings.VelocityFactor;
 
