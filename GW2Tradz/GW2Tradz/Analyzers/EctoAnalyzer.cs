@@ -13,11 +13,22 @@ namespace GW2Tradz.Analyzers
         public List<TradingAction> Analyse(Cache cache)
         {
             var ecto = cache.Lookup[19721];
+
+            var lucent = cache.Lookup[89271];
+            var enhancement = cache.Lookup[89141];
+            var potence = cache.Lookup[89258];
+
             var dust = cache.Lookup[24277];
             var master = cache.Lookup[9476];
             var potent = cache.Lookup[43449];
+            var masterOil = cache.Lookup[9461];
+            var potentOil = cache.Lookup[43450];
+            var enhancedLucentOil = cache.Lookup[89157];
+            var potentLucentOil = cache.Lookup[89203];
+
 
             var dustcost = (ecto.BuyPrice + 60) / 1.85;
+            var waterCost = 8;
             var result = new List<TradingAction> { };
 
             result.Add(new TradingAction
@@ -82,6 +93,94 @@ namespace GW2Tradz.Analyzers
                 Item = potent,
                 CostPer = (int)(dustcost * 1.2),
                 IncomePer = potent.BuyPrice.AfterTP(),
+                BaseCost = 0,
+                SafeProfitPercentage = 0
+            });
+
+            result.Add(new TradingAction
+            {
+                MaxAmount = (int)(enhancedLucentOil.WeekSellVelocity ?? 0) - Settings.VelocityUncertainty - cache.CurrentSells[enhancedLucentOil.Id],
+                Description = $"Ecto Salvage and Sell",
+                Item = enhancedLucentOil,
+                CostPer = (int)((dustcost * 3 + lucent.BuyPrice * 5 + waterCost * 20 + enhancement.BuyPrice) / 5),
+                IncomePer = enhancedLucentOil.SellPrice.AfterTP(),
+                BaseCost = 0,
+                SafeProfitPercentage = Settings.SafeMinimumMargin
+            });
+
+            result.Add(new TradingAction
+            {
+                MaxAmount = (int)(enhancedLucentOil.WeekSellVelocity ?? 0),
+                Description = $"Ecto Salvage and InstaSell",
+                Item = enhancedLucentOil,
+                CostPer = (int)((dustcost * 3 + lucent.BuyPrice * 5 + waterCost*20 + enhancement.BuyPrice)/5),
+                IncomePer = enhancedLucentOil.BuyPrice.AfterTP(),
+                BaseCost = 0,
+                SafeProfitPercentage = 0
+            });
+
+            result.Add(new TradingAction
+            {
+                MaxAmount = (int)(potentLucentOil.WeekSellVelocity ?? 0) - Settings.VelocityUncertainty - cache.CurrentSells[potentLucentOil.Id],
+                Description = $"Ecto Salvage and Sell",
+                Item = potentLucentOil,
+                CostPer = (int)((dustcost * 3 + lucent.BuyPrice * 5 + waterCost * 20 + potence.BuyPrice) / 5),
+                IncomePer = potentLucentOil.SellPrice.AfterTP(),
+                BaseCost = 0,
+                SafeProfitPercentage = Settings.SafeMinimumMargin
+            });
+
+            result.Add(new TradingAction
+            {
+                MaxAmount = (int)(potentLucentOil.WeekSellVelocity ?? 0),
+                Description = $"Ecto Salvage and InstaSell",
+                Item = potentLucentOil,
+                CostPer = (int)((dustcost * 3 + lucent.BuyPrice * 5 + waterCost * 20 + potence.BuyPrice) / 5),
+                IncomePer = potentLucentOil.BuyPrice.AfterTP(),
+                BaseCost = 0,
+                SafeProfitPercentage = 0
+            });
+
+            result.Add(new TradingAction
+            {
+                MaxAmount = (int)(masterOil.WeekSellVelocity ?? 0) - Settings.VelocityUncertainty - cache.CurrentSells[masterOil.Id],
+                Description = $"Ecto Salvage and Sell",
+                Item = masterOil,
+                CostPer = (int)((dustcost * 3 + waterCost * 20) / 5),
+                IncomePer = masterOil.SellPrice.AfterTP(),
+                BaseCost = 0,
+                SafeProfitPercentage = Settings.SafeMinimumMargin
+            });
+
+            result.Add(new TradingAction
+            {
+                MaxAmount = (int)(masterOil.WeekSellVelocity ?? 0),
+                Description = $"Ecto Salvage and InstaSell",
+                Item = masterOil,
+                CostPer = (int)((dustcost * 3 + waterCost * 20)/5),
+                IncomePer = masterOil.BuyPrice.AfterTP(),
+                BaseCost = 0,
+                SafeProfitPercentage = 0
+            });
+
+            result.Add(new TradingAction
+            {
+                MaxAmount = (int)(potentOil.WeekSellVelocity ?? 0) - Settings.VelocityUncertainty - cache.CurrentSells[potentOil.Id],
+                Description = $"Ecto Salvage and Sell",
+                Item = potentOil,
+                CostPer = (int)(((dustcost * 3 + waterCost * 20) / 5 + dustcost * 3 + waterCost * 20)/5),
+                IncomePer = potentOil.SellPrice.AfterTP(),
+                BaseCost = 0,
+                SafeProfitPercentage = Settings.SafeMinimumMargin
+            });
+
+            result.Add(new TradingAction
+            {
+                MaxAmount = (int)(potentOil.WeekSellVelocity ?? 0),
+                Description = $"Ecto Salvage and InstaSell",
+                Item = potentOil,
+                CostPer = (int)(((dustcost * 3 + waterCost * 20) / 5 + dustcost * 3 + waterCost * 20) / 5),
+                IncomePer = potentOil.BuyPrice.AfterTP(),
                 BaseCost = 0,
                 SafeProfitPercentage = 0
             });

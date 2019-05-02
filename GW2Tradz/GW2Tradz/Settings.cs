@@ -10,9 +10,9 @@ namespace GW2Tradz
     {
         public static int TotalGold = 500.Gold();
         public static int Spread = 10;
-        public static int EasyTaskCost = 50.Silver();
-        public static int MediumTaskCost = 2.Gold();
-        public static int HardTaskCost = 10.Gold();
+        public static int EasyTaskCost = 20.Silver();
+        public static int MediumTaskCost = 1.Gold();
+        public static int HardTaskCost = 4.Gold();
         public static double SafeMinimumMargin = 10.Percent();
         public static double UnsafeMinumumMargin = 50.Percent();
         public static int VelocityUncertainty = 0;
