@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace GW2Tradz.Viewmodels
 {
-    public class Listing
+    public class DeliveryBox
     {
-        public int ItemId { get; set; }
-        public int Quantity { get; set; }
-        public int Price { get; set; }
+        public int Coins { get; set; }
     }
 }

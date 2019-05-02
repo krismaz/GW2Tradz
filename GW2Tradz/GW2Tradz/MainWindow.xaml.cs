@@ -28,6 +28,12 @@ namespace GW2Tradz
             InitializeComponent();
             var cache = new Cache();
             cache.Load();
+
+            if(Settings.TotalGold == -1)
+            {
+                Settings.TotalGold = cache.WalletGold + cache.CurrentBuys.Values.Sum() + cache.DeliveryBox.Coins;
+            }
+
             MainGrid.ItemsSource = cache.Items;
             var flipping = new FlippingAnalyzer();
             var dyes = new DyeSalvagingAnalyzer();

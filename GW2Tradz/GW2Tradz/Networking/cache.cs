@@ -14,6 +14,9 @@ namespace GW2Tradz.Networking
         public List<Dye> Dyes { get; private set; }
         public List<Recipe> Recipes { get; private set; }
         public DefaultDictionary<int, int> CurrentSells { get; private set; }
+        public DefaultDictionary<int, int> CurrentBuys { get; private set; }
+        public int WalletGold { get; private set; }
+        public DeliveryBox DeliveryBox { get; private set; }
 
         public void Update(List<Item> items)
         {
@@ -48,6 +51,9 @@ namespace GW2Tradz.Networking
             Recipes = gw2.FetchRecipes();
             Recipes.AddRange(gw2Profits.FetchRecipes().Where(r => r.Id < 0));
             CurrentSells = new DefaultDictionary<int, int>(gw2.FetchCurrentSells());
+            CurrentBuys = new DefaultDictionary<int, int>(gw2.FetchCurrentBuys());
+            WalletGold = gw2.WalletGold();
+            DeliveryBox = gw2.FetchDeliveryBox();
         }
     }
 }
