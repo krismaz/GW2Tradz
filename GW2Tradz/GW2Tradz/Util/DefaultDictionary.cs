@@ -12,6 +12,10 @@ namespace GW2Tradz.Util
         {
         }
 
+        public DefaultDictionary() : base()
+        {
+        }
+
         public new TValue this[TKey key]
         {
             get

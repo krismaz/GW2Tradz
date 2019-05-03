@@ -91,6 +91,7 @@
     <Compile Include="Viewmodels\Currency.cs" />
     <Compile Include="Viewmodels\DeliveryBox.cs" />
     <Compile Include="Viewmodels\Dye.cs" />
+    <Compile Include="Viewmodels\ListingsData.cs" />
     <Compile Include="Viewmodels\Recipe.cs" />
     <Compile Include="Viewmodels\Listing.cs" />
     <Compile Include="Viewmodels\TradingAction.cs" />

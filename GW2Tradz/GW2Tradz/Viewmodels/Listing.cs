@@ -11,5 +11,16 @@ namespace GW2Tradz.Viewmodels
         public int ItemId { get; set; }
         public int Quantity { get; set; }
         public int Price { get; set; }
+        public int UnitPrice
+        {
+            get
+            {
+                return Price;
+            }
+            set
+            {
+                Price = value;
+            }
+        }
     }
 }

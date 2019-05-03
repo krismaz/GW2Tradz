@@ -23,6 +23,7 @@ namespace GW2Tradz
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();

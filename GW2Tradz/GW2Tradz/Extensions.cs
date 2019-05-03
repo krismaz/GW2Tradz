@@ -28,5 +28,27 @@ namespace GW2Tradz
         public static double AfterTP(this double d) => d * 0.85d;
 
         public static int AfterTP(this int i) => (int)(i * 0.85d);
+
+        public static string GoldFormat(this int value)
+        {
+            var coins = (int)value;
+            if (coins < 0)
+            {
+                return "-" + GoldFormat(-coins);
+            }
+            var copper = coins % 100;
+            var silver = (coins % 10000) / 100;
+            var gold = coins / 10000;
+
+            if (coins < 100)
+            {
+                return $"{copper}c";
+            }
+            if (coins < 10000)
+            {
+                return $"{silver}s{copper}c";
+            }
+            return $"{gold}g{silver}s{copper}c";
+        }
     }
 }

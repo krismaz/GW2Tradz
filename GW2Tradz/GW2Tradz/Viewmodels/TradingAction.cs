@@ -8,7 +8,7 @@ namespace GW2Tradz.Viewmodels
 {
     public class TradingAction
     {
-        public string Description{get; set; }
+        public string Description { get; set; }
         public Item Item { get; set; }
         public int IncomePer { get; set; }
         private int _maxAmount;
@@ -18,11 +18,11 @@ namespace GW2Tradz.Viewmodels
         public double SafeProfitPercentage { get; set; }
 
 
-        public int Amount => Math.Min(MaxAmount, (Settings.TotalGold / Settings.Spread) / CostPer);
+        public int Amount => Math.Max(0, Math.Min(MaxAmount, (Settings.TotalGold / Settings.Spread) / CostPer));
         public int TotalIncome => Amount * IncomePer;
         public int TotalCost => Amount * CostPer + BaseCost;
         public int Profit => TotalIncome - TotalCost;
-        public double ProfitPercentage => (double)Profit / (double)TotalCost;
+        public double ProfitPercentage => Amount > 0 ? (double)Profit / (double)TotalCost : 0;
         public bool Safe => ProfitPercentage > SafeProfitPercentage;
     }
 }
