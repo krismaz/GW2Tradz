@@ -22,7 +22,7 @@ namespace GW2Tradz.Analyzers
                     MaxAmount = (int)(item.Velocity) - Settings.VelocityUncertainty - cache.CurrentSells[item.Id],
                     BaseCost = Settings.MediumTaskCost,
                     CostPer = item.FlipBuy,
-                    IncomePer = item.FlipSell,
+                    IncomePer = item.FlipSell.AfterTP(),
                     SafeProfitPercentage = Settings.UnsafeMinumumMargin
                 });
             }
