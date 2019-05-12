@@ -22,17 +22,14 @@ namespace GW2Tradz.Analyzers
             foreach (var recipe in validRecipes)
             {
                 var item = items[recipe.OutputItemId];
-                var income = (int)(item.SellPrice * 0.85);
-
                 var cost = recipe.Ingredients.Sum(i => i.Count * (i.ItemId == -1 ? 1 : items[i.ItemId].SellPrice))/recipe.OutputItemCount;
-                var totalvelocity = item.AdjustedSellVelocity;
                 result.Add(new TradingAction
                 {
-                    MaxAmount = (int)totalvelocity - Settings.VelocityUncertainty - cache.CurrentSells[recipe.OutputItemId],
+                    MaxAmount = (int)item.AdjustedSellVelocity - Settings.VelocityUncertainty - cache.CurrentSells[recipe.OutputItemId],
                     Description = $"{item.Name} - {string.Join(", ", recipe.Disciplines)} ({string.Join(", ", recipe.Ingredients.Select(i => i.ItemId == -1 ? "Coin" : items[i.ItemId].Name))})",
                     Item = item,
                     CostPer = (int)cost,
-                    IncomePer = income,
+                    IncomePer = item.SellPrice.AfterTP(),
                     BaseCost = Settings.HardTaskCost,
                     SafeProfitPercentage = Settings.UnsafeMinumumMargin
                 });

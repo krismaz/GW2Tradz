@@ -40,11 +40,13 @@ namespace GW2Tradz
             var dyes = new DyeSalvagingAnalyzer();
             var crafting = new CraftingAnalyzer();
             var ecto = new EctoAnalyzer();
+            var elonian = new ElonianAnalyzer();
             FlippingGrid.DataContext = flipping.Analyse(cache);
             DyeGrid.DataContext = dyes.Analyse(cache);
             CraftingGrid.DataContext = crafting.Analyse(cache);
             EctoGrid.DataContext = ecto.Analyse(cache);
-            CombinedGrid.DataContext = new CombiningAnalyzer { Analyzers = new List<IAnalyzer> { flipping, dyes, crafting, ecto } }.Analyse(cache);
+            ElonianGrid.DataContext = elonian.Analyse(cache);
+            CombinedGrid.DataContext = new CombiningAnalyzer { Analyzers = new List<IAnalyzer> { flipping, dyes, crafting, ecto, elonian } }.Analyse(cache);
         }
 
         private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

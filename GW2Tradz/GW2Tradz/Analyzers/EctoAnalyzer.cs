@@ -41,7 +41,7 @@ namespace GW2Tradz.Analyzers
                     CostPer = cost,
                     IncomePer = item.SellPrice.AfterTP(),
                     BaseCost = 0,
-                    SafeProfitPercentage = Settings.SafeMinimumMargin
+                    SafeProfitPercentage = Settings.UnsafeMinumumMargin
                 });
 
                 var goodListings = cache.BuyListings[item.Id].Where(l => l.Price.AfterTP() > cost);
@@ -63,7 +63,7 @@ namespace GW2Tradz.Analyzers
                     CostPer = cost,
                     IncomePer = totalIncome/totalCount,
                     BaseCost = 0,
-                    SafeProfitPercentage = 0
+                    SafeProfitPercentage = Settings.SafeMinimumMargin
                 });
             }
 

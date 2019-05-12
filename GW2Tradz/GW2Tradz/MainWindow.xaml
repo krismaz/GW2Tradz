@@ -37,6 +37,9 @@
             <TabItem Header="EctoAnalyzer">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="EctoGrid"/>
             </TabItem>
+            <TabItem Header="ElonianAnalyzer">
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="ElonianGrid"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

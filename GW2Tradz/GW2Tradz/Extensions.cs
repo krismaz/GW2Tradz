@@ -26,6 +26,7 @@ namespace GW2Tradz
         public static double Percent(this double d) => d / 100d;
 
         public static double AfterTP(this double d) => d * 0.85d;
+        public static float AfterTP(this float f) => f * 0.85f;
 
         public static int AfterTP(this int i) => (int)(i * 0.85d);
 
