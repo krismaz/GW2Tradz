@@ -3,83 +3,39 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:local="clr-namespace:GW2Tradz"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" >
     <Window.Resources>
         <local:CoinConverter x:Key="coinConverter"/>
+        <DataGrid x:Shared="false" IsReadOnly="True"  x:Key="Analyzergrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged" MouseDoubleClick="DataGrid_MouseDoubleClick" ItemsSource="{Binding}" Loaded="DataGrid_Loaded">
+        <DataGrid.Columns>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Margin" Binding="{Binding ProfitPercentage, StringFormat=p0}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Daily Profit" Binding="{Binding Profit, Converter={StaticResource coinConverter}}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Window.Resources>
     <Grid>
 
         <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <TabItem Header="Overview">
-                <DataGrid x:Name="MainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="MainGrid_SelectionChanged">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="Bought" Binding="{Binding BuyPrice, Converter={StaticResource coinConverter}}" />
-                        <DataGridTextColumn Header="Sold" Binding="{Binding SellPrice, Converter={StaticResource coinConverter}}" />
-                        <DataGridTextColumn Header="Profit" Binding="{Binding FlippingProfit, Converter={StaticResource coinConverter}}" />
-                        <DataGridTextColumn Header="%Profit" Binding="{Binding FlippingPercentage, StringFormat=p0}" />
-                        <DataGridTextColumn Header="Velocity" Binding="{Binding Velocity}" />
-                        <DataGridTextColumn Header="GPD" Binding="{Binding GoldPerDay, Converter={StaticResource coinConverter}}"  />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
             <TabItem Header="CombinedAnalyzer">
-                <DataGrid x:Name="CombinedGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
-                        <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" />
-                        <DataGridTextColumn Header="%Profit" Binding="{Binding ProfitPercentage, StringFormat=p0}" />
-                        <DataGridTextColumn Header="Profit" Binding="{Binding Profit, Converter={StaticResource coinConverter}}" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="CombinedGrid"/>
             </TabItem>
             <TabItem Header="FlippingAnalyzer">
-                <DataGrid x:Name="FlippingGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
-                        <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" />
-                        <DataGridTextColumn Header="%Profit" Binding="{Binding ProfitPercentage, StringFormat=p0}" />
-                        <DataGridTextColumn Header="Profit" Binding="{Binding Profit, Converter={StaticResource coinConverter}}" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="FlippingGrid"/>
             </TabItem>
             <TabItem Header="DyeAnalyzer">
-                <DataGrid x:Name="DyeGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
-                        <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" />
-                        <DataGridTextColumn Header="%Profit" Binding="{Binding ProfitPercentage, StringFormat=p0}" />
-                        <DataGridTextColumn Header="Profit" Binding="{Binding Profit, Converter={StaticResource coinConverter}}" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="DyeGrid"/>
             </TabItem>
             <TabItem Header="CraftingAnalyzer">
-                <DataGrid x:Name="CraftingGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
-                        <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" />
-                        <DataGridTextColumn Header="%Profit" Binding="{Binding ProfitPercentage, StringFormat=p0}" />
-                        <DataGridTextColumn Header="Profit" Binding="{Binding Profit, Converter={StaticResource coinConverter}}" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="CraftingGrid"/>
             </TabItem>
             <TabItem Header="EctoAnalyzer">
-                <DataGrid x:Name="EctoGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
-                        <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" />
-                        <DataGridTextColumn Header="%Profit" Binding="{Binding ProfitPercentage, StringFormat=p0}" />
-                        <DataGridTextColumn Header="Profit" Binding="{Binding Profit, Converter={StaticResource coinConverter}}" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="EctoGrid"/>
             </TabItem>
         </TabControl>
     </Grid>
