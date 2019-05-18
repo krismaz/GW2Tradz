@@ -23,7 +23,7 @@ namespace GW2Tradz.Analyzers
                     BaseCost = Settings.MediumTaskCost,
                     CostPer = item.FlipBuy,
                     IncomePer = item.FlipSell.AfterTP(),
-                    SafeProfitPercentage = Settings.UnsafeMinumumMargin
+                    SafeProfitPercentage = Settings.SafeMinimumMargin
                 });
             }
             return result;

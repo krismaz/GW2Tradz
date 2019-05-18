@@ -13,7 +13,7 @@ namespace GW2Tradz
         public static int EasyTaskCost = 0;
         public static int MediumTaskCost = 0;
         public static int HardTaskCost = 0;
-        public static double SafeMinimumMargin = 10.Percent();
+        public static double SafeMinimumMargin = 20.Percent();
         public static double UnsafeMinumumMargin = 40.Percent();
         public static int VelocityUncertainty = 0;
         public static float VelocityFactor = 5f;

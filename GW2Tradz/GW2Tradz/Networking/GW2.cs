@@ -65,6 +65,8 @@ namespace GW2Tradz.Networking
             return listings.GroupBy(l => l.ItemId, l => l.Price * l.Quantity).ToDictionary(g => g.Key, g => g.Sum());
         }
 
+        
+
         public int WalletGold()
         {
             var result = httpClient.GetAsync($"https://api.guildwars2.com/v2/account/wallet?access_token={Settings.ApiKey}").Result; //worst coding practice or worsest coding practice
@@ -79,7 +81,7 @@ namespace GW2Tradz.Networking
             return JsonConvert.DeserializeObject<DeliveryBox>(content, jsonSettings); //id 1 = Gold
         }
 
-        public Dictionary<int, List<Listing>> FetchBuyListings(IEnumerable<int> ids)
+        public List<ListingsData> FetchListings(IEnumerable<int> ids)
         {
             var listings = new List<ListingsData> { };
             foreach (var chunk in ids.Chunk(200))
@@ -88,8 +90,9 @@ namespace GW2Tradz.Networking
                 var content = result.Content.ReadAsStringAsync().Result;
                 listings.AddRange(JsonConvert.DeserializeObject<List<ListingsData>>(content, jsonSettings));
             }
-            return listings.ToDictionary(l => l.Id, l => l.Buys);
+            return listings;
         }
+
     }
 }
 

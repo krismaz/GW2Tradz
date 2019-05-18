@@ -16,6 +16,7 @@ namespace GW2Tradz.Networking
         public DefaultDictionary<int, int> CurrentSells { get; private set; }
         public DefaultDictionary<int, int> CurrentBuys { get; private set; }
         public DefaultDictionary<int, List<Listing>> BuyListings { get; private set; } = new DefaultDictionary<int, List<Listing>> { };
+        public DefaultDictionary<int, List<Listing>> SellListings { get; private set; } = new DefaultDictionary<int, List<Listing>> { };
         public int WalletGold { get; private set; }
         public DeliveryBox DeliveryBox { get; private set; }
 
@@ -59,12 +60,13 @@ namespace GW2Tradz.Networking
             DeliveryBox = _gw2.FetchDeliveryBox();
         }
 
-        public void LoadBuysListing(params int[] ids)
+        public void LoadListings(IEnumerable<int> ids)
         {
             var missing = ids.Except(BuyListings.Keys);
-            foreach(var kv in _gw2.FetchBuyListings(missing))
+            foreach(var ld in _gw2.FetchListings(missing))
             {
-                BuyListings[kv.Key] = kv.Value;
+                BuyListings[ld.Id] = ld.Buys;
+                SellListings[ld.Id] = ld.Sells;
             }
         }
     }

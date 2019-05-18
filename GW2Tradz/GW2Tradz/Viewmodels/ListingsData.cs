@@ -10,5 +10,6 @@ namespace GW2Tradz.Viewmodels
     {
         public int Id { get; set; }
         public List<Listing> Buys { get; set; }
+        public List<Listing> Sells { get; set; }
     }
 }
