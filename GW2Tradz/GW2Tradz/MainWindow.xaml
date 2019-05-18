@@ -40,6 +40,9 @@
             <TabItem Header="ElonianAnalyzer">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="ElonianGrid"/>
             </TabItem>
+            <TabItem Header="FractalAnalyzer">
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="FractalGrid"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

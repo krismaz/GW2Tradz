@@ -66,6 +66,7 @@
     <Compile Include="Analyzers\EctoAnalyzer.cs" />
     <Compile Include="Analyzers\ElonianAnalyzer.cs" />
     <Compile Include="Analyzers\FlippingAnalyser.cs" />
+    <Compile Include="Analyzers\FractalEncryptionAnalyzer.cs" />
     <Compile Include="Analyzers\IAnalyzer.cs" />
     <Compile Include="CoinConverter.cs" />
     <Page Include="MainWindow.xaml">
