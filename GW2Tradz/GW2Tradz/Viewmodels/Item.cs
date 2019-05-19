@@ -39,5 +39,18 @@ namespace GW2Tradz.Viewmodels
 
         public double Velocity => Math.Min(AdjustedBuyVelocity, AdjustedSellVelocity);
         public int GoldPerDay => (int)(Velocity * FlippingProfit);
+
+        public List<History> History { get; set; }
+        public int MedianSellMax
+        {
+            get
+            {
+                var values = History.Select(h => h.SellPriceMax).ToList();
+                values.Sort();
+                return values[values.Count / 2];
+            }
+        }
+        public int MedianFlipSellMax => MedianSellMax - 1;
+
     }
 }

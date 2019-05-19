@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,11 @@ namespace GW2Tradz.Viewmodels
 {
     public class History
     {
-        public int Id { get; set; }
+        [JsonProperty(PropertyName = "itemID")]
+        public int ItemId { get; set; }
         public int SellVelocity { get; set; }
         public int BuyVelocity { get; set; }
         public DateTime Date { get; set; }
+        public int SellPriceMax { get; set; }
     }
 }

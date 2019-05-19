@@ -17,12 +17,12 @@ namespace GW2Tradz.Analyzers
             {
                 result.Add(new TradingAction
                 {
-                    Description = $"Sell @ {(item.WeekSellMax ?? 0 - 1).GoldFormat()}",
+                    Description = $"Sell @ {item.MedianSellMax.GoldFormat()}",
                     Item = item,
                     MaxAmount = (int)(item.Velocity) - Settings.VelocityUncertainty - cache.CurrentSells[item.Id],
                     BaseCost = Settings.MediumTaskCost,
                     CostPer = item.FlipBuy,
-                    IncomePer = (int)(item.WeekSellMax ?? 0 - 1).AfterTP(),
+                    IncomePer = item.MedianSellMax.AfterTP(),
                     SafeProfitPercentage = Settings.UnsafeMinumumMargin
                 });
             }

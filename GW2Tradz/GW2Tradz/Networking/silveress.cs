@@ -25,8 +25,8 @@ namespace GW2Tradz.Networking
 
         public List<History> FetchHistory()
         {
-            var OneWeek = (DateTime.Now - TimeSpan.FromDays(8)).ToString("yyyy-MM-dd");
-            var result = httpClient.GetAsync($"https://api.silveress.ie/gw2/v1/history?beautify=min&start={OneWeek}&fields=id,date,buy_velocity,sell_velocity").Result; //worst coding practice or worsest coding practice
+            var OneWeek = (DateTime.Now - TimeSpan.FromDays(6)).ToString("yyyy-MM-dd");
+            var result = httpClient.GetAsync($"https://api.silveress.ie/gw2/v1/history?beautify=min&start={OneWeek}&fields=id,date,buy_velocity,sell_velocity,day_sell_max").Result; //worst coding practice or worsest coding practice
             var content = result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<List<History>>(content, jsonSettings);
         }

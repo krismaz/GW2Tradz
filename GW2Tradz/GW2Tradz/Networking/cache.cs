@@ -36,6 +36,15 @@ namespace GW2Tradz.Networking
             }
         }
 
+        public void UpdateHistory(List<History> items)
+        {
+            var grouped = items.GroupBy(h => h.ItemId);
+            foreach (var entry in grouped)
+            {
+                Lookup[entry.Key].History = entry.ToList();
+            }
+        }
+
         public IEnumerable<Item> Items => Lookup.Values;
 
         private GW2 _gw2 = new GW2();
@@ -46,6 +55,7 @@ namespace GW2Tradz.Networking
         public void Load()
         {
             Update(_silver.FetchBasicInfo());
+            UpdateHistory(_silver.FetchHistory());
             Dyes = _gw2.FetchDyes();
             foreach (var dye in Dyes.Where(d => d.Item.HasValue))
             {
