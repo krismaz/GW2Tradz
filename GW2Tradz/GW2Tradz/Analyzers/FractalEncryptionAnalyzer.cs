@@ -24,7 +24,7 @@ namespace GW2Tradz.Analyzers
             var infusionIncome = 2.25 * infusion.FlipSell.AfterTP();
             var t5sIncomeNoTPTax = 0.348 * t5s.Sum(i => i.FlipBuy);
             var t5sIncomeWithTPTax = 0.348 * t5s.Sum(i => i.FlipSell.AfterTP());
-            var t5sMedians = 0.348 * t5s.Sum(i => i.MedianSellMax.AfterTP());
+            var t5sMedians = 0.348 * t5s.Sum(i => i.MedianFlipSellMax.AfterTP());
             var mewIncome = 0.015 * mew.FlipSell.AfterTP();
 
 
@@ -55,7 +55,7 @@ namespace GW2Tradz.Analyzers
             result.Add(new TradingAction
             {
                 MaxAmount = (int)(encryption.WeekBuyVelocity ?? 0) - Settings.VelocityUncertainty,
-                Description = $"Fractal encryption and sell @median\n" + string.Join("\n", t5s.Select(i=>$"{i.Name} - {i.MedianSellMax.GoldFormat()}")),
+                Description = $"Fractal encryption and sell @median\n" + string.Join("\n", t5s.Select(i=>$"{i.Name} - {i.MedianFlipSellMax.GoldFormat()}")),
                 Item = encryption,
                 CostPer = (int)cost,
                 IncomePer = 4300 + (int)(infusionIncome + t5sMedians + mewIncome),
