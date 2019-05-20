@@ -19,19 +19,15 @@ namespace GW2Tradz.Networking
         {
             var result = httpClient.GetAsync("https://api.guildwars2.com/v2/colors?ids=all").Result; //worst coding practice or worsest coding practice
             var content = result.Content.ReadAsStringAsync().Result;
-            return new List<Dye>();
             return JsonConvert.DeserializeObject<List<Dye>>(content, jsonSettings);
         }
 
         public List<Recipe> FetchRecipes()
         {
             var recipes = new List<Recipe> { };
-            return recipes;
-
             var result = httpClient.GetAsync("https://api.guildwars2.com/v2/recipes").Result; //worst coding practice or worsest coding practice
             var content = result.Content.ReadAsStringAsync().Result;
             var ids = JsonConvert.DeserializeObject<List<int>>(content, jsonSettings);
-            
 
             foreach (var chunk in ids.Chunk(200))
             {
