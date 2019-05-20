@@ -32,7 +32,7 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction
             {
-                MaxAmount = (int)(encryption.WeekBuyVelocity ?? 0) - Settings.VelocityUncertainty,
+                MaxAmount = (int)(Math.Max(encryption.WeekBuyVelocity ?? 0, matrix.WeekBuyVelocity ?? 0)) - Settings.VelocityUncertainty,
                 Description = $"Fractal encryption and use",
                 Item = encryption,
                 CostPer = (int)cost,
@@ -43,7 +43,7 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction
             {
-                MaxAmount = (int)(encryption.WeekBuyVelocity ?? 0) - Settings.VelocityUncertainty,
+                MaxAmount = (int)(Math.Max(encryption.WeekBuyVelocity ?? 0, matrix.WeekBuyVelocity ?? 0)) - Settings.VelocityUncertainty,
                 Description = $"Fractal encryption and sell",
                 Item = encryption,
                 CostPer = (int)cost,
@@ -54,7 +54,7 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction
             {
-                MaxAmount = (int)(encryption.WeekBuyVelocity ?? 0) - Settings.VelocityUncertainty,
+                MaxAmount = (int)(Math.Max(encryption.WeekBuyVelocity ?? 0, matrix.WeekBuyVelocity ?? 0)) - Settings.VelocityUncertainty,
                 Description = $"Fractal encryption and sell @median\n" + string.Join("\n", t5s.Select(i=>$"{i.Name} - {i.MedianFlipSellMax.GoldFormat()}")),
                 Item = encryption,
                 CostPer = (int)cost,
