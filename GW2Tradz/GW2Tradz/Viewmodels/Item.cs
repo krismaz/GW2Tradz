@@ -45,6 +45,10 @@ namespace GW2Tradz.Viewmodels
         {
             get
             {
+                if(History == null)
+                {
+                    return 0;
+                }
                 var values = History.Select(h => h.SellPriceMax).ToList();
                 values.Sort();
                 return values[values.Count / 2];
