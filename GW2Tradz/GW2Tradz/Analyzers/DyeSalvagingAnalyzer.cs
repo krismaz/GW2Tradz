@@ -24,7 +24,7 @@ namespace GW2Tradz.Analyzers
                 var cost = dye.ItemData.FlipBuy + 3;
                 result.Add(new TradingAction
                 {
-                    MaxAmount = (int)dye.ItemData.AdjustedBuyVelocity - Settings.VelocityUncertainty - cache.CurrentSells[dye.ItemData.Id],
+                    MaxAmount = (int)dye.ItemData.AdjustedBuyVelocity - cache.CurrentSells[dye.ItemData.Id],
                     Description = "Buy and Salvage",
                     Item = dye.ItemData,
                     IncomePer = (int)sale,

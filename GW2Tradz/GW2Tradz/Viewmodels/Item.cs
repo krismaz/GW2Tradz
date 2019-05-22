@@ -18,8 +18,8 @@ namespace GW2Tradz.Viewmodels
         public float? WeekBuyVelocity { get; set; }
         public float? YearSellAvg { get; set; }
         public int? WeekSellMax { get; set; }
-        public float AdjustedBuyVelocity => (WeekBuyVelocity ?? 0) / Settings.VelocityFactor;
-        public float AdjustedSellVelocity => (WeekSellVelocity ?? 0) / Settings.VelocityFactor;
+        public float AdjustedBuyVelocity => (WeekBuyVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
+        public float AdjustedSellVelocity => (WeekSellVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
 
         public void Update(Item other)
         {

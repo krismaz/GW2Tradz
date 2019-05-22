@@ -37,7 +37,7 @@ namespace GW2Tradz.Analyzers
             {
                 result.Add(new TradingAction
                 {
-                    MaxAmount = (int)(item.WeekSellVelocity ?? 0) - Settings.VelocityUncertainty - cache.CurrentSells[item.Id],
+                    MaxAmount = (int)item.AdjustedSellVelocity  - cache.CurrentSells[item.Id],
                     Description = $"Ecto Salvage and Sell",
                     Item = item,
                     CostPer = cost,
@@ -79,7 +79,7 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction
             {
-                MaxAmount = (int)(rareGear.WeekBuyVelocity ?? 0) - Settings.VelocityUncertainty,
+                MaxAmount = (int)rareGear.AdjustedBuyVelocity,
                 Description = $"Rare gear and use",
                 Item = rareGear,
                 CostPer = rareGear.FlipBuy + 60,
@@ -90,7 +90,7 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction
             {
-                MaxAmount = (int)(rareGear.WeekBuyVelocity ?? 0) - Settings.VelocityUncertainty,
+                MaxAmount = (int)rareGear.AdjustedBuyVelocity,
                 Description = $"Rare gear and sell",
                 Item = rareGear,
                 CostPer = rareGear.FlipBuy + 60,
