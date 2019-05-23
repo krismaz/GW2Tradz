@@ -6,7 +6,8 @@
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:local="clr-namespace:GW2Tradz"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" >
+        Title="MainWindow" Height="450" Width="800" 
+        Topmost="True">
     <Window.Resources>
         <local:CoinConverter x:Key="coinConverter"/>
         <DataGrid x:Shared="false" IsReadOnly="True"  x:Key="Analyzergrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged" MouseDoubleClick="DataGrid_MouseDoubleClick" ItemsSource="{Binding}" Loaded="DataGrid_Loaded">
