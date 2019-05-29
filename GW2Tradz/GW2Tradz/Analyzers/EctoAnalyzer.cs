@@ -14,8 +14,6 @@ namespace GW2Tradz.Analyzers
         {
             var ecto = cache.Lookup[19721];
 
-            var rareGear = cache.Lookup[83008];
-
             var lucent = cache.Lookup[89271];
             var enhancement = cache.Lookup[89141];
             var potence = cache.Lookup[89258];
@@ -31,13 +29,13 @@ namespace GW2Tradz.Analyzers
             var dustcost = (ecto.BuyPrice + 60) / 1.85;
             var waterCost = 8;
             var result = new List<TradingAction> { };
-            cache.LoadListings(new int[]{ 24277, 9476, 43449, 9461, 43450, 89157, 89203});
+            cache.LoadListings(new int[] { 24277, 9476, 43449, 9461, 43450, 89157, 89203 });
 
             void HandleItem(Item item, int cost, int amount)
             {
                 result.Add(new TradingAction
                 {
-                    MaxAmount = ((int)item.AdjustedSellVelocity  - cache.CurrentSells[item.Id])/amount,
+                    MaxAmount = ((int)item.AdjustedSellVelocity - cache.CurrentSells[item.Id]) / amount,
                     Description = $"Ecto Salvage and Sell",
                     Item = item,
                     CostPer = cost,
@@ -46,7 +44,7 @@ namespace GW2Tradz.Analyzers
                     SafeProfitPercentage = Settings.UnsafeMinumumMargin
                 });
 
-                var goodListings = cache.BuyListings[item.Id].Where(l => l.Price.AfterTP() > cost/amount);
+                var goodListings = cache.BuyListings[item.Id].Where(l => l.Price.AfterTP() > cost / amount);
 
                 if (!goodListings.Any())
                 {
@@ -59,45 +57,25 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction
                 {
-                    MaxAmount = totalCount/amount,
+                    MaxAmount = totalCount / amount,
                     Description = $"Ecto Salvage and InstaSell ({minPrice.GoldFormat()})",
                     Item = item,
                     CostPer = cost,
-                    IncomePer = totalIncome / totalCount*amount,
+                    IncomePer = totalIncome / totalCount * amount,
                     BaseCost = 0,
                     SafeProfitPercentage = Settings.SafeMinimumMargin
                 });
             }
 
             HandleItem(dust, (int)(dustcost), 1);
-            HandleItem(master, (int)(dustcost*5), 5);
+            HandleItem(master, (int)(dustcost * 5), 5);
             HandleItem(potent, (int)(dustcost * 6), 5);
             HandleItem(enhancedLucentOil, (int)((dustcost * 3 + lucent.BuyPrice * 5 + waterCost * 20 + enhancement.BuyPrice)), 5);
             HandleItem(potentLucentOil, (int)((dustcost * 3 + lucent.BuyPrice * 5 + waterCost * 20 + potence.BuyPrice)), 5);
             HandleItem(masterOil, (int)((dustcost * 3 + waterCost * 20)), 5);
-            HandleItem(potentOil, (int)(((dustcost * 3 + waterCost * 20)/5 + dustcost * 3 + waterCost * 20)), 5);
+            HandleItem(potentOil, (int)(((dustcost * 3 + waterCost * 20) / 5 + dustcost * 3 + waterCost * 20)), 5);
 
-            result.Add(new TradingAction
-            {
-                MaxAmount = (int)rareGear.AdjustedBuyVelocity,
-                Description = $"Rare gear and use",
-                Item = rareGear,
-                CostPer = rareGear.FlipBuy + 60,
-                IncomePer = (int)(0.875 * ecto.BuyPrice),
-                BaseCost = 0,
-                SafeProfitPercentage = 0
-            });
 
-            result.Add(new TradingAction
-            {
-                MaxAmount = (int)rareGear.AdjustedBuyVelocity,
-                Description = $"Rare gear and sell",
-                Item = rareGear,
-                CostPer = rareGear.FlipBuy + 60,
-                IncomePer = (int)(0.875 * ecto.SellPrice.AfterTP()),
-                BaseCost = 0,
-                SafeProfitPercentage = 0
-            });
 
 
             return result;

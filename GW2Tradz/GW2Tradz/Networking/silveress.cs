@@ -18,7 +18,7 @@ namespace GW2Tradz.Networking
 
         public List<Item> FetchBasicInfo()
         {
-            var result = httpClient.GetAsync("https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,rarity,vendor_value,week_buy_velocity,week_sell_velocity,year_sell_avg,week_sell_max").Result; //worst coding practice or worsest coding practice
+            var result = httpClient.GetAsync("https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,rarity,vendor_value,week_buy_velocity,week_sell_velocity,year_sell_avg,week_sell_max,type").Result; //worst coding practice or worsest coding practice
             var content = result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<List<Item>>(content, jsonSettings);
         }

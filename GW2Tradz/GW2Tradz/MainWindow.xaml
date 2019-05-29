@@ -44,6 +44,9 @@
             <TabItem Header="FractalAnalyzer">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="FractalGrid"/>
             </TabItem>
+            <TabItem Header="UnidAnalyzer">
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="UnidGrid"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
