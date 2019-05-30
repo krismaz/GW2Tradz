@@ -12,6 +12,8 @@ namespace GW2Tradz.Analyzers
 {
     class UnidentifiedGearSalvager : IAnalyzer
     {
+        float count = 3000f;
+
         public List<TradingAction> Analyse(Cache cache)
         {
             var result = new List<TradingAction> { };
@@ -19,7 +21,7 @@ namespace GW2Tradz.Analyzers
             var ectos = cache.Lookup[19721];
             var rareGear = cache.Lookup[83008];
 
-            var outPut = JsonConvert.DeserializeObject<List<DataEntry>>(File.ReadAllText("2000RareUnids.json"));
+            var outPut = JsonConvert.DeserializeObject<List<DataEntry>>(File.ReadAllText("RareUnids.json"));
 
             var counts = outPut.GroupBy(e => cache.Lookup[e.ID], e => e.Quantity).ToDictionary(g => g.Key, g => g.Sum());
             var gear = counts.Where(kv => kv.Key.Type == "Armor" || kv.Key.Type == "Weapon").ToDictionary(kv => kv.Key, kv => kv.Value);
@@ -27,15 +29,15 @@ namespace GW2Tradz.Analyzers
             var ectoCount = mats[ectos];
             mats.Remove(ectos);
 
-            var SalvageCost = 60 * (2000 - gear.Sum(kv => kv.Value)) / 2000f;
+            var SalvageCost = 60 * (count - gear.Sum(kv => kv.Value))/ count;
 
-            var gearSales = gear.Sum(kv => kv.Value * kv.Key.SellPrice.AfterTP()) / 2000f;
+            var gearSales = gear.Sum(kv => kv.Value * kv.Key.SellPrice.AfterTP()) / count;
 
-            var useMats = mats.Sum(kv => kv.Value * kv.Key.BuyPrice) / 2000f;
-            var sellMats = mats.Sum(kv => kv.Value * kv.Key.SellPrice.AfterTP()) / 2000f;
+            var useMats = mats.Sum(kv => kv.Value * kv.Key.BuyPrice) / count;
+            var sellMats = mats.Sum(kv => kv.Value * kv.Key.SellPrice.AfterTP()) / count;
 
-            var useEctos = ectoCount * ectos.BuyPrice / 2000f;
-            var sellEctos = ectoCount * ectos.SellPrice.AfterTP() / 2000f;
+            var useEctos = ectoCount * ectos.BuyPrice / count;
+            var sellEctos = ectoCount * ectos.SellPrice.AfterTP() / count;
 
 
             result.Add(new TradingAction
@@ -45,7 +47,7 @@ namespace GW2Tradz.Analyzers
                 Item = rareGear,
                 CostPer = rareGear.FlipBuy + (int)(SalvageCost),
                 IncomePer = (int)(gearSales + useMats + useEctos),
-                BaseCost = 0,
+                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = Settings.SafeMinimumMargin
             });
 
@@ -56,7 +58,7 @@ namespace GW2Tradz.Analyzers
                 Item = rareGear,
                 CostPer = rareGear.FlipBuy + (int)(SalvageCost),
                 IncomePer = (int)(gearSales + sellMats + useEctos),
-                BaseCost = 0,
+                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = Settings.SafeMinimumMargin
             });
 
@@ -67,7 +69,7 @@ namespace GW2Tradz.Analyzers
                 Item = rareGear,
                 CostPer = rareGear.FlipBuy + (int)(SalvageCost),
                 IncomePer = (int)(gearSales + useMats + sellEctos),
-                BaseCost = 0,
+                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = Settings.SafeMinimumMargin
             });
 
@@ -78,7 +80,7 @@ namespace GW2Tradz.Analyzers
                 Item = rareGear,
                 CostPer = rareGear.FlipBuy + (int)(SalvageCost),
                 IncomePer = (int)(gearSales + sellMats + sellEctos),
-                BaseCost = 0,
+                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = Settings.SafeMinimumMargin
             });
 

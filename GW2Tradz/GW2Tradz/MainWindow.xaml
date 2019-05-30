@@ -47,6 +47,9 @@
             <TabItem Header="UnidAnalyzer">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="UnidGrid"/>
             </TabItem>
+            <TabItem Header="ClickingAnalyzer">
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="ClickingGrid"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

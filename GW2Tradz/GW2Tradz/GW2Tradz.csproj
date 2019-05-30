@@ -60,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Analyzers\ClickingAnalyser.cs" />
     <Compile Include="Analyzers\CombiningAnalyzer.cs" />
     <Compile Include="Analyzers\CraftingAnalyzer.cs" />
     <Compile Include="Analyzers\DyeSalvagingAnalyzer.cs" />
@@ -117,8 +118,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="2000RareUnids.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="RareUnids.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -26,7 +26,7 @@ namespace GW2Tradz.Analyzers
             sources[46735] = 0;
 
             var validRecipes = cache.Recipes
-                    .Where(r => r.Ingredients.All(i => sources.ContainsKey(i.ItemId) && cache.Lookup.ContainsKey(r.OutputItemId)));
+                    .Where(r => r.Ingredients.All(i => sources.ContainsKey(i.ItemId) && cache.Lookup.ContainsKey(r.OutputItemId)) && !r.Disciplines.Contains("Double Click"));
 
             var result = new List<TradingAction> { };
 
@@ -47,11 +47,6 @@ namespace GW2Tradz.Analyzers
                     maxAmount = 1;
                 }
 
-                if (recipe.Disciplines.Contains("Double Click"))
-                {
-                    maxAmount = Math.Min(maxAmount, (int)cache.Lookup[recipe.Ingredients[0].ItemId].AdjustedBuyVelocity);
-                }
-
                 var cost = recipe.Ingredients.Sum(i => i.Count * sources[i.ItemId]);
                 result.Add(new TradingAction
                 {
@@ -61,7 +56,7 @@ namespace GW2Tradz.Analyzers
                     CostPer = cost,
                     IncomePer = (int)((float)(item.SellPrice) * recipe.OutputItemCount).AfterTP(),
                     BaseCost = Settings.HardTaskCost,
-                    SafeProfitPercentage = recipe.Disciplines.Contains("Double Click") ? 0 : Settings.UnsafeMinumumMargin
+                    SafeProfitPercentage = Settings.UnsafeMinumumMargin
                 });
             }
             return result;
