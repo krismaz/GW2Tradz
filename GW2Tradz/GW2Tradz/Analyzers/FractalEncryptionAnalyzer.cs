@@ -24,7 +24,7 @@ namespace GW2Tradz.Analyzers
             var infusionIncome = 2.25 * infusion.FlipSell.AfterTP();
             var t5sIncomeNoTPTax = 0.348 * t5s.Sum(i => i.FlipBuy);
             var t5sIncomeWithTPTax = 0.348 * t5s.Sum(i => i.FlipSell.AfterTP());
-            var t5sMedians = 0.348 * t5s.Sum(i => i.MedianFlipSellMax.AfterTP());
+            var t5sMedians = 0.348 * t5s.Sum(i => Math.Max(i.MedianFlipSellMax, i.FlipSell).AfterTP());
             var mewIncome = 0.015 * mew.FlipSell.AfterTP();
 
 
