@@ -68,6 +68,7 @@
     <Compile Include="Analyzers\ElonianAnalyzer.cs" />
     <Compile Include="Analyzers\FlippingAnalyser.cs" />
     <Compile Include="Analyzers\FractalEncryptionAnalyzer.cs" />
+    <Compile Include="Analyzers\GemstoneAnalyzer.cs" />
     <Compile Include="Analyzers\IAnalyzer.cs" />
     <Compile Include="Analyzers\UnidentifiedGearSalvager.cs" />
     <Compile Include="CoinConverter.cs" />

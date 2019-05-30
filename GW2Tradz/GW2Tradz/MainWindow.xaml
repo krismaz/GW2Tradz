@@ -50,6 +50,9 @@
             <TabItem Header="ClickingAnalyzer">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="ClickingGrid"/>
             </TabItem>
+            <TabItem Header="GemstoneAnalyzer">
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="GemstoneGrid"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
