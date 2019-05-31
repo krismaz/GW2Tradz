@@ -27,7 +27,7 @@ namespace GW2Tradz.Analyzers
                 result.Add(new TradingAction
                 {
                     MaxAmount = (int)gemstone.AdjustedBuyVelocity,
-                    Description = $"{gemstone.Name}",
+                    Description = $"Mystic Forge {gemstone.Name}x75 + 5 Ecto",
                     Item = gemstone,
                     CostPer = totalCost / 75,
                     IncomePer = (int)(totalIncome / 75).AfterTP(),
