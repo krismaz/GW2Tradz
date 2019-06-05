@@ -48,7 +48,7 @@ namespace GW2Tradz.Analyzers
                 CostPer = rareGear.FlipBuy + (int)(SalvageCost),
                 IncomePer = (int)(gearSales + useMats + useEctos),
                 BaseCost = Settings.HardTaskCost,
-                SafeProfitPercentage = Settings.SafeMinimumMargin
+                SafeProfitPercentage = float.PositiveInfinity
             });
 
             result.Add(new TradingAction
@@ -59,7 +59,7 @@ namespace GW2Tradz.Analyzers
                 CostPer = rareGear.FlipBuy + (int)(SalvageCost),
                 IncomePer = (int)(gearSales + sellMats + useEctos),
                 BaseCost = Settings.HardTaskCost,
-                SafeProfitPercentage = Settings.SafeMinimumMargin
+                SafeProfitPercentage = float.PositiveInfinity
             });
 
             result.Add(new TradingAction
@@ -70,7 +70,7 @@ namespace GW2Tradz.Analyzers
                 CostPer = rareGear.FlipBuy + (int)(SalvageCost),
                 IncomePer = (int)(gearSales + useMats + sellEctos),
                 BaseCost = Settings.HardTaskCost,
-                SafeProfitPercentage = Settings.SafeMinimumMargin
+                SafeProfitPercentage = float.PositiveInfinity
             });
 
             result.Add(new TradingAction
