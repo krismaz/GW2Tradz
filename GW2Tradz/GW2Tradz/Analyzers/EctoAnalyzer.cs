@@ -26,10 +26,16 @@ namespace GW2Tradz.Analyzers
             var enhancedLucentOil = cache.Lookup[89157];
             var potentLucentOil = cache.Lookup[89203];
 
-            var dustcost = (ecto.BuyPrice + 60) / 1.85;
+            var toxicStone = cache.Lookup[48915];
+            var toxicCrystal = cache.Lookup[48917];
+            var toxicOil = cache.Lookup[48916];
+            var toxicSample = cache.Lookup[48884];
+
+
+            var dustcost = (ecto.FlipBuy + 60) / 1.85;
             var waterCost = 8;
             var result = new List<TradingAction> { };
-            cache.LoadListings(new int[] { 24277, 9476, 43449, 9461, 43450, 89157, 89203 });
+            cache.LoadListings(new int[] { 24277, 9476, 43449, 9461, 43450, 89157, 89203, 48915, 48916, 48917 });
 
             void HandleItem(Item item, int cost, int amount)
             {
@@ -70,11 +76,14 @@ namespace GW2Tradz.Analyzers
             HandleItem(dust, (int)(dustcost), 1);
             HandleItem(master, (int)(dustcost * 5), 5);
             HandleItem(potent, (int)(dustcost * 6), 5);
-            HandleItem(enhancedLucentOil, (int)((dustcost * 3 + lucent.BuyPrice * 5 + waterCost * 20 + enhancement.BuyPrice)), 5);
-            HandleItem(potentLucentOil, (int)((dustcost * 3 + lucent.BuyPrice * 5 + waterCost * 20 + potence.BuyPrice)), 5);
+            HandleItem(enhancedLucentOil, (int)((dustcost * 3 + lucent.FlipBuy * 5 + waterCost * 20 + enhancement.FlipBuy)), 5);
+            HandleItem(potentLucentOil, (int)((dustcost * 3 + lucent.FlipBuy * 5 + waterCost * 20 + potence.FlipBuy)), 5);
             HandleItem(masterOil, (int)((dustcost * 3 + waterCost * 20)), 5);
             HandleItem(potentOil, (int)(((dustcost * 3 + waterCost * 20) / 5 + dustcost * 3 + waterCost * 20)), 5);
 
+            HandleItem(toxicCrystal, (int)((dustcost * 3 + toxicSample.FlipBuy * 5)), 5);
+            HandleItem(toxicOil, (int)((dustcost * 3 + toxicSample.FlipBuy * 5)), 5);
+            HandleItem(toxicStone, (int)((dustcost * 3 + toxicSample.FlipBuy * 5)), 5);
 
 
 
