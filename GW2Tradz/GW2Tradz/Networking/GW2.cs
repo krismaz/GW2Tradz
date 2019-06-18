@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GW2Tradz.Networking
 {
@@ -24,18 +25,27 @@ namespace GW2Tradz.Networking
 
         public List<Recipe> FetchRecipes()
         {
-            var recipes = new List<Recipe> { };
-            var result = httpClient.GetAsync("https://api.guildwars2.com/v2/recipes").Result; //worst coding practice or worsest coding practice
-            var content = result.Content.ReadAsStringAsync().Result;
-            var ids = JsonConvert.DeserializeObject<List<int>>(content, jsonSettings);
-
-            foreach (var chunk in ids.Chunk(200))
+            try
             {
-                var result2 = httpClient.GetAsync("https://api.guildwars2.com/v2/recipes?ids=" + string.Join(",", chunk)).Result; //worst coding practice or worsest coding practice
-                var content2 = result2.Content.ReadAsStringAsync().Result;
-                recipes.AddRange(JsonConvert.DeserializeObject<List<Recipe>>(content2, jsonSettings));
+                var recipes = new List<Recipe> { };
+
+                var result = httpClient.GetAsync("https://api.guildwars2.com/v2/recipes").Result; //worst coding practice or worsest coding practice
+                var content = result.Content.ReadAsStringAsync().Result;
+                var ids = JsonConvert.DeserializeObject<List<int>>(content, jsonSettings);
+
+                foreach (var chunk in ids.Chunk(200))
+                {
+                    var result2 = httpClient.GetAsync("https://api.guildwars2.com/v2/recipes?ids=" + string.Join(",", chunk)).Result; //worst coding practice or worsest coding practice
+                    var content2 = result2.Content.ReadAsStringAsync().Result;
+                    recipes.AddRange(JsonConvert.DeserializeObject<List<Recipe>>(content2, jsonSettings));
+                }
+                return recipes;
             }
-            return recipes;
+            catch
+            {
+                MessageBox.Show("Error fetching GW2 Api recipes");
+                return new List<Recipe> { };
+            }
         }
 
         public Dictionary<int, int> FetchCurrentSells()
@@ -92,6 +102,13 @@ namespace GW2Tradz.Networking
                 listings.AddRange(JsonConvert.DeserializeObject<List<ListingsData>>(content, jsonSettings));
             }
             return listings;
+        }
+
+        public List<MaterialCategory> FetchMaterials()
+        {
+            var result = httpClient.GetAsync("https://api.guildwars2.com/v2/materials?ids=all").Result; //worst coding practice or worsest coding practice
+            var content = result.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<List<MaterialCategory>>(content, jsonSettings);
         }
 
     }

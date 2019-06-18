@@ -13,6 +13,7 @@ namespace GW2Tradz.Networking
         public Dictionary<int, Item> Lookup = new Dictionary<int, Item> { };
         public List<Dye> Dyes { get; private set; }
         public List<Recipe> Recipes { get; private set; }
+        public List<Item> Materials { get; private set; }
         public DefaultDictionary<int, int> CurrentSells { get; private set; }
         public DefaultDictionary<int, int> CurrentBuys { get; private set; }
         public DefaultDictionary<int, List<Listing>> BuyListings { get; private set; } = new DefaultDictionary<int, List<Listing>> { };
@@ -68,6 +69,7 @@ namespace GW2Tradz.Networking
             CurrentBuys = new DefaultDictionary<int, int>(_gw2.FetchCurrentBuys());
             WalletGold = _gw2.WalletGold();
             DeliveryBox = _gw2.FetchDeliveryBox();
+            Materials = _gw2.FetchMaterials().SelectMany(c => c.Items.Where(i => Lookup.ContainsKey(i)).Select(i => Lookup[i])).ToList();
         }
 
         public void LoadListings(IEnumerable<int> ids)

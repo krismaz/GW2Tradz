@@ -70,6 +70,7 @@
     <Compile Include="Analyzers\FractalEncryptionAnalyzer.cs" />
     <Compile Include="Analyzers\GemstoneAnalyzer.cs" />
     <Compile Include="Analyzers\IAnalyzer.cs" />
+    <Compile Include="Analyzers\MaterialFluctuationAnalyzer.cs" />
     <Compile Include="Analyzers\UnidentifiedGearSalvager.cs" />
     <Compile Include="CoinConverter.cs" />
     <Page Include="MainWindow.xaml">
@@ -97,6 +98,7 @@
     <Compile Include="Viewmodels\DeliveryBox.cs" />
     <Compile Include="Viewmodels\Dye.cs" />
     <Compile Include="Viewmodels\ListingsData.cs" />
+    <Compile Include="Viewmodels\MaterialCategory.cs" />
     <Compile Include="Viewmodels\Recipe.cs" />
     <Compile Include="Viewmodels\Listing.cs" />
     <Compile Include="Viewmodels\TradingAction.cs" />

@@ -53,6 +53,9 @@
             <TabItem Header="GemstoneAnalyzer">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="GemstoneGrid"/>
             </TabItem>
+            <TabItem Header="MaterialsAnalyzer">
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="MaterialsGrid"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
