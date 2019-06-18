@@ -1,9 +1,11 @@
 ﻿using GW2Tradz.Analyzers;
 using GW2Tradz.Networking;
 using GW2Tradz.Viewmodels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,12 +30,18 @@ namespace GW2Tradz
         public MainWindow()
         {
             InitializeComponent();
+
+            if(File.Exists("settings.json"))
+            {
+                JsonConvert.DeserializeObject<Settings>(File.ReadAllText("settings.json"));
+            }
+
             var cache = new Cache();
             cache.Load();
 
-            if (Settings.TotalGold == -1)
+            if (Settings.TotalCoins == -1)
             {
-                Settings.TotalGold = cache.WalletGold + cache.CurrentBuys.Values.Sum() + cache.DeliveryBox.Coins;
+                Settings.TotalCoins = cache.WalletGold + cache.CurrentBuys.Values.Sum() + cache.DeliveryBox.Coins;
             }
 
             var flipping = new FlippingAnalyzer();
@@ -57,6 +65,7 @@ namespace GW2Tradz
             GemstoneGrid.DataContext = gemstones.Analyse(cache);
             MaterialsGrid.DataContext = materials.Analyse(cache);
             CombinedGrid.DataContext = new CombiningAnalyzer { Analyzers = new List<IAnalyzer> { flipping, dyes, crafting, ecto, elonian, fractal, unid, clicking, gemstones, materials } }.Analyse(cache);
+
         }
 
         private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
