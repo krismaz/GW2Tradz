@@ -16,16 +16,19 @@ namespace GW2Tradz.Analyzers
             foreach (var item in cache.Materials)
             {
                 var spike = item.BuyPrice > item.MonthSellAvg;
-                result.Add(new TradingAction
+                var action = new TradingAction
                 {
                     Description = $"Sell @ {item.MedianFlipSellMax.GoldFormat()} (Experiment, plz be care!)" + (spike ? "(Spike!)" : ""),
                     Item = item,
-                    MaxAmount = (int)(item.Velocity) - cache.CurrentSells[item.Id],
+                    MaxAmount = (int)(item.Velocity),
                     BaseCost = Settings.MediumTaskCost,
                     CostPer = item.FlipBuy,
                     IncomePer = item.MedianFlipSellMax.AfterTP(),
-                    SafeProfitPercentage = spike ? float.PositiveInfinity : Settings.UnsafeMinumumMargin
-                });
+                    SafeProfitPercentage = spike ? float.PositiveInfinity : Settings.UnsafeMinumumMargin,
+                    Inventory = cache.CurrentSells[item.Id]
+                };
+                result.Add(action);
+
             }
             return result;
         }

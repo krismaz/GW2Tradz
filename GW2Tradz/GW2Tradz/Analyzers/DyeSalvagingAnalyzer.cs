@@ -22,15 +22,17 @@ namespace GW2Tradz.Analyzers
                 var salvageRate = Dye.SalvageRates[dye.ItemData.Rarity];
                 var sale = (salvageRate * salvage.Select(i => i.SellPrice).Sum() / salvage.Count()).AfterTP();
                 var cost = dye.ItemData.FlipBuy + 3;
+                var inventory = (int)(salvage.Select(i => cache.CurrentSells[i.Id]).Average() / salvageRate);
                 result.Add(new TradingAction
                 {
-                    MaxAmount = (int)dye.ItemData.AdjustedBuyVelocity - cache.CurrentSells[dye.ItemData.Id],
+                    MaxAmount = (int)dye.ItemData.AdjustedBuyVelocity,
                     Description = "Buy and Salvage",
                     Item = dye.ItemData,
                     IncomePer = (int)sale,
                     CostPer = cost,
                     BaseCost = Settings.EasyTaskCost,
-                    SafeProfitPercentage = Settings.SafeMinimumMargin
+                    SafeProfitPercentage = Settings.SafeMinimumMargin,
+                    Inventory = inventory
                 });
 
                 var goodListings = cache.SellListings[dye.ItemData.Id].Where(l => l.Price + 3 < sale);
@@ -52,7 +54,8 @@ namespace GW2Tradz.Analyzers
                     CostPer = totalPrice/totalCount,
                     IncomePer = (int)sale,
                     BaseCost = 0,
-                    SafeProfitPercentage = 0
+                    SafeProfitPercentage = 0,
+                    Inventory = inventory
                 });
             }
             return result;

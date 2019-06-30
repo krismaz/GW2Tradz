@@ -40,27 +40,21 @@ namespace GW2Tradz.Analyzers
                     continue;
                 }
 
-                var maxAmount = (int)((item.AdjustedSellVelocity - cache.CurrentSells[recipe.OutputItemId])/recipe.OutputItemCount);
-
-                if (dailyRecipes.Contains(recipe.Id))
-                {
-                    maxAmount = 1;
-                }
-
                 var cost = recipe.Ingredients.Sum(i => i.Count * sources[i.ItemId]);
                 result.Add(new TradingAction
                 {
-                    MaxAmount = maxAmount,
+                    MaxAmount = dailyRecipes.Contains(recipe.Id) ? 1 : (int)item.AdjustedSellVelocity,
                     Description = $"{item.Name} - {string.Join(", ", recipe.Disciplines)} ({string.Join(", ", recipe.Ingredients.Select(i => cache.Lookup.ContainsKey(i.ItemId) ? cache.Lookup[i.ItemId].Name : "?"))})",
                     Item = item,
                     CostPer = cost,
                     IncomePer = (int)((float)(item.SellPrice) * recipe.OutputItemCount).AfterTP(),
                     BaseCost = Settings.HardTaskCost,
-                    SafeProfitPercentage = Settings.UnsafeMinumumMargin
+                    SafeProfitPercentage = Settings.UnsafeMinumumMargin,
+                    Inventory = cache.CurrentSells[recipe.OutputItemId] / (int)recipe.OutputItemCount
                 });
-            }
+        }
             return result;
         }
 
-    }
+}
 }

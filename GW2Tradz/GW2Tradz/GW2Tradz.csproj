@@ -60,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Analyzers\CachedAnalyzer.cs" />
     <Compile Include="Analyzers\ClickingAnalyser.cs" />
     <Compile Include="Analyzers\CombiningAnalyzer.cs" />
     <Compile Include="Analyzers\CraftingAnalyzer.cs" />

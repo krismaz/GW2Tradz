@@ -44,16 +44,16 @@ namespace GW2Tradz
                 Settings.TotalCoins = cache.WalletGold + cache.CurrentBuys.Values.Sum() + cache.DeliveryBox.Coins;
             }
 
-            var flipping = new FlippingAnalyzer();
-            var dyes = new DyeSalvagingAnalyzer();
-            var crafting = new CraftingAnalyzer();
-            var ecto = new EctoAnalyzer();
-            var elonian = new ElonianAnalyzer();
-            var fractal = new FractalEncryptionAnalyzer();
-            var unid = new UnidentifiedGearSalvager();
-            var clicking = new ClickingAnalyser();
-            var gemstones = new GemstoneAnalyzer();
-            var materials = new MaterialFluctuationAnalyzer();
+            var flipping = new FlippingAnalyzer().Cache();
+            var dyes = new DyeSalvagingAnalyzer().Cache();
+            var crafting = new CraftingAnalyzer().Cache();
+            var ecto = new EctoAnalyzer().Cache();
+            var elonian = new ElonianAnalyzer().Cache();
+            var fractal = new FractalEncryptionAnalyzer().Cache();
+            var unid = new UnidentifiedGearSalvager().Cache();
+            var clicking = new ClickingAnalyser().Cache();
+            var gemstones = new GemstoneAnalyzer().Cache();
+            var materials = new MaterialFluctuationAnalyzer().Cache();
             FlippingGrid.DataContext = flipping.Analyse(cache);
             DyeGrid.DataContext = dyes.Analyse(cache);
             CraftingGrid.DataContext = crafting.Analyse(cache);

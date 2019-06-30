@@ -28,13 +28,14 @@ namespace GW2Tradz.Analyzers
                 var output = cache.Lookup[recipe.OutputItemId];
                 result.Add(new TradingAction
                 {
-                    MaxAmount = (int)Math.Min(input.AdjustedBuyVelocity, (output.AdjustedSellVelocity - cache.CurrentSells[output.Id]) / recipe.OutputItemCount),
+                    MaxAmount = (int)Math.Min(input.AdjustedBuyVelocity, output.AdjustedSellVelocity / (int)recipe.OutputItemCount),
                     Description = $"{input.Name} -> {recipe.OutputItemCount} x {output.Name}",
                     Item = input,
                     CostPer = input.FlipBuy,
                     IncomePer = (int)(output.SellPrice * recipe.OutputItemCount).AfterTP(),
                     BaseCost = Settings.EasyTaskCost,
-                    SafeProfitPercentage = Settings.SafeMinimumMargin
+                    SafeProfitPercentage = Settings.SafeMinimumMargin,
+                    Inventory = cache.CurrentSells[output.Id] / (int)recipe.OutputItemCount
                 });
             }
             return result;

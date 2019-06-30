@@ -32,7 +32,8 @@ namespace GW2Tradz.Analyzers
                     CostPer = totalCost / 75,
                     IncomePer = (int)(totalIncome / 75).AfterTP(),
                     BaseCost = Settings.EasyTaskCost,
-                    SafeProfitPercentage = Settings.SafeMinimumMargin
+                    SafeProfitPercentage = Settings.SafeMinimumMargin,
+                    Inventory = cache.CurrentSells[amal.Id]
                 });
             }
             var gemstoneIds = gemstones.Select(i => i.Id).ToList();
@@ -50,7 +51,8 @@ namespace GW2Tradz.Analyzers
                     CostPer = totalCost / 75,
                     IncomePer = (int)(totalIncome / 75).AfterTP(),
                     BaseCost = Settings.HardTaskCost,
-                    SafeProfitPercentage = Settings.SafeMinimumMargin
+                    SafeProfitPercentage = Settings.SafeMinimumMargin,
+                    Inventory = cache.CurrentSells[amal.Id]
                 });
             }
 

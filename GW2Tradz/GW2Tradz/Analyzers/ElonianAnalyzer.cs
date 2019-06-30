@@ -19,11 +19,12 @@ namespace GW2Tradz.Analyzers
                 {
                     Description = $"Sell @ {item.MedianFlipSellMax.GoldFormat()}",
                     Item = item,
-                    MaxAmount = (int)(item.Velocity) - cache.CurrentSells[item.Id],
+                    MaxAmount = (int)(item.Velocity),
                     BaseCost = Settings.MediumTaskCost,
                     CostPer = item.FlipBuy,
                     IncomePer = item.MedianFlipSellMax.AfterTP(),
-                    SafeProfitPercentage = Settings.UnsafeMinumumMargin
+                    SafeProfitPercentage = Settings.UnsafeMinumumMargin,
+                    Inventory = cache.CurrentSells[item.Id]
                 });
             }
             return result;

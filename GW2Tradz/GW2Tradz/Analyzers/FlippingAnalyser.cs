@@ -19,11 +19,12 @@ namespace GW2Tradz.Analyzers
                 {
                     Description = item.SellPrice < item.YearSellAvg * 5 ? "Flip" : "Flip (spike)",
                     Item = item,
-                    MaxAmount = (int)(item.Velocity) - cache.CurrentSells[item.Id],
+                    MaxAmount = (int)(item.Velocity),
                     BaseCost = Settings.MediumTaskCost,
                     CostPer = item.FlipBuy,
                     IncomePer = item.FlipSell.AfterTP(),
-                    SafeProfitPercentage = Settings.SafeMinimumMargin
+                    SafeProfitPercentage = Settings.SafeMinimumMargin,
+                    Inventory = cache.CurrentSells[item.Id]
                 });
             }
             return result;

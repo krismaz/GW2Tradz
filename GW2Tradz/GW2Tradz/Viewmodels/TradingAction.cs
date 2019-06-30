@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GW2Tradz.Networking;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace GW2Tradz.Viewmodels
 {
     public class TradingAction
     {
+        public int Inventory { get; set; }
+
         public string Description { get; set; }
         public Item Item { get; set; }
         public int IncomePer { get; set; }
@@ -18,11 +21,12 @@ namespace GW2Tradz.Viewmodels
         public double SafeProfitPercentage { get; set; }
 
 
-        public int Amount => Math.Max(0, Math.Min(MaxAmount, (Settings.TotalCoins / Settings.Spread) / CostPer));
+        public int Amount => Math.Max(0, Math.Min(MaxAmount, (Settings.TotalCoins / Settings.Spread) / CostPer - Inventory));
         public int TotalIncome => Amount * IncomePer;
         public int TotalCost => Amount * CostPer + BaseCost;
         public int Profit => TotalIncome - TotalCost;
         public double ProfitPercentage => Amount > 0 ? (double)Profit / (double)TotalCost : 0;
         public bool Safe => ProfitPercentage > SafeProfitPercentage;
+
     }
 }
