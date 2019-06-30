@@ -46,7 +46,7 @@ namespace GW2Tradz.Analyzers
                 result.Add(new TradingAction
                 {
                     MaxAmount = (int)crystal.AdjustedBuyVelocity,
-                    Description = $"Craft from {crystal.Name} and mystic forge to Gemstone",
+                    Description = $"Transmogrify {crystal.Name} and mystic forge to Amalgamated Gemstone",
                     Item = crystal,
                     CostPer = totalCost / 75,
                     IncomePer = (int)(totalIncome / 75).AfterTP(),
