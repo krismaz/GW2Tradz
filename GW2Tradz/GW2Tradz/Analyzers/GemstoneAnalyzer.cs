@@ -49,7 +49,7 @@ namespace GW2Tradz.Analyzers
                     Item = crystal,
                     CostPer = totalCost / 75,
                     IncomePer = (int)(totalIncome / 75).AfterTP(),
-                    BaseCost = Settings.EasyTaskCost,
+                    BaseCost = Settings.HardTaskCost,
                     SafeProfitPercentage = Settings.SafeMinimumMargin
                 });
             }
