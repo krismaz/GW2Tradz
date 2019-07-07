@@ -41,7 +41,7 @@ namespace GW2Tradz.Analyzers
             {
                 result.Add(new TradingAction
                 {
-                    MaxAmount = ((int)item.AdjustedSellVelocity - cache.CurrentSells[item.Id]) / amount,
+                    MaxAmount = (int)item.AdjustedSellVelocity / amount,
                     Description = $"Ecto Salvage and Sell",
                     Item = item,
                     CostPer = cost,

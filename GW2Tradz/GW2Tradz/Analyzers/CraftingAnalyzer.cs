@@ -43,7 +43,7 @@ namespace GW2Tradz.Analyzers
                 var cost = recipe.Ingredients.Sum(i => i.Count * sources[i.ItemId]);
                 result.Add(new TradingAction
                 {
-                    MaxAmount = dailyRecipes.Contains(recipe.Id) ? 1 : (int)item.AdjustedSellVelocity,
+                    MaxAmount = dailyRecipes.Contains(recipe.Id) ? 1 : (int)(item.AdjustedSellVelocity / recipe.OutputItemCount),
                     Description = $"{item.Name} - {string.Join(", ", recipe.Disciplines)} ({string.Join(", ", recipe.Ingredients.Select(i => cache.Lookup.ContainsKey(i.ItemId) ? cache.Lookup[i.ItemId].Name : "?"))})",
                     Item = item,
                     CostPer = cost,
