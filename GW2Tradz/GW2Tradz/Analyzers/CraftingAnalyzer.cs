@@ -40,6 +40,11 @@ namespace GW2Tradz.Analyzers
                     continue;
                 }
 
+                if (recipe.Disciplines.Contains("Mystic Forge") && item.Name.Contains("Gemstone"))
+                {
+                    continue;
+                }
+
                 var cost = recipe.Ingredients.Sum(i => i.Count * sources[i.ItemId]);
                 result.Add(new TradingAction
                 {
