@@ -32,15 +32,16 @@ namespace GW2Tradz.Networking
 
         public List<Item> FetchBasicInfo()
         {
-            var result = httpClient.GetAsync("https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,rarity,vendor_value,week_buy_velocity,week_sell_velocity,year_sell_avg,week_sell_max,month_sell_avg,type").Result; //worst coding practice or worsest coding practice
+            var result = httpClient.GetAsync("https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,rarity,vendor_value,yesterday_buy_sold,yesterday_sell_sold").Result; //worst coding practice or worsest coding practice
             var content = result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<List<Item>>(content, jsonSettings);
         }
 
         public List<History> FetchHistory()
         {
-            var OneWeek = (DateTime.Now - TimeSpan.FromDays(6)).ToString("yyyy-MM-dd");
-            var result = httpClient.GetAsync($"https://api.silveress.ie/gw2/v1/history?beautify=min&start={OneWeek}&fields=id,date,buy_velocity,sell_velocity,day_sell_max").Result; //worst coding practice or worsest coding practice
+            return new List<History> { };
+            var OneWeek = (DateTime.Now - TimeSpan.FromDays(7)).ToString("yyyy-MM-dd");
+            var result = httpClient.GetAsync($"https://api.silveress.ie/gw2/v1/history?beautify=min&start={OneWeek}&fields=itemID,date,buy_velocity,sell_velocity,day_sell_max").Result; //worst coding practice or worsest coding practice
             var content = result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<List<History>>(content, jsonSettings);
         }

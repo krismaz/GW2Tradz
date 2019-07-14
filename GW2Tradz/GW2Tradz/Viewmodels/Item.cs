@@ -15,13 +15,13 @@ namespace GW2Tradz.Viewmodels
         public string Type { get; set; }
         public string Rarity { get; set; }
         public int VendorValue { get; set; }
-        public float? WeekSellVelocity { get; set; }
-        public float? WeekBuyVelocity { get; set; }
+        public float? YesterdaySellSold { get; set; }
+        public float? YesterdayBuySold { get; set; }
         public float? YearSellAvg { get; set; }
         public float? MonthSellAvg { get; set; }
         public int? WeekSellMax { get; set; }
-        public float AdjustedBuyVelocity => (WeekBuyVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
-        public float AdjustedSellVelocity => (WeekSellVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
+        public float AdjustedBuyVelocity => (YesterdayBuySold ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
+        public float AdjustedSellVelocity => (YesterdaySellSold ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
 
         public void Update(Item other)
         {

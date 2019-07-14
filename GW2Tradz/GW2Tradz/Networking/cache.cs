@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GW2Tradz.Networking
 {
@@ -37,11 +38,19 @@ namespace GW2Tradz.Networking
             }
         }
 
+
+
         public void UpdateHistory(List<History> items)
         {
             var grouped = items.GroupBy(h => h.ItemId);
             foreach (var entry in grouped)
             {
+                if(!Lookup.ContainsKey(entry.Key))
+                {
+                    
+
+                    continue;
+                }
                 Lookup[entry.Key].History = entry.ToList();
             }
         }
@@ -55,6 +64,7 @@ namespace GW2Tradz.Networking
 
         public void Load()
         {
+            MessageBox.Show("Warning! Silver's data is still borked!");
             Update(_silver.FetchBasicInfo());
             UpdateHistory(_silver.FetchHistory());
             Dyes = _gw2.FetchDyes();
