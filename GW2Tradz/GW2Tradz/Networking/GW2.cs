@@ -80,9 +80,17 @@ namespace GW2Tradz.Networking
 
         public int WalletGold()
         {
-            var result = httpClient.GetAsync($"https://api.guildwars2.com/v2/account/wallet?access_token={Settings.ApiKey}").Result; //worst coding practice or worsest coding practice
-            var content = result.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<List<WalletItem>>(content, jsonSettings).First((i) => i.Id == 1).Value; //id 1 = Gold
+            try
+            {
+                var result = httpClient.GetAsync($"https://api.guildwars2.com/v2/account/wallet?access_token={Settings.ApiKey}").Result; //worst coding practice or worsest coding practice
+                var content = result.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<List<WalletItem>>(content, jsonSettings).First((i) => i.Id == 1).Value; //id 1 = Gold
+            } catch
+            {
+                MessageBox.Show("Error fetching wallet gold");
+                return 0;
+            }
+            
         }
 
         public DeliveryBox FetchDeliveryBox()
