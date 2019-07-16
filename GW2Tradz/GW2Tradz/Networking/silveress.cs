@@ -32,7 +32,7 @@ namespace GW2Tradz.Networking
 
         public List<Item> FetchBasicInfo()
         {
-            var result = httpClient.GetAsync("https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,rarity,vendor_value,yesterday_buy_sold,yesterday_sell_sold").Result; //worst coding practice or worsest coding practice
+            var result = httpClient.GetAsync("https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,type,rarity,vendor_value,7d_sell_sold,7d_buy_sold,12m_sell_price_avg,1m_sell_price_avg,7d_sell_price_avg").Result; //worst coding practice or worsest coding practice
             var content = result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<List<Item>>(content, jsonSettings);
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,13 +16,18 @@ namespace GW2Tradz.Viewmodels
         public string Type { get; set; }
         public string Rarity { get; set; }
         public int VendorValue { get; set; }
-        public float? YesterdaySellSold { get; set; }
-        public float? YesterdayBuySold { get; set; }
+        [JsonProperty("7d_sell_sold")]
+        public float? WeekSellVelocity { get; set; }
+        [JsonProperty("7d_buy_sold")]
+        public float? WeekBuyVelocity { get; set; }
+        [JsonProperty("12m_sell_price_avg")]
         public float? YearSellAvg { get; set; }
+        [JsonProperty("1m_sell_price_avg")]
         public float? MonthSellAvg { get; set; }
-        public int? WeekSellMax { get; set; }
-        public float AdjustedBuyVelocity => (YesterdayBuySold ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
-        public float AdjustedSellVelocity => (YesterdaySellSold ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
+        [JsonProperty("7d_sell_price_avg")]
+        public float? WeekSellAvg { get; set; }
+        public float AdjustedBuyVelocity => (WeekBuyVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
+        public float AdjustedSellVelocity => (WeekSellVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
 
         public void Update(Item other)
         {
@@ -47,7 +53,8 @@ namespace GW2Tradz.Viewmodels
         {
             get
             {
-                if(History == null)
+                return (int)(WeekSellAvg??-1); //Silver needs to fix history
+                if (History == null)
                 {
                     return 0;
                 }
