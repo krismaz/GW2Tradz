@@ -40,5 +40,8 @@ namespace GW2Tradz
         [JsonProperty]
         public static string ApiKey = "1070D853-612C-6042-AB29-69C9E2D06ACE7FE1C8F2-7AEE-4C3C-9646-F65BEC5E1F13"; // This is my API key, get your own
 
+        [JsonProperty]
+        public static int MaxSaneAmount = 15000; // Maximuum sell/buy velocity
+
     }
 }

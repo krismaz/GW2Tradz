@@ -26,8 +26,8 @@ namespace GW2Tradz.Viewmodels
         public float? MonthSellAvg { get; set; }
         [JsonProperty("7d_sell_price_avg")]
         public float? WeekSellAvg { get; set; }
-        public float AdjustedBuyVelocity => (WeekBuyVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
-        public float AdjustedSellVelocity => (WeekSellVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty;
+        public float AdjustedBuyVelocity => Math.Min(Settings.MaxSaneAmount, (WeekBuyVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty);
+        public float AdjustedSellVelocity => Math.Min(Settings.MaxSaneAmount, (WeekSellVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty);
 
         public void Update(Item other)
         {

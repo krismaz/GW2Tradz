@@ -50,16 +50,24 @@ namespace GW2Tradz.Networking
 
         public Dictionary<int, int> FetchCurrentSells()
         {
-            var maxPage = 0;
-            List<Listing> listings = new List<Listing> { };
-            for (int page = 0; page <= maxPage; page++)
+            try
             {
-                var result = httpClient.GetAsync($"https://api.guildwars2.com/v2/commerce/transactions/current/sells?access_token={Settings.ApiKey}&page={page}").Result; //worst coding practice or worsest coding practice
-                var content = result.Content.ReadAsStringAsync().Result;
-                maxPage = int.Parse(result.Headers.GetValues("X-Page-Total").FirstOrDefault()) - 1;
-                listings.AddRange(JsonConvert.DeserializeObject<List<Listing>>(content, jsonSettings));
+                var maxPage = 0;
+                List<Listing> listings = new List<Listing> { };
+                for (int page = 0; page <= maxPage; page++)
+                {
+                    var result = httpClient.GetAsync($"https://api.guildwars2.com/v2/commerce/transactions/current/sells?access_token={Settings.ApiKey}&page={page}").Result; //worst coding practice or worsest coding practice
+                    var content = result.Content.ReadAsStringAsync().Result;
+                    maxPage = int.Parse(result.Headers.GetValues("X-Page-Total").FirstOrDefault()) - 1;
+                    listings.AddRange(JsonConvert.DeserializeObject<List<Listing>>(content, jsonSettings));
+                }
+                return listings.GroupBy(l => l.ItemId, l => l.Quantity).ToDictionary(g => g.Key, g => g.Sum());
             }
-            return listings.GroupBy(l => l.ItemId, l => l.Quantity).ToDictionary(g => g.Key, g => g.Sum());
+            catch
+            {
+                MessageBox.Show("Error fetching current sells");
+                return new Dictionary<int, int> { };
+            }
         }
 
         public Dictionary<int, int> FetchCurrentBuys()
@@ -76,7 +84,7 @@ namespace GW2Tradz.Networking
             return listings.GroupBy(l => l.ItemId, l => l.Price * l.Quantity).ToDictionary(g => g.Key, g => g.Sum());
         }
 
-        
+
 
         public int WalletGold()
         {
@@ -85,12 +93,13 @@ namespace GW2Tradz.Networking
                 var result = httpClient.GetAsync($"https://api.guildwars2.com/v2/account/wallet?access_token={Settings.ApiKey}").Result; //worst coding practice or worsest coding practice
                 var content = result.Content.ReadAsStringAsync().Result;
                 return JsonConvert.DeserializeObject<List<WalletItem>>(content, jsonSettings).First((i) => i.Id == 1).Value; //id 1 = Gold
-            } catch
+            }
+            catch
             {
                 MessageBox.Show("Error fetching wallet gold");
                 return 0;
             }
-            
+
         }
 
         public DeliveryBox FetchDeliveryBox()
@@ -102,14 +111,22 @@ namespace GW2Tradz.Networking
 
         public List<ListingsData> FetchListings(IEnumerable<int> ids)
         {
-            var listings = new List<ListingsData> { };
-            foreach (var chunk in ids.Chunk(200))
+            try
             {
-                var result = httpClient.GetAsync("https://api.guildwars2.com/v2/commerce/listings?ids=" + string.Join(",", chunk)).Result; //worst coding practice or worsest coding practice
-                var content = result.Content.ReadAsStringAsync().Result;
-                listings.AddRange(JsonConvert.DeserializeObject<List<ListingsData>>(content, jsonSettings));
+                var listings = new List<ListingsData> { };
+                foreach (var chunk in ids.Chunk(200))
+                {
+                    var result = httpClient.GetAsync("https://api.guildwars2.com/v2/commerce/listings?ids=" + string.Join(",", chunk)).Result; //worst coding practice or worsest coding practice
+                    var content = result.Content.ReadAsStringAsync().Result;
+                    listings.AddRange(JsonConvert.DeserializeObject<List<ListingsData>>(content, jsonSettings));
+                }
+                return listings;
             }
-            return listings;
+            catch
+            {
+                MessageBox.Show("Error fetching listings");
+                return new List<ListingsData> { };
+            }
         }
 
         public List<MaterialCategory> FetchMaterials()
