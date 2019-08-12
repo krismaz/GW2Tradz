@@ -11,7 +11,7 @@ namespace GW2Tradz
     public class Settings
     {
         [JsonProperty]
-        public static int TotalCoins = -1; // Total amoint of coins available, -1 means pulling the data online
+        public static int TotalCoins = 2000.Gold(); // Total amoint of coins available, -1 means pulling the data online
 
         [JsonProperty]
         public static int Spread = 10; // Use at most 1/Spread of budget per action

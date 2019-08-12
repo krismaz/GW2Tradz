@@ -13,6 +13,8 @@ namespace GW2Tradz.Analyzers
         public List<TradingAction> Analyse(Cache cache)
         {
             List<TradingAction> result = new List<TradingAction> { };
+            cache.LoadHistory(cache.Materials.Where(i => i.History == null).Select(i => i.Id));
+
             foreach (var item in cache.Materials)
             {
                 var spike = item.BuyPrice > item.MonthSellAvg;

@@ -32,18 +32,22 @@ namespace GW2Tradz.Networking
 
         public List<Item> FetchBasicInfo()
         {
-            var result = httpClient.GetAsync("https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,type,rarity,vendor_value,7d_sell_sold,7d_buy_sold,12m_sell_price_avg,1m_sell_price_avg,7d_sell_price_avg").Result; //worst coding practice or worsest coding practice
+            var result = httpClient.GetAsync("https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,type,rarity,vendor_value,7d_sell_sold,7d_buy_sold,12m_sell_price_avg,1m_sell_price_avg").Result; //worst coding practice or worsest coding practice
             var content = result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<List<Item>>(content, jsonSettings);
         }
 
-        public List<History> FetchHistory()
+        public List<History> FetchHistory(IEnumerable<int> ids)
         {
-            return new List<History> { };
             var OneWeek = (DateTime.Now - TimeSpan.FromDays(7)).ToString("yyyy-MM-dd");
-            var result = httpClient.GetAsync($"https://api.silveress.ie/gw2/v1/history?beautify=min&start={OneWeek}&fields=itemID,date,buy_velocity,sell_velocity,day_sell_max").Result; //worst coding practice or worsest coding practice
-            var content = result.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<List<History>>(content, jsonSettings);
+            var buffer = new List<History> { };
+            foreach (var chunk in ids.Chunk(100))
+            {
+                var result = httpClient.GetAsync($"https://api.silveress.ie/gw2/v1/history?beautify=min&start={OneWeek}&fields=itemID,date,sell_sold,buy_sold,sell_price_max&filter=type:day&itemID=" + string.Join(", ", chunk)).Result; //worst coding practice or worsest coding practice
+                var content = result.Content.ReadAsStringAsync().Result;
+                buffer.AddRange(JsonConvert.DeserializeObject<List<History>>(content, jsonSettings).ToList());
+            }
+            return buffer;
         }
     }
 }

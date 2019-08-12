@@ -64,9 +64,7 @@ namespace GW2Tradz.Networking
 
         public void Load()
         {
-            MessageBox.Show("Warning! Silver's data is still borked!");
             Update(_silver.FetchBasicInfo());
-            UpdateHistory(_silver.FetchHistory());
             Dyes = _gw2.FetchDyes();
             foreach (var dye in Dyes.Where(d => d.Item.HasValue))
             {
@@ -91,5 +89,12 @@ namespace GW2Tradz.Networking
                 SellListings[ld.Id] = ld.Sells;
             }
         }
+
+
+        public void LoadHistory(IEnumerable<int> ids)
+        {
+            UpdateHistory(_silver.FetchHistory(ids));
+        }
+
     }
 }

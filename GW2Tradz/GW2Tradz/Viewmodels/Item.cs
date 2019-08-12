@@ -24,8 +24,6 @@ namespace GW2Tradz.Viewmodels
         public float? YearSellAvg { get; set; }
         [JsonProperty("1m_sell_price_avg")]
         public float? MonthSellAvg { get; set; }
-        [JsonProperty("7d_sell_price_avg")]
-        public float? WeekSellAvg { get; set; }
         public float AdjustedBuyVelocity => Math.Min(Settings.MaxSaneAmount, (WeekBuyVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty);
         public float AdjustedSellVelocity => Math.Min(Settings.MaxSaneAmount, (WeekSellVelocity ?? 0) / Settings.VelocityFactor - Settings.VelocityUncertainty);
 
@@ -53,7 +51,6 @@ namespace GW2Tradz.Viewmodels
         {
             get
             {
-                return (int)(WeekSellAvg??-1); //Silver needs to fix history
                 if (History == null)
                 {
                     return 0;

@@ -21,6 +21,9 @@ namespace GW2Tradz.Analyzers
 
             var cost = encryption.FlipBuy + 0.9 * matrix.FlipBuy;
 
+            cache.LoadHistory(t5s.Where(i => i.History == null).Select(i => i.Id));
+
+
             var infusionIncome = 2.25 * infusion.FlipSell.AfterTP();
             var t5sIncomeNoTPTax = 0.348 * t5s.Sum(i => i.FlipBuy);
             var t5sIncomeWithTPTax = 0.348 * t5s.Sum(i => i.FlipSell.AfterTP());

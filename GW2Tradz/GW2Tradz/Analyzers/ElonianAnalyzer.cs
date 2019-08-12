@@ -13,7 +13,10 @@ namespace GW2Tradz.Analyzers
         public List<TradingAction> Analyse(Cache cache)
         {
             List<TradingAction> result = new List<TradingAction> { };
-            foreach (var item in cache.Items.Where(i => i.Rarity == "Rare" && i.Type == "Weapon"))
+            var weapons = cache.Items.Where(i => i.Rarity == "Rare" && i.Type == "Weapon" && i.Name.StartsWith("Elonian"));
+            cache.LoadHistory(weapons.Where(i => i.History == null).Select(i => i.Id));
+            
+            foreach (var item in weapons)
             {
                 result.Add(new TradingAction
                 {
