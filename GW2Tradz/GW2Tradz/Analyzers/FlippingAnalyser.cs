@@ -17,7 +17,7 @@ namespace GW2Tradz.Analyzers
             {
                 result.Add(new TradingAction
                 {
-                    Description = item.SellPrice < item.YearSellAvg * 5 ? "Flip" : "Flip (spike)",
+                    Description = item.SellPrice < item.YearSellAvg * 5 ? "Flip" : "(spike) Flip ",
                     Item = item,
                     MaxAmount = (int)(item.Velocity),
                     BaseCost = Settings.MediumTaskCost,

@@ -15,6 +15,10 @@ namespace GW2Tradz.Viewmodels
         public string Name { get; set; }
         public string Type { get; set; }
         public string Rarity { get; set; }
+        public int Upgrade1 { get; set; }
+        public int Level { get; set; }
+        [JsonProperty("statName")]
+        public string StatName { get; set; }
         public int VendorValue { get; set; }
         [JsonProperty("7d_sell_sold")]
         public float? WeekSellVelocity { get; set; }

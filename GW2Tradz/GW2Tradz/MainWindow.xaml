@@ -11,7 +11,7 @@
     <Window.Resources>
         <local:CoinConverter x:Key="coinConverter"/>
         <DataGrid x:Shared="false" IsReadOnly="True"  x:Key="Analyzergrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged" MouseDoubleClick="DataGrid_MouseDoubleClick" ItemsSource="{Binding}" Loaded="DataGrid_Loaded">
-        <DataGrid.Columns>
+            <DataGrid.Columns>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" IsReadOnly="True"/>
@@ -23,38 +23,41 @@
     <Grid>
 
         <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <TabItem Header="CombinedAnalyzer">
+            <TabItem Header="*Combined*">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="CombinedGrid"/>
             </TabItem>
-            <TabItem Header="FlippingAnalyzer">
+            <TabItem Header="Flipping">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="FlippingGrid"/>
             </TabItem>
-            <TabItem Header="DyeAnalyzer">
+            <TabItem Header="Dyes">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="DyeGrid"/>
             </TabItem>
-            <TabItem Header="CraftingAnalyzer">
+            <TabItem Header="Crafting">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="CraftingGrid"/>
             </TabItem>
-            <TabItem Header="EctoAnalyzer">
+            <TabItem Header="Ecto">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="EctoGrid"/>
             </TabItem>
-            <TabItem Header="ElonianAnalyzer">
+            <TabItem Header="Elonian">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="ElonianGrid"/>
             </TabItem>
-            <TabItem Header="FractalAnalyzer">
+            <TabItem Header="Fractal">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="FractalGrid"/>
             </TabItem>
-            <TabItem Header="UnidAnalyzer">
+            <TabItem Header="Unid">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="UnidGrid"/>
             </TabItem>
-            <TabItem Header="ClickingAnalyzer">
+            <TabItem Header="Clicking">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="ClickingGrid"/>
             </TabItem>
-            <TabItem Header="GemstoneAnalyzer">
+            <TabItem Header="Gemstones">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="GemstoneGrid"/>
             </TabItem>
-            <TabItem Header="MaterialsAnalyzer">
+            <TabItem Header="Materials">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="MaterialsGrid"/>
+            </TabItem>
+            <TabItem Header="GearSalvaging">
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="GearSalvagingGrid"/>
             </TabItem>
         </TabControl>
     </Grid>

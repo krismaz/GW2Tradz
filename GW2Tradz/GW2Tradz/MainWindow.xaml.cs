@@ -54,6 +54,7 @@ namespace GW2Tradz
             var clicking = new ClickingAnalyser().Cache();
             var gemstones = new GemstoneAnalyzer().Cache();
             var materials = new MaterialFluctuationAnalyzer().Cache();
+            var gearSalvaging = new GearSalvagingAnalyzer().Cache();
             FlippingGrid.DataContext = flipping.Analyse(cache);
             DyeGrid.DataContext = dyes.Analyse(cache);
             CraftingGrid.DataContext = crafting.Analyse(cache);
@@ -64,7 +65,8 @@ namespace GW2Tradz
             ClickingGrid.DataContext = clicking.Analyse(cache);
             GemstoneGrid.DataContext = gemstones.Analyse(cache);
             MaterialsGrid.DataContext = materials.Analyse(cache);
-            CombinedGrid.DataContext = new CombiningAnalyzer { Analyzers = new List<IAnalyzer> { flipping, dyes, crafting, ecto, elonian, fractal, unid, clicking, gemstones, materials } }.Analyse(cache);
+            GearSalvagingGrid.DataContext = gearSalvaging.Analyse(cache);
+            CombinedGrid.DataContext = new CombiningAnalyzer { Analyzers = new List<IAnalyzer> { flipping, dyes, crafting, ecto, elonian, fractal, unid, clicking, gemstones, materials, gearSalvaging } }.Analyse(cache);
 
         }
 
