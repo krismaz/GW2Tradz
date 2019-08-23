@@ -15,15 +15,16 @@ namespace GW2Tradz.Analyzers
             List<TradingAction> result = new List<TradingAction> { };
             foreach (var item in cache.Items)
             {
+                var spike = item.SellPrice > item.YearSellAvg * 5;
                 result.Add(new TradingAction
                 {
-                    Description = item.SellPrice < item.YearSellAvg * 5 ? "Flip" : "(spike) Flip ",
+                    Description = spike ? "(spike) Flip" : "Flip ",
                     Item = item,
                     MaxAmount = (int)(item.Velocity),
                     BaseCost = Settings.MediumTaskCost,
                     CostPer = item.FlipBuy,
                     IncomePer = item.FlipSell.AfterTP(),
-                    SafeProfitPercentage = Settings.SafeMinimumMargin,
+                    SafeProfitPercentage = (spike && (item.Type == "Weapon" || item.Type == "Armor")) ? float.PositiveInfinity : Settings.SafeMinimumMargin,
                     Inventory = cache.CurrentSells[item.Id]
                 });
             }

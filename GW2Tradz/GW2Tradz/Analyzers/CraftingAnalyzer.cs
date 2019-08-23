@@ -35,7 +35,7 @@ namespace GW2Tradz.Analyzers
             {
 
                 var item = cache.Lookup[recipe.OutputItemId];
-                var spike = item.SellPrice < item.YearSellAvg * 5;
+                var spike = item.SellPrice > item.YearSellAvg * 5;
 
 
                 var cost = recipe.Ingredients.Sum(i => i.Count * sources[i.ItemId]);
@@ -47,7 +47,7 @@ namespace GW2Tradz.Analyzers
                     CostPer = cost,
                     IncomePer = (int)((float)(item.SellPrice) * recipe.OutputItemCount).AfterTP(),
                     BaseCost = Settings.HardTaskCost,
-                    SafeProfitPercentage = Settings.UnsafeMinumumMargin,
+                    SafeProfitPercentage = (spike && (item.Type == "Weapon" || item.Type == "Armor")) ? float.PositiveInfinity : Settings.UnsafeMinumumMargin,
                     Inventory = cache.CurrentSells[recipe.OutputItemId] / (int)recipe.OutputItemCount
                 });
 
@@ -65,7 +65,7 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction
                 {
-                    MaxAmount = (int)(totalCount / recipe.OutputItemCount),
+                    MaxAmount = dailyRecipes.Contains(recipe.Id) ? 1 : (int)(totalCount / recipe.OutputItemCount),
                     Description = $"InstaSell ({minPrice.GoldFormat()}) <- { item.Name } - { string.Join(", ", recipe.Disciplines) } ({ string.Join(", ", recipe.Ingredients.Select(i => cache.Lookup.ContainsKey(i.ItemId) ? cache.Lookup[i.ItemId].Name : "?")) })",
                     Item = item,
                     CostPer = cost,
