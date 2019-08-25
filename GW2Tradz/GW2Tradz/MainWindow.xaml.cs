@@ -4,6 +4,7 @@ using GW2Tradz.Viewmodels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -24,8 +25,49 @@ namespace GW2Tradz
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public string FilterString
+        {
+            get { return _filterString; }
+            set
+            {
+                _filterString = value;
+                NotifyPropertyChanged("FilterString");
+                FilterCollection();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        private void FilterCollection()
+        {
+            foreach(var view in _collectionViews)
+            {
+                view.Refresh();
+            }
+        }
+
+        private string _filterString;
+        private List<ICollectionView> _collectionViews = new List<ICollectionView> { };
+
+        public bool Filter(object obj)
+        {
+            var data = obj as TradingAction;
+            if (data != null)
+            {
+                if (!string.IsNullOrEmpty(_filterString))
+                {
+                    return data.Item.Name.IndexOf(_filterString, StringComparison.InvariantCultureIgnoreCase) >= 0 || data.Description.IndexOf(_filterString, StringComparison.InvariantCultureIgnoreCase) >= 0;
+                }
+                return true;
+            }
+            return false;
+        }
 
         public MainWindow()
         {
@@ -70,6 +112,7 @@ namespace GW2Tradz
 
         }
 
+        
         private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Clipboard.SetText(e.AddedItems.OfType<Item>().FirstOrDefault()?.Name ?? "");
@@ -95,6 +138,8 @@ namespace GW2Tradz
                 var view = CollectionViewSource.GetDefaultView(grid.ItemsSource);
                 view.SortDescriptions.Clear();
                 view.SortDescriptions.Add(new System.ComponentModel.SortDescription { PropertyName = "Profit", Direction = System.ComponentModel.ListSortDirection.Descending });
+                view.Filter = Filter;
+                _collectionViews.Add(view);
                 view.Refresh();
             }
         }

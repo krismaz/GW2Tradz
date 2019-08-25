@@ -21,8 +21,12 @@
         </DataGrid>
     </Window.Resources>
     <Grid>
-
-        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox Text="{Binding Path=FilterString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" />
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
             <TabItem Header="*Combined*">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="CombinedGrid"/>
             </TabItem>
