@@ -59,7 +59,7 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction
                 {
-                    Description = "Salvage",
+                    Description = "Salvage (Silverfed)",
                     Item = item,
                     MaxAmount = (int)(item.AdjustedBuyVelocity),
                     BaseCost = Settings.MediumTaskCost,

@@ -70,6 +70,7 @@
     <Compile Include="Analyzers\FlippingAnalyser.cs" />
     <Compile Include="Analyzers\FractalEncryptionAnalyzer.cs" />
     <Compile Include="Analyzers\GemstoneAnalyzer.cs" />
+    <Compile Include="Analyzers\HideSalvagingAnalyzer.cs" />
     <Compile Include="Analyzers\IAnalyzer.cs" />
     <Compile Include="Analyzers\MaterialFluctuationAnalyzer.cs" />
     <Compile Include="Analyzers\UnidentifiedGearSalvager.cs" />
