@@ -21,12 +21,12 @@ namespace GW2Tradz.Analyzers
             sources[-1] = 1;
 
             //Gobbler shit
-            sources[46731] = 0;
-            sources[46733] = 0;
-            sources[46735] = 0;
+            //sources[46731] = 0;
+            //sources[46733] = 0;
+            //sources[46735] = 0;
 
             var validRecipes = cache.Recipes
-                    .Where(r => r.Ingredients.All(i => sources.ContainsKey(i.ItemId) && cache.Lookup.ContainsKey(r.OutputItemId)) && r.Id > 0);
+                    .Where(r => r.Type != "Bulk" && r.Type != "Feast" && r.Ingredients.All(i => sources.ContainsKey(i.ItemId) && cache.Lookup.ContainsKey(r.OutputItemId)) && r.Id > 0);
 
             var result = new List<TradingAction> { };
             cache.LoadListings(validRecipes.Select(r => r.OutputItemId).Distinct());

@@ -10,6 +10,7 @@ namespace GW2Tradz.Viewmodels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Type { get; set; }
         public List<string> Disciplines { get; set; }
         public int OutputItemId { get; set; }
         public float OutputItemCount { get; set; }
