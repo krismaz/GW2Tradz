@@ -27,6 +27,16 @@ namespace GW2Tradz
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+
+        public string HelpText { get; } = "Double click to open bltc for item\n" +
+            "\n" +
+            "Filter/search bar in top\n" +
+            "\n" +
+            "Columns can sort\n";
+
+
+
+
         public string FilterString
         {
             get { return _filterString; }

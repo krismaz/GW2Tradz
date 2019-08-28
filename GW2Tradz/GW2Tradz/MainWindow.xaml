@@ -25,8 +25,13 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
         <TextBox Text="{Binding Path=FilterString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" />
-        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
+        <Label Width="25" HorizontalContentAlignment="Center" ToolTip="{Binding Path=HelpText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" Content="?" Grid.Column="1"/>
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="2">
             <TabItem Header="*Combined*">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="CombinedGrid"/>
             </TabItem>
