@@ -52,7 +52,7 @@ namespace GW2Tradz.Analyzers
                     Inventory = cache.CurrentSells[recipe.OutputItemId] / (int)recipe.OutputItemCount
                 });
 
-                if(cost < item.BuyPrice.AfterTP())
+                if(cost < item.BuyPrice.AfterTP() * recipe.OutputItemCount)
                 {
                     InstantRecipes.Add(recipe);
                 }
