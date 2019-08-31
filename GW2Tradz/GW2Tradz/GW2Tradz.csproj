@@ -75,6 +75,7 @@
     <Compile Include="Analyzers\MaterialFluctuationAnalyzer.cs" />
     <Compile Include="Analyzers\UnidentifiedGearSalvager.cs" />
     <Compile Include="Analyzers\GearSalvagingAnalyzer.cs" />
+    <Compile Include="BannedList.cs" />
     <Compile Include="CoinConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -18,7 +18,7 @@ namespace GW2Tradz.Analyzers
             foreach (var item in cache.Materials)
             {
                 var spike = item.BuyPrice > item.MonthSellAvg;
-                var action = new TradingAction
+                var action = new TradingAction($"materials_{item.Id}_{item.Name}")
                 {
                     Description = $"Sell @ {item.MedianFlipSellMax.GoldFormat()} (Experiment, plz be care!)" + (spike ? "(Spike!)" : ""),
                     Item = item,

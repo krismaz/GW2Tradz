@@ -40,7 +40,7 @@ namespace GW2Tradz.Analyzers
 
 
                 var cost = recipe.Ingredients.Sum(i => i.Count * sources[i.ItemId]);
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"crafting_{recipe.Id}_{item.Name}")
                 {
                     MaxAmount = dailyRecipes.Contains(recipe.Id) ? 1 : (int)(item.AdjustedSellVelocity / recipe.OutputItemCount),
                     Description = (spike ? "(spike) " : "") + $"{item.Name} - {string.Join(", ", recipe.Disciplines)} ({string.Join(", ", recipe.Ingredients.Select(i => cache.Lookup.ContainsKey(i.ItemId) ? cache.Lookup[i.ItemId].Name : "?"))})",
@@ -77,7 +77,7 @@ namespace GW2Tradz.Analyzers
                 float totalIncome = goodListings.Sum(l => l.Quantity * l.Price).AfterTP();
                 var minPrice = goodListings.Min(l => l.Price);
 
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"crafting_instant_{recipe.Id}_{item.Name}")
                 {
                     MaxAmount = dailyRecipes.Contains(recipe.Id) ? 1 : (int)(totalCount / recipe.OutputItemCount),
                     Description = $"InstaSell ({minPrice.GoldFormat()}) <- { item.Name } - { string.Join(", ", recipe.Disciplines) } ({ string.Join(", ", recipe.Ingredients.Select(i => cache.Lookup.ContainsKey(i.ItemId) ? cache.Lookup[i.ItemId].Name : "?")) })",

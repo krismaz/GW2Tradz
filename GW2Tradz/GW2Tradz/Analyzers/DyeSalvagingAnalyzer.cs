@@ -25,7 +25,7 @@ namespace GW2Tradz.Analyzers
                 var sale = (salvageRate * salvage.Select(i => i.SellPrice).Sum() / salvage.Count()).AfterTP();
                 var cost = dye.ItemData.FlipBuy + 3;
                 var inventory = (int)(salvage.Select(i => cache.CurrentSells[i.Id]).Average() / salvageRate);
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"dyes_{dye.ItemData.Id}_{dye.ItemData.Name}")
                 {
                     MaxAmount = (int)dye.ItemData.AdjustedBuyVelocity,
                     Description = "Buy and Salvage",
@@ -61,7 +61,7 @@ namespace GW2Tradz.Analyzers
                 var totalPrice = goodListings.Sum(l => l.Quantity * l.Price);
                 var maxPrice = goodListings.Max(l => l.Price);
 
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"dyes_instant_{dye.ItemData.Id}_{dye.ItemData.Name}")
                 {
                     MaxAmount = totalCount,
                     Description = $"InstaBuy and Salvage ({maxPrice.GoldFormat()})",

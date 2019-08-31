@@ -9,6 +9,14 @@ namespace GW2Tradz.Viewmodels
 {
     public class TradingAction
     {
+        public TradingAction(string identifier)
+        {
+            Identifier = identifier;
+        }
+
+
+        public string Identifier{get; private set;}
+
         public int Inventory { get; set; }
 
         public string Description { get; set; }

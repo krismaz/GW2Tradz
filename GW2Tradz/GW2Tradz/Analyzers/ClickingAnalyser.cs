@@ -26,7 +26,7 @@ namespace GW2Tradz.Analyzers
             {
                 var input = cache.Lookup[recipe.Ingredients[0].ItemId];
                 var output = cache.Lookup[recipe.OutputItemId];
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"clicking_{input.Id}_{input.Name}_{recipe.Id}")
                 {
                     MaxAmount = (int)Math.Min(input.AdjustedBuyVelocity, output.AdjustedSellVelocity / (int)recipe.OutputItemCount),
                     Description = $"{input.Name} -> {recipe.OutputItemCount} x {output.Name}",

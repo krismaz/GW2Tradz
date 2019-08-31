@@ -32,10 +32,13 @@ namespace GW2Tradz
             "\n" +
             "Filter/search bar in top\n" +
             "\n" +
-            "Columns can sort\n";
+            "Columns can sort\n" +
+            "\n" +
+            "Right click to hide for 1 day\n" +
+            "\n" +
+            "Shift + Right click to hide forever\n";
 
-
-
+        private BannedList Bans = new BannedList("bans.json");
 
         public string FilterString
         {
@@ -56,7 +59,7 @@ namespace GW2Tradz
 
         private void FilterCollection()
         {
-            foreach(var view in _collectionViews)
+            foreach (var view in _collectionViews)
             {
                 view.Refresh();
             }
@@ -70,6 +73,10 @@ namespace GW2Tradz
             var data = obj as TradingAction;
             if (data != null)
             {
+                if (Bans.Banned(data.Identifier))
+                {
+                    return false;
+                }
                 if (!string.IsNullOrEmpty(_filterString))
                 {
                     return data.Item.Name.IndexOf(_filterString, StringComparison.InvariantCultureIgnoreCase) >= 0 || data.Description.IndexOf(_filterString, StringComparison.InvariantCultureIgnoreCase) >= 0;
@@ -83,7 +90,7 @@ namespace GW2Tradz
         {
             InitializeComponent();
 
-            if(File.Exists("settings.json"))
+            if (File.Exists("settings.json"))
             {
                 JsonConvert.DeserializeObject<Settings>(File.ReadAllText("settings.json"));
             }
@@ -124,7 +131,7 @@ namespace GW2Tradz
 
         }
 
-        
+
         private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Clipboard.SetText(e.AddedItems.OfType<Item>().FirstOrDefault()?.Name ?? "");
@@ -135,11 +142,20 @@ namespace GW2Tradz
             Clipboard.SetText(e.AddedItems.OfType<TradingAction>().FirstOrDefault()?.Item?.Name ?? "");
         }
 
-        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (sender is DataGrid grid && grid.SelectedValue is TradingAction action)
+            if (sender is DataGridRow row && row.Item is TradingAction action)
             {
                 Process.Start("https://www.gw2bltc.com/en/item/" + action.Item.Id);
+            }
+        }
+
+        private void Row_RightClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is DataGridRow row && row.Item is TradingAction action)
+            {
+                Bans.Ban(action.Identifier, Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) ? DateTime.MaxValue : DateTime.Now + TimeSpan.FromDays(1));
+                FilterCollection();
             }
         }
 

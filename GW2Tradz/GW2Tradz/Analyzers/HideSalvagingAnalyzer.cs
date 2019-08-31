@@ -21,7 +21,7 @@ namespace GW2Tradz.Analyzers
             var t5 = cache.Lookup[19729];
             var t6 = cache.Lookup[19732];
 
-            result.Add(new TradingAction
+            result.Add(new TradingAction($"hidesalvage_copper")
             {
                 Description = "Salvage (copperfed)",
                 Item = hide,
@@ -33,7 +33,7 @@ namespace GW2Tradz.Analyzers
                 Inventory = 0
             });
 
-            result.Add(new TradingAction
+            result.Add(new TradingAction($"hidesalvag_silver")
             {
                 Description = "Salvage (Silverfed)",
                 Item = hide,

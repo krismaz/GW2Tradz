@@ -24,7 +24,7 @@ namespace GW2Tradz.Analyzers
                 var totalCost = 5 * ecto.FlipBuy + 75 * gemstone.FlipBuy;
                 var totalIncome = 11.5 * amal.FlipSell;
 
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"gemstone_{gemstone.Id}_{gemstone.Name}")
                 {
                     MaxAmount = (int)gemstone.AdjustedBuyVelocity,
                     Description = $"Mystic Forge {gemstone.Name}x75 + 5 Ecto",
@@ -43,7 +43,7 @@ namespace GW2Tradz.Analyzers
                 var totalCost = 5 * ecto.FlipBuy + 75 * recipe.Ingredients.Sum(i=>i.Count * cache.Lookup[i.ItemId].FlipBuy);
                 var totalIncome = 11.5 * amal.FlipSell;
 
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"gemstone_{crystal.Id}_{crystal.Name}")
                 {
                     MaxAmount = (int)crystal.AdjustedBuyVelocity,
                     Description = $"Transmogrify {crystal.Name} and mystic forge to Amalgamated Gemstone",

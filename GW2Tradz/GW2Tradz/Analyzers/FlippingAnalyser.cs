@@ -16,7 +16,7 @@ namespace GW2Tradz.Analyzers
             foreach (var item in cache.Items)
             {
                 var spike = item.SellPrice > item.YearSellAvg * 5;
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"flip_{item.Id}_{item.Name}")
                 {
                     Description = spike ? "(spike) Flip" : "Flip ",
                     Item = item,

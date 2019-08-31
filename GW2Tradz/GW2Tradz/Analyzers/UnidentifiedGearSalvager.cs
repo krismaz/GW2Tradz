@@ -40,7 +40,7 @@ namespace GW2Tradz.Analyzers
             var sellEctos = ectoCount * ectos.SellPrice.AfterTP() / count;
 
 
-            result.Add(new TradingAction
+            result.Add(new TradingAction($"unid_use_use")
             {
                 MaxAmount = (int)rareGear.AdjustedBuyVelocity,
                 Description = $"Rare gear, use mats, use ecto",
@@ -51,7 +51,7 @@ namespace GW2Tradz.Analyzers
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
-            result.Add(new TradingAction
+            result.Add(new TradingAction($"unid_sell_use")
             {
                 MaxAmount = (int)rareGear.AdjustedBuyVelocity,
                 Description = $"Rare gear, sell mats, use ecto",
@@ -62,7 +62,7 @@ namespace GW2Tradz.Analyzers
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
-            result.Add(new TradingAction
+            result.Add(new TradingAction($"unid_use_sell")
             {
                 MaxAmount = (int)rareGear.AdjustedBuyVelocity,
                 Description = $"Rare gear, use mats, sell ecto",
@@ -73,7 +73,7 @@ namespace GW2Tradz.Analyzers
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
-            result.Add(new TradingAction
+            result.Add(new TradingAction($"unid_sell_sell")
             {
                 MaxAmount = (int)rareGear.AdjustedBuyVelocity,
                 Description = $"Rare gear, sell mats, sell ecto",

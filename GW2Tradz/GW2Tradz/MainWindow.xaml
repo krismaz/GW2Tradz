@@ -10,7 +10,7 @@
         Topmost="True">
     <Window.Resources>
         <local:CoinConverter x:Key="coinConverter"/>
-        <DataGrid x:Shared="false" IsReadOnly="True"  x:Key="Analyzergrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged" MouseDoubleClick="DataGrid_MouseDoubleClick" ItemsSource="{Binding}" Loaded="DataGrid_Loaded">
+        <DataGrid x:Shared="false" IsReadOnly="True"  x:Key="Analyzergrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False"  ItemsSource="{Binding}" Loaded="DataGrid_Loaded">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" IsReadOnly="True"/>
@@ -18,6 +18,12 @@
                 <DataGridTextColumn Header="Margin" Binding="{Binding ProfitPercentage, StringFormat=p0}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Daily Profit" Binding="{Binding Profit, Converter={StaticResource coinConverter}}" IsReadOnly="True"/>
             </DataGrid.Columns>
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                    <EventSetter Event="MouseRightButtonUp" Handler="Row_RightClick"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
         </DataGrid>
     </Window.Resources>
     <Grid>

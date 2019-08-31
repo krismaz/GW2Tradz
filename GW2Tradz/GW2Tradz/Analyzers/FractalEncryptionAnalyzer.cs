@@ -33,7 +33,7 @@ namespace GW2Tradz.Analyzers
 
             var result = new List<TradingAction> { };
 
-            result.Add(new TradingAction
+            result.Add(new TradingAction($"fractal_use")
             {
                 MaxAmount = (int)(Math.Max(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
                 Description = $"Fractal encryption and use",
@@ -44,7 +44,7 @@ namespace GW2Tradz.Analyzers
                 SafeProfitPercentage = 10
             });
 
-            result.Add(new TradingAction
+            result.Add(new TradingAction($"fractal_sell")
             {
                 MaxAmount = (int)(Math.Max(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
                 Description = $"Fractal encryption and sell",
@@ -55,7 +55,7 @@ namespace GW2Tradz.Analyzers
                 SafeProfitPercentage = 10
             });
 
-            result.Add(new TradingAction
+            result.Add(new TradingAction($"fractal_median")
             {
                 MaxAmount = (int)(Math.Max(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
                 Description = $"Fractal encryption and sell @median\n" + string.Join("\n", t5s.Select(i=>$"{i.Name} - {i.MedianFlipSellMax.GoldFormat()}")),

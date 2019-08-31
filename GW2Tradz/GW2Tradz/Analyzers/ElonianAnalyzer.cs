@@ -18,7 +18,7 @@ namespace GW2Tradz.Analyzers
             
             foreach (var item in weapons)
             {
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"elonian_{item.Id}_{item.Name}")
                 {
                     Description = $"Sell @ {item.MedianFlipSellMax.GoldFormat()}",
                     Item = item,

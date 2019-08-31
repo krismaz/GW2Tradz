@@ -21,9 +21,9 @@ namespace GW2Tradz.Analyzers
             List<TradingAction> result = new List<TradingAction> { };
             foreach (var item in cache.Items.Where(i => i.Rarity == "Rare" && (i.Type == "Weapon" || i.Type == "Armor" || i.Type == "Trinket") && i.Level >= 68))
             {
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"gearsalvage_{item.Id}_{item.Name}")
                 {
-                    Description = "Salvage",
+                    Description = "Salvage (Silverfed)",
                     Item = item,
                     MaxAmount = (int)(item.AdjustedBuyVelocity),
                     BaseCost = Settings.MediumTaskCost,
@@ -57,7 +57,7 @@ namespace GW2Tradz.Analyzers
 
 
 
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"gearsalvage_{item.Id}_{item.Name}")
                 {
                     Description = "Salvage (Silverfed)",
                     Item = item,

@@ -39,7 +39,7 @@ namespace GW2Tradz.Analyzers
 
             void HandleItem(Item item, int cost, int amount)
             {
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"ecto_{item.Id}_{item.Name}")
                 {
                     MaxAmount = (int)item.AdjustedSellVelocity / amount,
                     Description = $"Ecto Salvage and Sell",
@@ -62,7 +62,7 @@ namespace GW2Tradz.Analyzers
                 var totalIncome = goodListings.Sum(l => l.Quantity * l.Price).AfterTP();
                 var minPrice = goodListings.Min(l => l.Price);
 
-                result.Add(new TradingAction
+                result.Add(new TradingAction($"ecto_instant_{item.Id}_{item.Name}")
                 {
                     MaxAmount = totalCount / amount,
                     Description = $"Ecto Salvage and InstaSell ({minPrice.GoldFormat()})",
