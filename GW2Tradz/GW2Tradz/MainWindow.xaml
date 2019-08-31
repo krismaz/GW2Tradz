@@ -10,7 +10,7 @@
         Topmost="True">
     <Window.Resources>
         <local:CoinConverter x:Key="coinConverter"/>
-        <DataGrid x:Shared="false" IsReadOnly="True"  x:Key="Analyzergrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False"  ItemsSource="{Binding}" Loaded="DataGrid_Loaded">
+        <DataGrid x:Shared="false" IsReadOnly="True"  x:Key="Analyzergrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionChanged="FlippingGrid_SelectionChanged" ItemsSource="{Binding}" Loaded="DataGrid_Loaded">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" IsReadOnly="True"/>

@@ -132,11 +132,6 @@ namespace GW2Tradz
         }
 
 
-        private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Clipboard.SetText(e.AddedItems.OfType<Item>().FirstOrDefault()?.Name ?? "");
-        }
-
         private void FlippingGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Clipboard.SetText(e.AddedItems.OfType<TradingAction>().FirstOrDefault()?.Item?.Name ?? "");
