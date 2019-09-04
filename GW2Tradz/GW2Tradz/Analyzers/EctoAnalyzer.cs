@@ -23,6 +23,8 @@ namespace GW2Tradz.Analyzers
             var potent = cache.Lookup[43449];
             var masterOil = cache.Lookup[9461];
             var potentOil = cache.Lookup[43450];
+            var stone = cache.Lookup[9443];
+            var potentStone = cache.Lookup[43451];
             var enhancedLucentOil = cache.Lookup[89157];
             var potentLucentOil = cache.Lookup[89203];
 
@@ -30,12 +32,13 @@ namespace GW2Tradz.Analyzers
             var toxicCrystal = cache.Lookup[48917];
             var toxicOil = cache.Lookup[48916];
             var toxicSample = cache.Lookup[48884];
+            var orichalcum = cache.Lookup[19685];
 
 
             var dustcost = (ecto.FlipBuy + 60) / 1.85;
             var waterCost = 8;
             var result = new List<TradingAction> { };
-            cache.LoadListings(new int[] { 24277, 9476, 43449, 9461, 43450, 89157, 89203, 48915, 48916, 48917 });
+            cache.LoadListings(new int[] { 24277, 9476, 43449, 9461, 43450, 89157, 89203, 48915, 48916, 48917, 9443, 43451 });
 
             void HandleItem(Item item, int cost, int amount)
             {
@@ -81,6 +84,10 @@ namespace GW2Tradz.Analyzers
             HandleItem(potentLucentOil, (int)((dustcost * 3 + lucent.FlipBuy * 5 + waterCost * 20 + potence.FlipBuy)), 5);
             HandleItem(masterOil, (int)((dustcost * 3 + waterCost * 20)), 5);
             HandleItem(potentOil, (int)(((dustcost * 3 + waterCost * 20) / 5 + dustcost * 3 + waterCost * 20)), 5);
+            HandleItem(stone, (int)((dustcost * 3 + orichalcum.FlipBuy)), 5);
+            HandleItem(potentStone, (int)(((dustcost * 3 + orichalcum.FlipBuy) / 5 + dustcost * 3 + orichalcum.FlipBuy)), 5);
+
+
 
             HandleItem(toxicCrystal, (int)((dustcost * 3 + toxicSample.FlipBuy * 5)), 5);
             HandleItem(toxicOil, (int)((dustcost * 3 + toxicSample.FlipBuy * 5)), 5);
