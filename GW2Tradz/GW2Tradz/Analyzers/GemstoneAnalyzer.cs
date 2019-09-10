@@ -33,7 +33,7 @@ namespace GW2Tradz.Analyzers
                     IncomePer = (int)(totalIncome / 75).AfterTP(),
                     BaseCost = Settings.EasyTaskCost,
                     SafeProfitPercentage = Settings.SafeMinimumMargin,
-                    Inventory = cache.CurrentSells[amal.Id]
+                    Inventory = (int)(cache.CurrentSells[amal.Id] * 75 / 11.5)
                 });
             }
             var gemstoneIds = gemstones.Select(i => i.Id).ToList();
@@ -45,17 +45,21 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction($"gemstone_{crystal.Id}_{crystal.Name}")
                 {
-                    MaxAmount = (int)crystal.AdjustedBuyVelocity,
+                    MaxAmount = (int)crystal.AdjustedBuyVelocity/2,
                     Description = $"Transmogrify {crystal.Name} and mystic forge to Amalgamated Gemstone",
                     Item = crystal,
                     CostPer = totalCost / 75,
                     IncomePer = (int)(totalIncome / 75).AfterTP(),
                     BaseCost = Settings.HardTaskCost,
                     SafeProfitPercentage = Settings.SafeMinimumMargin,
-                    Inventory = cache.CurrentSells[amal.Id]
+                    Inventory = (int)(cache.CurrentSells[amal.Id]*75/11.5)
                 });
             }
 
+            foreach(var trad in result)
+            {
+                var jj = trad.Amount;
+            }
             return result;
         }
     }

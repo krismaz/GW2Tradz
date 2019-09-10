@@ -58,6 +58,10 @@ namespace GW2Tradz.Networking
                     var content = result.Content.ReadAsStringAsync().Result;
                     buffer.AddRange(JsonConvert.DeserializeObject<List<History>>(content, jsonSettings).ToList());
                 }
+                if(!buffer.Any())
+                {
+                    MessageBox.Show("Warning: Empty history from Silver, stuff might be wonky");
+                }
                 return buffer;
             }
             catch
