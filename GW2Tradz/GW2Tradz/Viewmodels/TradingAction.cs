@@ -29,7 +29,7 @@ namespace GW2Tradz.Viewmodels
         public double SafeProfitPercentage { get; set; }
 
 
-        public int Amount => Math.Max(0, Math.Min(MaxAmount, (Settings.TotalCoins / Settings.Spread) / Math.Min(CostPer, 1) - Inventory));
+        public int Amount => Math.Max(0, Math.Min(MaxAmount, (Settings.TotalCoins / Settings.Spread) / Math.Max(CostPer, 1) - Inventory));
         public int TotalIncome => Amount * IncomePer;
         public int TotalCost => Amount * CostPer + BaseCost;
         public int Profit => TotalIncome - TotalCost;
