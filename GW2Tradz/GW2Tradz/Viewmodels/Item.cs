@@ -38,7 +38,12 @@ namespace GW2Tradz.Viewmodels
             SellPrice = other.SellPrice;
             Name = other.Name ?? Name;
             Rarity = other.Rarity ?? Rarity;
-            VendorValue = other.VendorValue;
+            VendorValue = Math.Max(other.VendorValue, VendorValue);
+            StatName = other.StatName ?? StatName;
+            YearSellAvg = other.YearSellAvg ?? YearSellAvg;
+            MonthSellAvg = other.MonthSellAvg ?? MonthSellAvg;
+            WeekSellVelocity = other.WeekSellVelocity ?? WeekSellVelocity;
+            WeekBuyVelocity = other.WeekBuyVelocity ?? WeekBuyVelocity;
         }
 
         public int FlipBuy => (BuyPrice != 0 ? BuyPrice : VendorValue * 6 / 5) + 1;
