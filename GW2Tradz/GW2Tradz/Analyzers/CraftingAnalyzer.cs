@@ -20,13 +20,18 @@ namespace GW2Tradz.Analyzers
             var sources = cache.Lookup.ToDictionary(kv => kv.Key, kv => Math.Max(kv.Value.SellPrice, kv.Value.BuyPrice));
             sources[-1] = 1;
 
+            foreach (var recipe in cache.Recipes.Where(r => r.Id < 0 && r.Disciplines[0] == "Merchant" && r.Ingredients.Count == 1 && r.Ingredients[0].ItemId == -1))
+            {
+                sources[recipe.OutputItemId] = recipe.Ingredients[0].Count / (int)recipe.OutputItemCount;
+            }
+
             //Gobbler shit
             //sources[46731] = 0;
             //sources[46733] = 0;
             //sources[46735] = 0;
 
             var validRecipes = cache.Recipes
-                    .Where(r => r.Type != "Bulk" && r.Type != "Feast" && r.Ingredients.All(i => sources.ContainsKey(i.ItemId) && cache.Lookup.ContainsKey(r.OutputItemId)) && r.Id > 0 &&  r.Id != 10456);
+                    .Where(r => r.Type != "Bulk" && r.Type != "Feast" && r.Ingredients.All(i => sources.ContainsKey(i.ItemId) && cache.Lookup.ContainsKey(r.OutputItemId)) && r.Id > 0 && r.Id != 10456);
 
             var result = new List<TradingAction> { };
 
@@ -52,11 +57,11 @@ namespace GW2Tradz.Analyzers
                     Inventory = cache.CurrentSells[recipe.OutputItemId] / (int)recipe.OutputItemCount
                 });
 
-                if(cost < item.BuyPrice.AfterTP() * recipe.OutputItemCount)
+                if (cost < item.BuyPrice.AfterTP() * recipe.OutputItemCount)
                 {
                     InstantRecipes.Add(recipe);
                 }
-                
+
             }
 
             cache.LoadListings(InstantRecipes.Select(r => r.OutputItemId).Distinct());
@@ -88,7 +93,7 @@ namespace GW2Tradz.Analyzers
                     SafeProfitPercentage = Settings.SafeMinimumMargin
                 });
             }
-                return result;
+            return result;
         }
 
     }
