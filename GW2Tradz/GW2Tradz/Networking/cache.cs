@@ -81,7 +81,7 @@ namespace GW2Tradz.Networking
             WalletGold = _gw2.WalletGold();
             DeliveryBox = _gw2.FetchDeliveryBox();
             Materials = _gw2.FetchMaterials().SelectMany(c => c.Items.Where(i => Lookup.ContainsKey(i)).Select(i => Lookup[i])).ToList();
-            LoadHistory(new int[19721]);
+            LoadHistory(new List<int> { 19721 });
         }
 
         public void LoadListings(IEnumerable<int> ids)
