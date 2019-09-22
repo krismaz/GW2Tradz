@@ -81,7 +81,14 @@ namespace GW2Tradz.Networking
             WalletGold = _gw2.WalletGold();
             DeliveryBox = _gw2.FetchDeliveryBox();
             Materials = _gw2.FetchMaterials().SelectMany(c => c.Items.Where(i => Lookup.ContainsKey(i)).Select(i => Lookup[i])).ToList();
-            LoadHistory(new List<int> { 19721 });
+            ;
+
+            if (_silver.FetchHistory(new List<int> { 19721 }).Count()<6)
+            {
+                MessageBox.Show("Silver's data is broken!\n" +
+                    "Scraping gw2bltc, this might be slow");
+                ScrapeGW2BLTC();
+            }
         }
 
         public void LoadListings(IEnumerable<int> ids)
@@ -98,13 +105,7 @@ namespace GW2Tradz.Networking
         public void LoadHistory(IEnumerable<int> ids)
         {
             var histories = _silver.FetchHistory(ids);
-            if(!_silverIsBroken && !histories.Any())
-            {
-                _silverIsBroken = true;
-                MessageBox.Show("Silver's data is broken!\n" +
-                    "Scraping gw2bltc, this might be slow");
-                ScrapeGW2BLTC();
-            }
+            
             UpdateHistory(histories);
         }
 

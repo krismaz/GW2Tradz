@@ -74,8 +74,8 @@
             <TabItem Header="GearSalvaging">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="GearSalvagingGrid"/>
             </TabItem>
-            <TabItem Header="HideSalvaging">
-                <ContentControl Content="{StaticResource Analyzergrid}" Name="HideSalvagingGrid"/>
+            <TabItem Header="MaterialSalvaging">
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="MaterialSalvagingGrid"/>
             </TabItem>
         </TabControl>
     </Grid>
