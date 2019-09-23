@@ -81,8 +81,8 @@ namespace GW2Tradz.Analyzers
             //Valuable metal scrap
             salvage(new Dictionary<int, double>
             {
-                [19700] = 1.175,
-                [19701] = 0.217
+                [19700] = 1.20,
+                [19701] = 0.21
             }, 3, 21683);
 
             return result;
