@@ -22,8 +22,6 @@ namespace GW2Tradz.Networking
         public int WalletGold { get; private set; }
         public DeliveryBox DeliveryBox { get; private set; }
 
-        private bool _silverIsBroken = false;
-
         public void Update(List<Item> items)
         {
             foreach (var item in items)
