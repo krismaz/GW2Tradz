@@ -70,8 +70,7 @@ namespace GW2Tradz
 
         public bool Filter(object obj)
         {
-            var data = obj as TradingAction;
-            if (data != null)
+            if (obj is TradingAction data)
             {
                 if (Bans.Banned(data.Identifier))
                 {
