@@ -43,7 +43,7 @@ namespace GW2Tradz.Analyzers
                     Inventory = 0
                 });
 
-                result.Add(new TradingAction($"salvage_{salvageCost}_{itemId}_{item.Name}_sell")
+                result.Add(new TradingAction($"salvage_{salvageCost}_{itemId}_{item.Name}_use")
                 {
                     Description = $"Salvage ({salvager}) and Use",
                     Item = item,
@@ -51,7 +51,7 @@ namespace GW2Tradz.Analyzers
                     BaseCost = Settings.MediumTaskCost,
                     CostPer = item.FlipBuy + salvageCost,
                     IncomePer = (int)salvageUse,
-                    SafeProfitPercentage = Settings.SafeMinimumMargin,
+                    SafeProfitPercentage = double.PositiveInfinity,
                     Inventory = 0
                 });
             }
@@ -84,6 +84,27 @@ namespace GW2Tradz.Analyzers
                 [19700] = 1.20,
                 [19701] = 0.21
             }, 3, 21683);
+
+            //Salvageable Intact Forged Scrap
+            salvage(new Dictionary<int, double>
+            {
+                [19700] = 4.22,
+                [19701] = 0.3,
+                [82582] = 0.26
+            }, 3, 82488);
+
+            //Lump of Raw Ambrite
+            salvage(new Dictionary<int, double>
+            {
+                [66637] = 1.99
+            }, 3, 66670);
+
+            //Discarded Garment
+            salvage(new Dictionary<int, double>
+            {
+                [19748] = 1.6,
+                [19745] = 0.09
+            }, 3, 21675);
 
             return result;
         }

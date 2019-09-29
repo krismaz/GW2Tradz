@@ -81,7 +81,7 @@ namespace GW2Tradz.Networking
             Materials = _gw2.FetchMaterials().SelectMany(c => c.Items.Where(i => Lookup.ContainsKey(i)).Select(i => Lookup[i])).ToList();
             ;
 
-            if (true || _silver.FetchHistory(new List<int> { 19721 }).Count()<6)
+            if ( _silver.FetchHistory(new List<int> { 19721 }).Count()<6)
             {
                 MessageBox.Show("Silver's data is broken!\n" +
                     "Scraping gw2bltc, this might be slow");
