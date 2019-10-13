@@ -106,6 +106,22 @@ namespace GW2Tradz.Analyzers
                 [19745] = 0.09
             }, 3, 21675);
 
+            //Unstable Metal Chunk
+            salvage(new Dictionary<int, double>
+            {
+                [19697] = 0.16,
+                [19699] = 0.95,
+                [19702] = 0.47,
+                [19700] = 0.15,
+                [19701] = 0.32
+            }, 3, 79079);
+
+            //Hard Leather Strap
+            salvage(new Dictionary<int, double>
+            {
+                [19729] = 1.26,
+                [19732] = 0.096,
+            }, 60, 21689);
             return result;
         }
     }
