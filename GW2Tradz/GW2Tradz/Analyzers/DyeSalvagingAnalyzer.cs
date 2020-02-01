@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,11 @@ namespace GW2Tradz.Analyzers
 
             foreach (var dye in cache.Dyes.Where(d => d.ItemData != null))
             {
+                if(!Dye.Salvages.ContainsKey(dye.Hue) || !Dye.SalvageRates.ContainsKey(dye.ItemData.Rarity))
+                {
+                    continue;
+                }
+
                 var salvage = Dye.Salvages[dye.Hue].Select(i => cache.Lookup[i]);
                 var salvageRate = Dye.SalvageRates[dye.ItemData.Rarity];
                 var sale = (salvageRate * salvage.Select(i => i.SellPrice).Sum() / salvage.Count()).AfterTP();
@@ -43,6 +49,10 @@ namespace GW2Tradz.Analyzers
             }
             foreach (var dye in instantDyes)
             {
+                if (!Dye.Salvages.ContainsKey(dye.Hue) || !Dye.SalvageRates.ContainsKey(dye.ItemData.Rarity))
+                {
+                    continue;
+                }
                 var salvage = Dye.Salvages[dye.Hue].Select(i => cache.Lookup[i]);
                 var salvageRate = Dye.SalvageRates[dye.ItemData.Rarity];
                 var sale = (salvageRate * salvage.Select(i => i.SellPrice).Sum() / salvage.Count()).AfterTP();
