@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Analyzers\BagAnalyzer.cs" />
     <Compile Include="Analyzers\CachedAnalyzer.cs" />
     <Compile Include="Analyzers\ClickingAnalyser.cs" />
     <Compile Include="Analyzers\CombiningAnalyzer.cs" />
@@ -137,9 +138,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="2500HeavyLootBags.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="GW2Tradz.ruleset" />
     <None Include="RareUnids.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

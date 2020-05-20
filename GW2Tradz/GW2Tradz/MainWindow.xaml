@@ -77,6 +77,9 @@
             <TabItem Header="MaterialSalvaging">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="MaterialSalvagingGrid"/>
             </TabItem>
+            <TabItem Header="BagOpening">
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="BagOpeningGrid"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
