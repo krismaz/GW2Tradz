@@ -31,7 +31,7 @@ namespace GW2Tradz.Analyzers
                 Description = $"Open bag, use mats",
                 Item = bag,
                 CostPer = bag.FlipBuy,
-                IncomePer = (int)(useMats),
+                IncomePer = (int)(useMats) + 3, // 3-5 copper content
                 BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = float.PositiveInfinity
             });
@@ -42,7 +42,7 @@ namespace GW2Tradz.Analyzers
                 Description = $"Open bag, use mats",
                 Item = bag,
                 CostPer = bag.FlipBuy,
-                IncomePer = (int)(sellMats),
+                IncomePer = (int)(sellMats) + 3, // 3-5 copper content
                 BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = float.PositiveInfinity
             });
