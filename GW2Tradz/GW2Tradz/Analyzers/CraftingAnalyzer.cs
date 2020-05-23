@@ -18,6 +18,12 @@ namespace GW2Tradz.Analyzers
 
 
             var sources = cache.Lookup.ToDictionary(kv => kv.Key, kv => Math.Max(kv.Value.SellPrice, kv.Value.BuyPrice));
+
+            foreach( var item in cache.Materials)
+            {
+                sources[item.Id] = item.FlipBuy;
+            }
+
             sources[-1] = 1;
 
             foreach (var recipe in cache.Recipes.Where(r => r.Id < 0 && r.Disciplines[0] == "Merchant" && r.Ingredients.Count == 1 && r.Ingredients[0].ItemId == -1))

@@ -39,7 +39,7 @@ namespace GW2Tradz.Analyzers
             result.Add(new TradingAction($"open_sell_8920")
             {
                 MaxAmount = (int)bag.AdjustedBuyVelocity,
-                Description = $"Open bag, use mats",
+                Description = $"Open bag, sell mats",
                 Item = bag,
                 CostPer = bag.FlipBuy,
                 IncomePer = (int)(sellMats) + 3, // 3-5 copper content
