@@ -21,14 +21,16 @@ namespace GW2Tradz.Analyzers
             List<TradingAction> result = new List<TradingAction> { };
             foreach (var item in cache.Items.Where(i => i.Rarity == "Rare" && (i.Type == "Weapon" || i.Type == "Armor" || i.Type == "Trinket") && i.Level >= 68))
             {
+                var upgrade = cache.Lookup.ContainsKey(item.Upgrade1) ? cache.Lookup[item.Upgrade1].FlipSell : 0;
+
                 result.Add(new TradingAction($"gearsalvage_{item.Id}_{item.Name}")
                 {
-                    Description = "Salvage (Silverfed)",
+                    Description = "Extract + Salvage (Silverfed)",
                     Item = item,
                     MaxAmount = (int)(item.AdjustedBuyVelocity),
                     BaseCost = Settings.MediumTaskCost,
                     CostPer = item.FlipBuy + 60,
-                    IncomePer = (int)(ecto.FlipSell.AfterTP() * 0.875),
+                    IncomePer = (int)(ecto.FlipSell * 0.875 + upgrade).AfterTP(),
                     SafeProfitPercentage = Settings.SafeMinimumMargin,
                     Inventory = cache.CurrentSells[ecto.Id]
                 });
@@ -47,24 +49,27 @@ namespace GW2Tradz.Analyzers
                 {
                     if (item.Type == "Weapon" && !ChampItems.Contains(item.Id))
                     {
-                        inscriptionProfit = (int)(0.40 * inscriptions.First(i => i.Name.StartsWith(item.StatName)).FlipSell.AfterTP());
+                        inscriptionProfit = (int)(0.40 * inscriptions.First(i => i.Name.StartsWith(item.StatName)).FlipSell);
                     }
                     else if (item.Type == "Armor")
                     {
-                        inscriptionProfit = (int)(0.40 * insignias.First(i => i.Name.StartsWith(item.StatName)).FlipSell.AfterTP());
+                        inscriptionProfit = (int)(0.40 * insignias.First(i => i.Name.StartsWith(item.StatName)).FlipSell);
                     }
                 }
+
+                var upgrade = cache.Lookup.ContainsKey(item.Upgrade1) ? cache.Lookup[item.Upgrade1].FlipSell : 0;
+
 
 
 
                 result.Add(new TradingAction($"gearsalvage_{item.Id}_{item.Name}")
                 {
-                    Description = "Salvage (Silverfed)",
+                    Description = "Extract + Salvage (Silverfed)",
                     Item = item,
                     MaxAmount = (int)(item.AdjustedBuyVelocity),
                     BaseCost = Settings.MediumTaskCost,
                     CostPer = item.FlipBuy + 60,
-                    IncomePer = (int)(ecto.FlipSell.AfterTP() * 1.2) + inscriptionProfit,
+                    IncomePer = (int)(ecto.FlipSell * 1.2 + inscriptionProfit + upgrade).AfterTP(),
                     SafeProfitPercentage = Settings.SafeMinimumMargin,
                     Inventory = cache.CurrentSells[ecto.Id]
                 });
