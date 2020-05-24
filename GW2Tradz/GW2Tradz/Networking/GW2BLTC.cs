@@ -49,10 +49,10 @@ namespace GW2Tradz.Networking
                         result.Add(new Item
                         {
                             Id = id,
-                            WeekBuyVelocity = bought,
-                            WeekSellVelocity = sold,
+                            WeekBuyVelocity = bought * 7,
+                            WeekSellVelocity = sold * 7,
                             BuyPrice = buy,
-                            SellPrice = sell
+                            SellPrice = sell 
 
                         }
                             );
