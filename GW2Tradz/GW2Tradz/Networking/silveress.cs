@@ -48,8 +48,6 @@ namespace GW2Tradz.Networking
 
         public List<History> FetchHistory(IEnumerable<int> ids)
         {
-            //MessageBox.Show("Silveress history is broken RN");
-            return new List<History> { };
             try
             {
                 var OneWeek = (DateTime.Now - TimeSpan.FromDays(7)).ToString("yyyy-MM-dd");

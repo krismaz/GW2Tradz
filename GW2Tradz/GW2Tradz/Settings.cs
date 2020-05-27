@@ -35,7 +35,7 @@ namespace GW2Tradz
         public static int VelocityUncertainty = 0; // Amount subtracted from daily velocities, can be used to hide slow items
 
         [JsonProperty]
-        public static float VelocityFactor = 7.5f; // Assume we can move 1/Factor - Uncertainty of the daily velocity
+        public static float VelocityFactor = 4f; // Assume we can move 1/Factor - Uncertainty of the daily velocity
 
         [JsonProperty]
         public static string ApiKey = "1070D853-612C-6042-AB29-69C9E2D06ACE7FE1C8F2-7AEE-4C3C-9646-F65BEC5E1F13"; // This is my API key, get your own
