@@ -10,7 +10,7 @@ headers = {'user-agent': 'GW2Tradz LPSolver Testing (Krismaz.1250)'}
 def tp_items():
     headers = {'user-agent': 'GW2Tradz LPSolver Testing (Krismaz.1250)'}
     r = requests.get(
-        f'https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,{options.days_tag}_sell_sold,{options.days_tag}_buy_sold', headers=headers)
+        f'https://api.silveress.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,{options.days_tag}_sell_sold,{options.days_tag}_buy_sold,vendor_value', headers=headers)
     items = r.json()
 
     for item in items:
@@ -19,6 +19,10 @@ def tp_items():
         item['daily_sell_sold'] = item.get(
             f'{options.days_tag}_sell_sold', 0)/options.days
 
+        # -.-'
+        if item['id'] in [93371, 93516, 93619, 93522, 93499]:
+            item['vendor_value'] = 5*utils.silver
+    
     return items
 
 

@@ -3,6 +3,7 @@ import operations
 import solver
 import options
 from datetime import datetime
+import json
 
 timestamp = datetime.now().isoformat().replace(':', '_').replace('.', '_')
 
@@ -24,7 +25,7 @@ print("Generating Operations...")
 
 names = {item['id']: item['name'] for item in items}
 
-operations = operations.FlipBuy(tp_items) + operations.EctoSalvage() + operations.Gemstones(names) + operations.SpecialCrafting(special_recipes, names) + operations.Crafting(recipes, names, account_recipes) + operations.FlipSell(tp_items) 
+operations = operations.FlipBuy(tp_items) + operations.EctoSalvage() + operations.Gemstones(names) + operations.Data() + operations.SpecialCrafting(special_recipes, names) + operations.Crafting(recipes, names, account_recipes) + operations.FlipSell(tp_items) 
 
 print("Preparing Solver...")
 
@@ -36,5 +37,15 @@ with open(f'results/{timestamp}.txt', 'w+') as resultfile:
         if operation.value:
             print(f'{operation.value} x {operation.description}')
             print(f'{operation.value} x {operation.description}', file=resultfile)
+
+with open(f'operations.json', 'w+') as resultdatafile:
+    json.dump([
+        {
+            "ID": op.output_hint,
+            "Name": names.get(op.output_hint, "???"),
+            "Description": op.description,
+            "Quantity": int(op.value)
+        }
+    for op in operations if op.value], resultdatafile)
 
 

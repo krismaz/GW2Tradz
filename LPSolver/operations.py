@@ -1,9 +1,12 @@
 import options
 import utils
+import json
+from collections import defaultdict
+import glob
 
 
 class Operation:
-    def __init__(self, cost, profit, inputs, outputs, limit, description, limiter=False, chunk_size=options.sanity):
+    def __init__(self, cost, profit, inputs, outputs, limit, description, limiter, chunk_size, output_hint):
         self.cost = cost
         self.profit = profit
         self.inputs = inputs
@@ -12,6 +15,7 @@ class Operation:
         self.description = description
         self.limiter = limiter
         self.chunk_size = chunk_size
+        self.output_hint = output_hint
 
         self.lpvariable = None
         self.value = None
@@ -24,12 +28,13 @@ def FlipBuy(items):
 
     for item in items:
         # Sanity
-        if 'buy_price' not in item or item['buy_price'] == 0:
+        if 'buy_price' not in item or item['buy_price'] == 0 or ('vendor_value' in item and item['buy_price'] < item['vendor_value']):
             continue
 
         # Reduce variance a bit
         if item['adjusted_buy'] < options.min_velocity:
             continue
+
 
         results.append(Operation(
             (item['buy_price'] + 1),
@@ -39,7 +44,8 @@ def FlipBuy(items):
             min(options.sanity, item['adjusted_buy']),
             f'Buy {item["name"]} ({item["id"]}) @ {utils.coins(item["buy_price"] + 1)}',
             True,
-            chunk_size=250 * options.click_weight
+            250 * options.click_weight,
+            item['id']
         ))
 
     return results
@@ -68,7 +74,8 @@ def FlipSell(items):
             min(options.sanity, item['adjusted_sell']),
             f'Sell {item["name"]} ({item["id"]}) @ {utils.coins(item["sell_price"] - 1)}',
             False,
-            chunk_size=250 * options.click_weight
+            250 * options.click_weight,
+            item['id']
         ))
 
     return results
@@ -89,14 +96,15 @@ def SpecialCrafting(recipes, names):
             1 if recipe['id'] in daily else options.sanity,
             f'Craft {recipe["name"]} from {", ".join(names.get(i["item_id"], "???") for i in recipe["ingredients"])} ({recipe["id"]})',
             False,
-            chunk_size=1000 * options.click_weight
+            1000 * options.click_weight,
+            recipe['output_item_id']
         )
         # Gold is handled as id -1
         if -1 in op.inputs:
             op.cost = op.inputs[-1]
             op.description = f'Buy {recipe["name"]} from vendor ({recipe["id"]})'
             op.chunk_size = options.sanity
-            op.limiter = True
+            op.limiter = False
             del op.inputs[-1]
         results.append(op)
     return results
@@ -125,7 +133,8 @@ def Crafting(recipes, names, account_recipes):
             1 if recipe['output_item_id'] in daily else options.sanity,
             f'Craft {names.get(recipe["output_item_id"], "???")} from {", ".join(names.get(i["item_id"], "???") for i in recipe["ingredients"])} ({recipe["id"]})',
             recipe['type'] != 'Refinement',
-            chunk_size=1000 * options.click_weight
+            1000 * options.click_weight,
+            recipe['output_item_id']
         ))
     return results
 
@@ -137,7 +146,9 @@ def EctoSalvage():
             {24277:1.85},
             options.sanity,
             f'Salvage Ecto',
-            False
+            False,
+            options.sanity,
+            19721
         )]
 
 def Gemstones(names):
@@ -150,5 +161,29 @@ def Gemstones(names):
             options.sanity,
             f'Make gemstones from ecto and {names[stone]}',
             True,
-            250*options.click_weight
+            250*options.click_weight,
+            stone
         ) for stone in stones]
+
+def Data():
+    files =  glob.glob("Data/*.json")
+    results = []
+    for datafile in files:
+        with open(datafile, 'r') as jsonfile:
+            data = json.load(jsonfile)
+            divisor = data['Input']['Quantity']
+            outputs = defaultdict(int)
+            for o in data['Outputs']:
+                outputs[o['ID']] += o['Quantity']
+            results.append(Operation(
+                data['Cost'],
+                data['Profit'],
+                {data['Input']['ID']:1},
+                {k:v/divisor for k,v in outputs.items()},
+                options.sanity,
+                f'{data["Verb"]} {data["Input"]["Name"]}',
+                False,
+                options.sanity,
+                data['Input']['ID']
+            ))
+    return results

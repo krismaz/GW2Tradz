@@ -14,11 +14,14 @@ def solve(operations, budget, simplicity):
     operations = [op for op in operations if op.limit > 0]
     
     outputs = set()
+    inputs = set()
     for operation in operations:
         outputs = outputs.union(operation.outputs.keys())
+        inputs = inputs.union(operation.inputs.keys())
         
 
     operations = [op for op in operations if not set(op.inputs.keys()).difference(outputs)]
+    operations = [op for op in operations if op.profit > 0 or set(op.outputs.keys()).intersection(inputs)]
     
     print(len(operations), 'Operations after filtering')
 
