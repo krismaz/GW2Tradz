@@ -6,18 +6,33 @@
     {
       "ID": 21689,
       "Name": "Hard Leather Strap",
-      "Quantity": 1256
+      "Quantity": 1936
     },
   "Outputs": [
     {
-      "ID": 19730,
+      "ID": 19729,
       "Name": "Thick Leather Section",
       "Quantity": 1683
     },
     {
+      "ID": 19729,
+      "Name": "Thick Leather Section",
+      "Quantity": 411
+    },
+    {
       "ID": 19732,
       "Name": "Hardened Leather Section",
-      "Quantity": 105
-    }    
+      "Quantity": 129
+    },
+    {
+      "ID": 19729,
+      "Name": "Thick Leather Section",
+      "Quantity": 464
+    },
+    {
+      "ID": 19732,
+      "Name": "Hardened Leather Section",
+      "Quantity": 33
+    }  
   ]
 } 

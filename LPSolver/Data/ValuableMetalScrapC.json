@@ -6,7 +6,7 @@
     {
       "ID": 21683,
       "Name": "Valuable Metal Scrap",
-      "Quantity": 31879
+      "Quantity": 32958
     },
   "Outputs": [
     {
@@ -18,6 +18,16 @@
       "ID": 19701,
       "Name": "Orichalcum Ore",
       "Quantity": 6756
+    },
+    {
+      "ID": 19700,
+      "Name": "Mithril Ore",
+      "Quantity": 1307
+    },
+    {
+      "ID": 19701,
+      "Name": "Orichalcum Ore",
+      "Quantity": 239
     }
   ]
 } 
