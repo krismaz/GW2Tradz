@@ -12,14 +12,14 @@ namespace GW2Tradz.Analyzers
 {
     class BagAnalyzer : IAnalyzer
     {
-        float count = 2500f;
+        float count = 327250f;
 
         public List<TradingAction> Analyse(Cache cache)
         {
             var result = new List<TradingAction> { };
 
             var bag = cache.Lookup[8920];
-            var outPut = JsonConvert.DeserializeObject<List<DataEntry>>(File.ReadAllText("2500HeavyLootBags.json"));
+            var outPut = JsonConvert.DeserializeObject<List<DataEntry>>(File.ReadAllText("327250HeavyLootBags.json"));
 
             var counts = outPut.GroupBy(e => cache.Lookup[e.ID], e => e.Quantity).ToDictionary(g => g.Key, g => g.Sum());
             var useMats = counts.Sum(kv => kv.Value * kv.Key.FlipBuy)/count;

@@ -142,6 +142,9 @@
     <None Include="2500HeavyLootBags.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="327250HeavyLootBags.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="GW2Tradz.ruleset" />
     <None Include="RareUnids.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
