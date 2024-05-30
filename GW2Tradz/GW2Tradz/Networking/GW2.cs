@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -39,9 +40,22 @@ namespace GW2Tradz.Networking
 
                 foreach (var chunk in ids.Chunk(200))
                 {
-                    var result2 = httpClient.GetAsync("https://api.guildwars2.com/v2/recipes?ids=" + string.Join(",", chunk)).Result; //worst coding practice or worsest coding practice
-                    var content2 = result2.Content.ReadAsStringAsync().Result;
-                    recipes.AddRange(JsonConvert.DeserializeObject<List<Recipe>>(content2, jsonSettings));
+                    while (true)
+                    {
+                        try
+                        {
+                            var result2 = httpClient.GetAsync("https://api.guildwars2.com/v2/recipes?ids=" + string.Join(",", chunk)).Result; //worst coding practice or worsest coding practice
+                            var content2 = result2.Content.ReadAsStringAsync().Result;
+                            recipes.AddRange(JsonConvert.DeserializeObject<List<Recipe>>(content2, jsonSettings));
+                            break;
+                        }
+                        catch
+                        {
+                            Thread.Sleep(10000);
+                        }
+
+                    }
+                   
                 }
                 return recipes;
             }

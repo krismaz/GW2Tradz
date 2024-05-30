@@ -37,7 +37,7 @@ namespace GW2Tradz.Analyzers
             //sources[46735] = 0;
 
             var validRecipes = cache.Recipes
-                    .Where(r => r.Type != "Bulk" && r.Type != "Feast" && r.Ingredients.All(i => sources.ContainsKey(i.ItemId) && cache.Lookup.ContainsKey(r.OutputItemId)) && r.Id > 0 && r.Id != 10456);
+                    .Where(r => r.Type != "Bulk" && r.Type != "Feast" && r.Ingredients.All(i => sources.ContainsKey(i.ItemId) && cache.Lookup.ContainsKey(r.OutputItemId)) && r.Id > 0 && r.Id != 10456 && cache.Lookup.ContainsKey(r.OutputItemId));
 
             var result = new List<TradingAction> { };
 

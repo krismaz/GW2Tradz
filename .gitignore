@@ -335,3 +335,6 @@ ASALocalRun/
 *.mps
 LPSolver/cache/*
 LPSolver/results/*
+GW2Tradz/GW2Tradz/Settings.cs
+LPSolver/operations.json
+LPSolver/operations.json
