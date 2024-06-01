@@ -1,8 +1,11 @@
 ﻿using GW2Tradz.Util;
 using GW2Tradz.Viewmodels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -45,9 +48,9 @@ namespace GW2Tradz.Networking
             var grouped = items.GroupBy(h => h.ItemId);
             foreach (var entry in grouped)
             {
-                if(!Lookup.ContainsKey(entry.Key))
+                if (!Lookup.ContainsKey(entry.Key))
                 {
-                    
+
 
                     continue;
                 }
@@ -72,8 +75,17 @@ namespace GW2Tradz.Networking
                 Lookup.TryGetValue(dye.Item.Value, out var item);
                 dye.ItemData = item;
             }
-            Recipes = _gw2.FetchRecipes();
-            Recipes.AddRange(_gw2Profits.FetchRecipes().Where(r => r.Id < 0));
+            if (!File.Exists("recipes.json"))
+            {
+                Recipes = _gw2.FetchRecipes();
+                Recipes.AddRange(_gw2Profits.FetchRecipes().Where(r => r.Id < 0));
+                File.WriteAllText("recipes.json", JsonConvert.SerializeObject(Recipes));
+            }
+            else
+            {
+                Recipes = JsonConvert.DeserializeObject<List<Recipe>>(File.ReadAllText("recipes.json"));
+            }
+
             CurrentSells = new DefaultDictionary<int, int>(_gw2.FetchCurrentSells());
             CurrentBuys = new DefaultDictionary<int, int>(_gw2.FetchCurrentBuys());
             WalletGold = _gw2.WalletGold();
@@ -81,7 +93,7 @@ namespace GW2Tradz.Networking
             Materials = _gw2.FetchMaterials().SelectMany(c => c.Items.Where(i => Lookup.ContainsKey(i)).Select(i => Lookup[i])).ToList();
             ;
 
-            if ( _silver.FetchHistory(new List<int> { 19721 }).Count()<6)
+            if (_silver.FetchHistory(new List<int> { 19721 }).Count() < 6)
             {
                 MessageBox.Show("Silver's data is broken!\n" +
                     "Scraping gw2bltc, this might be slow");
@@ -92,7 +104,7 @@ namespace GW2Tradz.Networking
         public void LoadListings(IEnumerable<int> ids)
         {
             var missing = ids.Except(BuyListings.Keys);
-            foreach(var ld in _gw2.FetchListings(missing))
+            foreach (var ld in _gw2.FetchListings(missing))
             {
                 BuyListings[ld.Id] = ld.Buys;
                 SellListings[ld.Id] = ld.Sells;
@@ -103,18 +115,18 @@ namespace GW2Tradz.Networking
         public void LoadHistory(IEnumerable<int> ids)
         {
             var histories = _silver.FetchHistory(ids);
-            
+
             UpdateHistory(histories);
         }
 
         private void ScrapeGW2BLTC()
         {
-            foreach(var item in Lookup.Values)
+            foreach (var item in Lookup.Values)
             {
                 item.WeekBuyVelocity = 0;
                 item.WeekSellVelocity = 0;
             }
-            foreach(var item in _gW2BLTC.ScrapeItems().Where(i=>Lookup.ContainsKey(i.Id)))
+            foreach (var item in _gW2BLTC.ScrapeItems().Where(i => Lookup.ContainsKey(i.Id)))
             {
                 Lookup[item.Id].Update(item);
             }

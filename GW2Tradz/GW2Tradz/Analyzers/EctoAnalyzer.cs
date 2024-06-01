@@ -40,6 +40,18 @@ namespace GW2Tradz.Analyzers
             var result = new List<TradingAction> { };
             cache.LoadListings(new int[] { 24277, 9476, 43449, 9461, 43450, 89157, 89203, 48915, 48916, 48917, 9443, 43451 });
 
+            result.Add(new TradingAction($"ecto_use")
+            {
+                MaxAmount = (int)ecto.AdjustedBuyVelocity,
+                Description = $"Ecto Salvage and Use",
+                Item = ecto,
+                CostPer = (int)Math.Ceiling(dustcost),
+                IncomePer = dust.FlipBuy,
+                BaseCost = 0,
+                SafeProfitPercentage = Settings.UnsafeMinumumMargin,
+                Inventory = 0
+            });
+
             void HandleItem(Item item, int cost, int amount)
             {
                 result.Add(new TradingAction($"ecto_{item.Id}_{item.Name}")
