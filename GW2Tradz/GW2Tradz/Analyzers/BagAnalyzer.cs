@@ -47,6 +47,63 @@ namespace GW2Tradz.Analyzers
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
+
+            var trickbag = cache.Lookup[36038];
+            var corn = cache.Lookup[36041];
+            var cornAmount = 4.28f;
+            var income = (int)(corn.FlipSell.AfterTP() * cornAmount + 75 * 1.1); //75 is total vendor value of trash crafting mats;
+
+            result.Add(new TradingAction($"open_sell_36038")
+            {
+                MaxAmount = Math.Min((int)trickbag.AdjustedBuyVelocity, (int)(corn.AdjustedSellVelocity/cornAmount)),
+                Description = $"Open trick or treat bag, sell corn, vendor trash",
+                Item = trickbag,
+                CostPer = trickbag.FlipBuy,
+                IncomePer = income,
+                BaseCost = Settings.HardTaskCost,
+                SafeProfitPercentage = float.PositiveInfinity
+            });
+
+            cache.LoadListings(new int[] { 36038 });
+
+            var goodListings = cache.SellListings[36038].Where(l => l.Price  < income).ToList();
+            if(goodListings.Any())
+            {
+                var totalCount = goodListings.Sum(l => l.Quantity);
+                var totalPrice = goodListings.Sum(l => l.Quantity * l.Price);
+                var maxPrice = goodListings.Max(l => l.Price);
+
+                result.Add(new TradingAction($"open_sell_36038_2")
+                {
+                    MaxAmount = totalCount,
+                    Description = $"Instabuy trick or treat bag @{maxPrice.GoldFormat()}, sell corn, vendor trash",
+                    Item = trickbag,
+                    CostPer = trickbag.FlipBuy,
+                    IncomePer = totalPrice / totalCount,
+                    BaseCost = Settings.HardTaskCost,
+                    SafeProfitPercentage = 0
+                });
+            }
+
+            var luckyListings = cache.SellListings[36038].Where(l => l.Price < income +100).ToList();
+            if (luckyListings.Any())
+            {
+                var totalCount = luckyListings.Sum(l => l.Quantity);
+                var totalPrice = luckyListings.Sum(l => l.Quantity * l.Price);
+                var maxPrice = luckyListings.Max(l => l.Price);
+
+                result.Add(new TradingAction($"open_sell_36038_3")
+                {
+                    MaxAmount = Math.Min(totalCount, (int)(corn.AdjustedSellVelocity / cornAmount)),
+                    Description = $"(Highly Unsafe) Be lucky! Instabuy trick or treat bag @{maxPrice.GoldFormat()}, sell corn, vendor trash",
+                    Item = trickbag,
+                    CostPer = trickbag.FlipBuy,
+                    IncomePer = totalPrice / totalCount,
+                    BaseCost = Settings.HardTaskCost,
+                    SafeProfitPercentage = double.PositiveInfinity
+                });
+            }
+
             return result;
         }
 

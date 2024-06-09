@@ -82,6 +82,8 @@ namespace GW2Tradz.Analyzers
                     SafeProfitPercentage = 0,
                     Inventory = inventory
                 });
+
+
             }
             return result;
         }

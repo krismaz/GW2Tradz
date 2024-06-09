@@ -81,7 +81,7 @@ namespace GW2Tradz.Networking
                 }
                 return listings.GroupBy(l => l.ItemId, l => l.Quantity).ToDictionary(g => g.Key, g => g.Sum());
             }
-            catch
+            catch(Exception emm)
             {
                 MessageBox.Show("Error fetching current sells");
                 return new Dictionary<int, int> { };

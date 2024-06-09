@@ -16,11 +16,12 @@ namespace GW2Tradz.Analyzers
 
             var dailyRecipes = new HashSet<int> { 9790, 9792 };
 
-
-            var sources = cache.Lookup.ToDictionary(kv => kv.Key, kv => Math.Max(kv.Value.SellPrice, kv.Value.BuyPrice));
+            //Todo: If velocity is high, we can probably just use flipbuy
+            var sources = cache.Lookup.ToDictionary(kv => kv.Key, kv => Math.Max(kv.Value.SellPrice, kv.Value.FlipBuy));
 
             foreach( var item in cache.Materials)
             {
+                
                 sources[item.Id] = item.FlipBuy;
             }
 
@@ -28,6 +29,7 @@ namespace GW2Tradz.Analyzers
 
             foreach (var recipe in cache.Recipes.Where(r => r.Id < 0 && r.Disciplines[0] == "Merchant" && r.Ingredients.Count == 1 && r.Ingredients[0].ItemId == -1))
             {
+                
                 sources[recipe.OutputItemId] = recipe.Ingredients[0].Count / (int)recipe.OutputItemCount;
             }
 
@@ -45,7 +47,6 @@ namespace GW2Tradz.Analyzers
 
             foreach (var recipe in validRecipes)
             {
-
                 var item = cache.Lookup[recipe.OutputItemId];
                 var spike = item.SellPrice > item.YearSellAvg * 5;
 
