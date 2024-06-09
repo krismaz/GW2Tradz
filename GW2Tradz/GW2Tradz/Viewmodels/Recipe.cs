@@ -18,7 +18,16 @@ namespace GW2Tradz.Viewmodels
 
         public class Ingredient
         {
-            public int ItemId { get; set; }
+            public string Type { get; set; }
+            public int ItemId
+            {
+                get => Type == "Currency" ? -Id : Id;
+                set
+                {
+                    Id = Type == "Currency" ? -value: value;
+                }
+            }
+            public int Id { get; set; }
             public int Count { get; set; }
         }
     }
