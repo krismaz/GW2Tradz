@@ -80,6 +80,9 @@
             <TabItem Header="BagOpening">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="BagOpeningGrid"/>
             </TabItem>
+            <TabItem Header="Agony">
+                <ContentControl Content="{StaticResource Analyzergrid}" Name="AgonyGrid"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

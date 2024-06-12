@@ -35,7 +35,7 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction($"fractal_use")
             {
-                MaxAmount = (int)(Math.Max(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
+                MaxAmount = (int)(Math.Min(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
                 Description = $"Fractal encryption and use",
                 Item = encryption,
                 CostPer = (int)cost,
@@ -46,7 +46,7 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction($"fractal_sell")
             {
-                MaxAmount = (int)(Math.Max(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
+                MaxAmount = (int)(Math.Min(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
                 Description = $"Fractal encryption and sell",
                 Item = encryption,
                 CostPer = (int)cost,
@@ -57,7 +57,7 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction($"fractal_median")
             {
-                MaxAmount = (int)(Math.Max(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
+                MaxAmount = (int)(Math.Min(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
                 Description = $"Fractal encryption and sell @median\n" + string.Join("\n", t5s.Select(i=>$"{i.Name} - {i.MedianFlipSellMax.GoldFormat()}")),
                 Item = encryption,
                 CostPer = (int)cost,

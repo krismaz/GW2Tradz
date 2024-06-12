@@ -115,6 +115,7 @@ namespace GW2Tradz
             var gearSalvaging = new GearSalvagingAnalyzer().Cache();
             var materialSalvaging = new MaterialSalvagingAnalyzer().Cache();
             var bagOpening = new BagAnalyzer().Cache();
+            var agony = new AgonyAnalyzer().Cache();
             FlippingGrid.DataContext = flipping.Analyse(cache);
             DyeGrid.DataContext = dyes.Analyse(cache);
             CraftingGrid.DataContext = crafting.Analyse(cache);
@@ -128,7 +129,8 @@ namespace GW2Tradz
             GearSalvagingGrid.DataContext = gearSalvaging.Analyse(cache);
             MaterialSalvagingGrid.DataContext = materialSalvaging.Analyse(cache);
             BagOpeningGrid.DataContext = bagOpening.Analyse(cache);
-            CombinedGrid.DataContext = new CombiningAnalyzer { Analyzers = new List<IAnalyzer> { flipping, dyes, crafting, ecto, elonian, fractal, unid, clicking, gemstones, materials, gearSalvaging, materialSalvaging, bagOpening } }.Analyse(cache);
+            AgonyGrid.DataContext = agony.Analyse(cache);
+            CombinedGrid.DataContext = new CombiningAnalyzer { Analyzers = new List<IAnalyzer> { flipping, dyes, crafting, ecto, elonian, fractal, unid, clicking, gemstones, materials, gearSalvaging, materialSalvaging, bagOpening, agony } }.Analyse(cache);
 
         }
 

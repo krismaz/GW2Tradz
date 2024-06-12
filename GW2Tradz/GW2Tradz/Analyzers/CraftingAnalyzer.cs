@@ -56,7 +56,8 @@ namespace GW2Tradz.Analyzers
             sourceDesc[45178] = "?";
 
             // Research Note
-            sources[-61] = 150;
+            // https://fast.farming-community.eu/salvaging/costs-per-research-note
+            sources[-61] = 120;
             sourceDesc[-61] = "?";
 
             var validRecipes = cache.Recipes
