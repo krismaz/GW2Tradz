@@ -89,7 +89,7 @@ namespace GW2Tradz.Analyzers
                     CostPer = cost,
                     IncomePer = (int)((float)(item.SellPrice) * recipe.OutputItemCount).AfterTP(),
                     BaseCost = Settings.HardTaskCost,
-                    SafeProfitPercentage = (spike && (item.Type == "Weapon" || item.Type == "Armor")) ? float.PositiveInfinity : Settings.UnsafeMinumumMargin,
+                    SafeProfitPercentage = (spike && (item.Type == "Weapon" || item.Type == "Armor")) ? float.PositiveInfinity : Settings.UnsafeMinimumMargin,
                     Inventory = cache.CurrentSells[recipe.OutputItemId] / (int)recipe.OutputItemCount
                 });
 

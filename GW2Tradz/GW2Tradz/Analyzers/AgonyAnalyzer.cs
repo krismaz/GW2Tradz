@@ -37,7 +37,7 @@ namespace GW2Tradz.Analyzers
                         CostPer = source.FlipBuy*count+ termoCat*(count-1),
                         IncomePer = target.FlipSell.AfterTP(),
                         BaseCost = Settings.HardTaskCost,
-                        SafeProfitPercentage = 20
+                        SafeProfitPercentage = Settings.SafeMinimumMargin
                     });
 
                 }

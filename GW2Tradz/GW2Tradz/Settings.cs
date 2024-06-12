@@ -29,7 +29,7 @@ namespace GW2Tradz
         public static double SafeMinimumMargin = 15.Percent(); // Safety margins hide risky transactions
 
         [JsonProperty]
-        public static double UnsafeMinumumMargin = 40.Percent(); // They are only checked in the combined analyzer
+        public static double UnsafeMinimumMargin = 40.Percent(); // They are only checked in the combined analyzer
 
         [JsonProperty]
         public static int VelocityUncertainty = 0; // Amount subtracted from daily velocities, can be used to hide slow items

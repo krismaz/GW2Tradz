@@ -48,7 +48,7 @@ namespace GW2Tradz.Analyzers
                 CostPer = (int)Math.Ceiling(dustcost),
                 IncomePer = dust.FlipBuy,
                 BaseCost = 0,
-                SafeProfitPercentage = Settings.UnsafeMinumumMargin,
+                SafeProfitPercentage = Settings.UnsafeMinimumMargin,
                 Inventory = 0
             });
 
@@ -62,7 +62,7 @@ namespace GW2Tradz.Analyzers
                     CostPer = cost,
                     IncomePer = amount * item.SellPrice.AfterTP(),
                     BaseCost = 0,
-                    SafeProfitPercentage = Settings.UnsafeMinumumMargin,
+                    SafeProfitPercentage = Settings.UnsafeMinimumMargin,
                     Inventory = cache.CurrentSells[item.Id]/amount
                 });
 

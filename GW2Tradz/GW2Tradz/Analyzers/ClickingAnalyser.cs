@@ -2,6 +2,7 @@
 using GW2Tradz.Viewmodels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,6 +66,10 @@ namespace GW2Tradz.Analyzers
                 }).ToList(); ;
                 var quantity = listings.Sum(l => l.Quantity);
                 var totalcost = listings.Sum(l => l.Quantity * l.Price);
+                if (!listings.Any())
+                {
+                    continue;
+                }
 
                 result.Add(new TradingAction($"clicking_{input.Id}_{input.Name}_{recipe.Id}")
                 {
