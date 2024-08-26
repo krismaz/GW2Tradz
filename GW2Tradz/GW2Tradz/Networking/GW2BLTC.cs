@@ -45,7 +45,7 @@ namespace GW2Tradz.Networking
                         var sell = int.Parse(row.Children[2].TextContent.Replace(",", ""));
                         var buy = int.Parse(row.Children[3].TextContent.Replace(",", ""));
                         var sold = int.Parse(row.Children[8].TextContent.Replace(",", ""));
-                        var bought = float.Parse(row.Children[10].TextContent);
+                        var bought = int.Parse(row.Children[10].TextContent.Replace(",", ""));
                         result.Add(new Item
                         {
                             Id = id,
