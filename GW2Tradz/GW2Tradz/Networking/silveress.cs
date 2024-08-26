@@ -18,7 +18,11 @@ namespace GW2Tradz.Networking
     {
         private HttpClient httpClient = new HttpClient(new HttpClientHandler()
         {
-            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
+            ClientCertificateOptions = ClientCertificateOption.Manual,
+            ServerCertificateCustomValidationCallback =
+                    (httpRequestMessage, cert, cetChain, policyErrors) => true
+
         })
         {
             Timeout = TimeSpan.FromMilliseconds(-1)
@@ -39,7 +43,7 @@ namespace GW2Tradz.Networking
                 var content = result.Content.ReadAsStringAsync().Result;
                 return JsonConvert.DeserializeObject<List<Item>>(content, jsonSettings);
             }
-            catch
+            catch (Exception e)
             {
                 MessageBox.Show("Silveress comms err");
                 throw;
@@ -58,7 +62,7 @@ namespace GW2Tradz.Networking
                     var content = result.Content.ReadAsStringAsync().Result;
                     buffer.AddRange(JsonConvert.DeserializeObject<List<History>>(content, jsonSettings).ToList());
                 }
-                
+
                 return buffer;
             }
             catch

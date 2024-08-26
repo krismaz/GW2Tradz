@@ -44,7 +44,7 @@ namespace GW2Tradz.Networking
                         var id = int.Parse(Regex.Match(link, "/([0-9]+)-").Groups[1].Value);
                         var sell = int.Parse(row.Children[2].TextContent.Replace(",", ""));
                         var buy = int.Parse(row.Children[3].TextContent.Replace(",", ""));
-                        var sold = float.Parse(row.Children[8].TextContent);
+                        var sold = int.Parse(row.Children[8].TextContent.Replace(",", ""));
                         var bought = float.Parse(row.Children[10].TextContent);
                         result.Add(new Item
                         {

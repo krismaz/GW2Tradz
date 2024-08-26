@@ -64,6 +64,17 @@ namespace GW2Tradz.Analyzers
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
+            result.Add(new TradingAction($"open_sell_36038_2")
+            {
+                MaxAmount = Math.Min((int)trickbag.AdjustedBuyVelocity, (int)(corn.AdjustedSellVelocity / cornAmount)),
+                Description = $"(Highly Unsafe) Be lucky! Open trick or treat bag, sell corn, vendor trash",
+                Item = trickbag,
+                CostPer = trickbag.FlipBuy,
+                IncomePer = income + 100,
+                BaseCost = Settings.HardTaskCost,
+                SafeProfitPercentage = float.PositiveInfinity
+            });
+
             cache.LoadListings(new int[] { 36038 });
 
             var goodListings = cache.SellListings[36038].Where(l => l.Price  < income).ToList();

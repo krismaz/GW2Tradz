@@ -70,6 +70,7 @@ namespace GW2Tradz.Analyzers
                 var totalCount = goodListings.Sum(l => l.Quantity);
                 var totalPrice = goodListings.Sum(l => l.Quantity * l.Price);
                 var maxPrice = goodListings.Max(l => l.Price); 
+                
 
                 result.Add(new TradingAction($"dyes_instant_{dye.ItemData.Id}_{dye.ItemData.Name}")
                 {
