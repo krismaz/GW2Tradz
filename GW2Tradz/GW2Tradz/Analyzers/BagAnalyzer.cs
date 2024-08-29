@@ -89,8 +89,8 @@ namespace GW2Tradz.Analyzers
                     MaxAmount = totalCount,
                     Description = $"Instabuy trick or treat bag @{maxPrice.GoldFormat()}, sell corn, vendor trash",
                     Item = trickbag,
-                    CostPer = trickbag.FlipBuy,
-                    IncomePer = totalPrice / totalCount,
+                    CostPer = totalPrice / totalCount,
+                    IncomePer = income,
                     BaseCost = Settings.HardTaskCost,
                     SafeProfitPercentage = 0
                 });
@@ -108,8 +108,8 @@ namespace GW2Tradz.Analyzers
                     MaxAmount = Math.Min(totalCount, (int)(corn.AdjustedSellVelocity / cornAmount)),
                     Description = $"(Highly Unsafe) Be lucky! Instabuy trick or treat bag @{maxPrice.GoldFormat()}, sell corn, vendor trash",
                     Item = trickbag,
-                    CostPer = trickbag.FlipBuy,
-                    IncomePer = totalPrice / totalCount,
+                    CostPer = totalPrice / totalCount,
+                    IncomePer = income +100,
                     BaseCost = Settings.HardTaskCost,
                     SafeProfitPercentage = double.PositiveInfinity
                 });
