@@ -148,7 +148,7 @@ namespace GW2Tradz
         {
             if (sender is DataGridRow row && row.Item is TradingAction action)
             {
-                Process.Start("https://www.gw2bltc.com/en/item/" + action.Item.Id);
+                Process.Start(new ProcessStartInfo("https://www.gw2bltc.com/en/item/" + action.Item.Id) { UseShellExecute = true });
             }
         }
 
