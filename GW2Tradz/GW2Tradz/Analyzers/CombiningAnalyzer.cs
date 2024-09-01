@@ -10,11 +10,13 @@ namespace GW2Tradz.Analyzers
 {
     class CombiningAnalyzer : IAnalyzer
     {
+        public bool Filtering { get; init; } = true;
+
         public List<IAnalyzer> Analyzers { get; set; }
 
         public List<TradingAction> Analyse(Cache cache)
         {
-            return Analyzers.SelectMany(a => a.Analyse(cache)).Where(t => t.Safe).ToList();
+            return Analyzers.SelectMany(a => a.Analyse(cache)).Where(t => !Filtering ||  t.Safe).ToList();
         }
     }
 }

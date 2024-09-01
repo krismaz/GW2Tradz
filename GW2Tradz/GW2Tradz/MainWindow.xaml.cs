@@ -128,7 +128,11 @@ namespace GW2Tradz
             MaterialsGrid.DataContext = materials.Analyse(cache);
             GearSalvagingGrid.DataContext = gearSalvaging.Analyse(cache);
             MaterialSalvagingGrid.DataContext = materialSalvaging.Analyse(cache);
-            BagOpeningGrid.DataContext = bagOpening.Analyse(cache);
+            BagOpeningGrid.DataContext = new CombiningAnalyzer
+            {
+                Analyzers = new List<IAnalyzer> { bagOpening, fractal, unid },
+                Filtering = false
+            }.Analyse(cache);
             AgonyGrid.DataContext = agony.Analyse(cache);
             CombinedGrid.DataContext = new CombiningAnalyzer { Analyzers = new List<IAnalyzer> { flipping, dyes, crafting, ecto, elonian, fractal, unid, clicking, gemstones, materials, gearSalvaging, materialSalvaging, bagOpening, agony } }.Analyse(cache);
 

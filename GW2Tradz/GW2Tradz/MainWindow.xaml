@@ -53,13 +53,13 @@
             <TabItem Header="Ecto">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="EctoGrid"/>
             </TabItem>
-            <TabItem Header="Elonian">
+            <TabItem Header="Elonian" Visibility="Collapsed">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="ElonianGrid"/>
             </TabItem>
-            <TabItem Header="Fractal">
+            <TabItem Header="Fractal" Visibility="Collapsed">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="FractalGrid"/>
             </TabItem>
-            <TabItem Header="Unid">
+            <TabItem Header="Unid" Visibility="Collapsed">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="UnidGrid"/>
             </TabItem>
             <TabItem Header="Clicking">

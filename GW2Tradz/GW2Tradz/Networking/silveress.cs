@@ -32,7 +32,7 @@ namespace GW2Tradz.Networking
         public Silveress()
         {
             httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("GW2Tradz", "1.0"));
-            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("(Krismaz.1250, aka. dōTYRIA Quaggan Oil Saleshun)"));
+            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("(Krismaz.1250, aka. doTYRIA Quaggan Oil Saleshun)"));
         }
 
         public List<Item> FetchBasicInfo()
