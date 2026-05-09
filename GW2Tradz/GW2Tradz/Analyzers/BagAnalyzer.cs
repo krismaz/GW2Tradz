@@ -84,7 +84,7 @@ namespace GW2Tradz.Analyzers
                 var totalPrice = goodListings.Sum(l => l.Quantity * l.Price);
                 var maxPrice = goodListings.Max(l => l.Price);
 
-                result.Add(new TradingAction($"open_sell_36038_2")
+                result.Add(new TradingAction($"open_sell_36038_3")
                 {
                     MaxAmount = totalCount,
                     Description = $"Instabuy trick or treat bag @{maxPrice.GoldFormat()}, sell corn, vendor trash",
@@ -103,7 +103,7 @@ namespace GW2Tradz.Analyzers
                 var totalPrice = luckyListings.Sum(l => l.Quantity * l.Price);
                 var maxPrice = luckyListings.Max(l => l.Price);
 
-                result.Add(new TradingAction($"open_sell_36038_3")
+                result.Add(new TradingAction($"open_sell_36038_4")
                 {
                     MaxAmount = Math.Min(totalCount, (int)(corn.AdjustedSellVelocity / cornAmount)),
                     Description = $"(Highly Unsafe) Be lucky! Instabuy trick or treat bag @{maxPrice.GoldFormat()}, sell corn, vendor trash",

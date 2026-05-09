@@ -19,7 +19,7 @@ namespace GW2Tradz.Analyzers
 
 
             var validRecipes = cache.Recipes
-                    .Where(r => r.Ingredients.All(i => sources.ContainsKey(i.ItemId) && cache.Lookup.ContainsKey(r.OutputItemId)) && r.Disciplines.Contains("Double Click"));
+                    .Where(r =>r.Disciplines.Contains("Double Click") && r.Ingredients.All(i => sources.ContainsKey(i.ItemId)) && cache.Lookup.ContainsKey(r.OutputItemId));
 
             var result = new List<TradingAction> { };
             var instantRecipes = new List<Recipe> { };
@@ -71,7 +71,7 @@ namespace GW2Tradz.Analyzers
                     continue;
                 }
 
-                result.Add(new TradingAction($"clicking_{input.Id}_{input.Name}_{recipe.Id}")
+                result.Add(new TradingAction($"clicking_{input.Id}_{input.Name}_{recipe.Id}_2")
                 {
                     MaxAmount = max,
                     Description = $"Instabuy {input.Name} @ {listings.Max(l=>l.Price).GoldFormat()} -> {recipe.OutputItemCount} x {output.Name}",

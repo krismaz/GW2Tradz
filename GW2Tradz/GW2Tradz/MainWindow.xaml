@@ -53,15 +53,6 @@
             <TabItem Header="Ecto">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="EctoGrid"/>
             </TabItem>
-            <TabItem Header="Elonian" Visibility="Collapsed">
-                <ContentControl Content="{StaticResource Analyzergrid}" Name="ElonianGrid"/>
-            </TabItem>
-            <TabItem Header="Fractal" Visibility="Collapsed">
-                <ContentControl Content="{StaticResource Analyzergrid}" Name="FractalGrid"/>
-            </TabItem>
-            <TabItem Header="Unid" Visibility="Collapsed">
-                <ContentControl Content="{StaticResource Analyzergrid}" Name="UnidGrid"/>
-            </TabItem>
             <TabItem Header="Clicking">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="ClickingGrid"/>
             </TabItem>
@@ -70,9 +61,6 @@
             </TabItem>
             <TabItem Header="Materials">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="MaterialsGrid"/>
-            </TabItem>
-            <TabItem Header="GearSalvaging">
-                <ContentControl Content="{StaticResource Analyzergrid}" Name="GearSalvagingGrid"/>
             </TabItem>
             <TabItem Header="MaterialSalvaging">
                 <ContentControl Content="{StaticResource Analyzergrid}" Name="MaterialSalvagingGrid"/>

@@ -66,7 +66,7 @@ namespace GW2Tradz.Analyzers
                     Inventory = cache.CurrentSells[item.Id]/amount
                 });
 
-                var goodListings = cache.BuyListings[item.Id].Where(l => l.Price.AfterTP() > cost / amount);
+                var goodListings = cache.BuyListings[item.Id].Where(l => l.Price.AfterTP() > cost / amount).ToList();
 
                 if (!goodListings.Any())
                 {

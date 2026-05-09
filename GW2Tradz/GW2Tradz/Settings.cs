@@ -14,7 +14,7 @@ namespace GW2Tradz
         public static int TotalCoins = -1; // Total amoint of coins available, -1 means pulling the data online
 
         [JsonProperty]
-        public static int Spread = 10; // Use at most 1/Spread of budget per action
+        public static int Spread = 5; // Use at most 1/Spread of budget per action
 
         [JsonProperty]
         public static int EasyTaskCost = 0; // Task cost will assume your time is worth money

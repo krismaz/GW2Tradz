@@ -66,7 +66,7 @@ namespace GW2Tradz.Analyzers
                         r.Type != "Feast" && 
                         r.Ingredients.All(i => sources.ContainsKey(i.ItemId)) && 
                         cache.Lookup.ContainsKey(r.OutputItemId) && 
-                        r.Id > 0 && r.Id != 10456);
+                        r.Id > 0 && r.Id != 10456).ToList();
 
             var core = cache.Recipes.First(r => r.Id == 13584);
 
@@ -106,7 +106,7 @@ namespace GW2Tradz.Analyzers
                 var item = cache.Lookup[recipe.OutputItemId];
                 var cost = recipe.Ingredients.Sum(i => i.Count * sources[i.ItemId]);
 
-                var goodListings = cache.BuyListings[item.Id].Where(l => l.Price.AfterTP() > cost / recipe.OutputItemCount);
+                var goodListings = cache.BuyListings[item.Id].Where(l => l.Price.AfterTP() > cost / recipe.OutputItemCount).ToList();
 
                 if (!goodListings.Any())
                 {

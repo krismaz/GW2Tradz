@@ -2,6 +2,7 @@
 using GW2Tradz.Viewmodels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,11 @@ namespace GW2Tradz.Analyzers
             foreach (var recipe in cache.Recipes.Where(r=>r.Id>0 && gemstoneIds.Contains(r.OutputItemId)))
             {
                 var crystal = recipe.Ingredients.Select(i=> cache.Lookup[i.ItemId]).Where(i => !i.Name.Contains("Dust")).FirstOrDefault(); //What's the dust called again?
+                if(crystal == null)
+                {
+                    Debugger.Break();
+                    continue;
+                }
                 var totalCost = 5 * ecto.FlipBuy + 75 * recipe.Ingredients.Sum(i=>i.Count * cache.Lookup[i.ItemId].FlipBuy);
                 var totalIncome = 11.5 * amal.FlipSell;
 
@@ -56,10 +62,6 @@ namespace GW2Tradz.Analyzers
                 });
             }
 
-            foreach(var trad in result)
-            {
-                var jj = trad.Amount;
-            }
             return result;
         }
     }

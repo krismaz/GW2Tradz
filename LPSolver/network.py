@@ -13,10 +13,17 @@ def tp_items():
     r = requests.get(
         f'https://api.datawars2.ie/gw2/v1/items/json?beautify=min&fields=id,buy_price,sell_price,name,{options.days_tag}_sell_sold,{options.days_tag}_buy_sold,1d_buy_sold,1d_sell_sold,vendor_value,rarity,type,upgrade1,level,statName', headers=headers)
     items = r.json()
+    for item in items:
+        item[f'{options.days_tag}_sell_sold'] = item[f'{options.days_tag}_sell_sold'] or 0
+        item[f'{options.days_tag}_buy_sold'] = item[f'{options.days_tag}_buy_sold'] or 0
+        item[f'1d_sell_sold'] = item[f'1d_sell_sold'] or 0
+        item[f'1d_buy_sold'] = item[f'1d_buy_sold'] or 0
+        if 'rarity ' not in item:
+            item['rarity'] = 'Unknown'
 
     for item in items:
         item['daily_buy_sold'] = min(
-            item.get(f'{options.days_tag}_sell_sold', 0)/options.days,
+            item.get(f'{options.days_tag}_buy_sold', 0)/options.days,
             item.get(f'1d_buy_sold', 0)*2)  # Tends to spike-bouht low-level stuff
         item['daily_sell_sold'] = min(
             item.get(f'{options.days_tag}_sell_sold', 0)/options.days,

@@ -43,7 +43,7 @@ namespace GW2Tradz.Networking
                 var content = result.Content.ReadAsStringAsync().Result;
                 return JsonConvert.DeserializeObject<List<Item>>(content, jsonSettings);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show("Silveress comms err");
                 throw;
@@ -56,7 +56,7 @@ namespace GW2Tradz.Networking
             {
                 var OneWeek = (DateTime.Now - TimeSpan.FromDays(7)).ToString("yyyy-MM-dd");
                 var buffer = new List<History> { };
-                foreach (var chunk in ids.Chunk(100))
+                foreach (var chunk in ids.Chunk(1))
                 {
                     var result = httpClient.GetAsync($"https://api.datawars2.ie/gw2/v2/history/json?beautify=min&start={OneWeek}&fields=itemID,date,sell_sold,buy_sold,sell_price_max&itemID=" + string.Join(", ", chunk)).Result; //worst coding practice or worsest coding practice
                     var content = result.Content.ReadAsStringAsync().Result;
