@@ -31,12 +31,12 @@ namespace GW2Tradz.Analyzers
                 var income = (int)(output.SellPrice * recipe.OutputItemCount).AfterTP();
                 result.Add(new TradingAction($"clicking_{input.Id}_{input.Name}_{recipe.Id}")
                 {
-                    MaxAmount = (int)Math.Min(input.AdjustedBuyVelocity, output.AdjustedSellVelocity / (int)recipe.OutputItemCount),
+                    MaxIn = (int)input.AdjustedBuyVelocity,
+                    MaxOut = (int)(output.AdjustedSellVelocity / recipe.OutputItemCount),
                     Description = $"{input.Name} -> {recipe.OutputItemCount} x {output.Name}",
                     Item = input,
                     CostPer = input.FlipBuy,
                     IncomePer = income,
-                    BaseCost = Settings.EasyTaskCost,
                     SafeProfitPercentage = Settings.SafeMinimumMargin,
                     Inventory = cache.CurrentSells[output.Id] / (int)recipe.OutputItemCount
                 });
@@ -73,12 +73,12 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction($"clicking_{input.Id}_{input.Name}_{recipe.Id}_2")
                 {
-                    MaxAmount = max,
+                    MaxOut = max,
+                    MaxIn = quantity,
                     Description = $"Instabuy {input.Name} @ {listings.Max(l=>l.Price).GoldFormat()} -> {recipe.OutputItemCount} x {output.Name}",
                     Item = input,
                     CostPer = totalcost / quantity,
                     IncomePer = income,
-                    BaseCost = Settings.EasyTaskCost,
                     SafeProfitPercentage = Settings.SafeMinimumMargin,
                     Inventory = cache.CurrentSells[output.Id] / (int)recipe.OutputItemCount
                 });

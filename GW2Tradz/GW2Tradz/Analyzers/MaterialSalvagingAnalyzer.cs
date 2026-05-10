@@ -35,8 +35,8 @@ namespace GW2Tradz.Analyzers
                 {
                     Description = $"Salvage ({salvager}) and Sell",
                     Item = item,
-                    MaxAmount = (int)(item.AdjustedBuyVelocity),
-                    BaseCost = Settings.MediumTaskCost,
+                    MaxIn = (int)(item.AdjustedBuyVelocity),
+                    MaxOut = Settings.MaxSaneAmount,
                     CostPer = item.FlipBuy + salvageCost,
                     IncomePer = (int)salvageSell,
                     SafeProfitPercentage = Settings.SafeMinimumMargin,
@@ -47,8 +47,8 @@ namespace GW2Tradz.Analyzers
                 {
                     Description = $"Salvage ({salvager}) and Use",
                     Item = item,
-                    MaxAmount = (int)(item.AdjustedBuyVelocity),
-                    BaseCost = Settings.MediumTaskCost,
+                    MaxIn = (int)(item.AdjustedBuyVelocity),
+                    MaxOut = Settings.MaxSaneAmount,
                     CostPer = item.FlipBuy + salvageCost,
                     IncomePer = (int)salvageUse,
                     SafeProfitPercentage = double.PositiveInfinity,

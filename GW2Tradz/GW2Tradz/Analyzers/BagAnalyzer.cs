@@ -27,23 +27,23 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction($"open_use_8920")
             {
-                MaxAmount = (int)bag.AdjustedBuyVelocity,
+                MaxIn = (int)bag.AdjustedBuyVelocity,
+                MaxOut = Settings.MaxSaneAmount,
                 Description = $"Open bag, use mats",
                 Item = bag,
                 CostPer = bag.FlipBuy,
                 IncomePer = (int)(useMats) + 3, // 3-5 copper content
-                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
             result.Add(new TradingAction($"open_sell_8920")
             {
-                MaxAmount = (int)bag.AdjustedBuyVelocity,
+                MaxIn = (int)bag.AdjustedBuyVelocity,
+                MaxOut = Settings.MaxSaneAmount,
                 Description = $"Open bag, sell mats",
                 Item = bag,
                 CostPer = bag.FlipBuy,
                 IncomePer = (int)(sellMats) + 3, // 3-5 copper content
-                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
@@ -51,27 +51,29 @@ namespace GW2Tradz.Analyzers
             var trickbag = cache.Lookup[36038];
             var corn = cache.Lookup[36041];
             var cornAmount = 4.28f;
-            var income = (int)(corn.FlipSell.AfterTP() * cornAmount + 75 * 1.1); //75 is total vendor value of trash crafting mats;
+            var income = (int)(corn.FlipSell.AfterTP() * cornAmount + 75 * 1.1 + Settings.EmpyrialShardValue*0.25); //75 is total vendor value of trash crafting mats;
 
             result.Add(new TradingAction($"open_sell_36038")
             {
-                MaxAmount = Math.Min((int)trickbag.AdjustedBuyVelocity, (int)(corn.AdjustedSellVelocity/cornAmount)),
+                MaxIn = (int)trickbag.AdjustedBuyVelocity,
+                MaxOut = (int)(corn.AdjustedSellVelocity / cornAmount),
+                Inventory = (int)(cache.CurrentSells[36041]/cornAmount),
                 Description = $"Open trick or treat bag, sell corn, vendor trash",
                 Item = trickbag,
                 CostPer = trickbag.FlipBuy,
                 IncomePer = income,
-                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
             result.Add(new TradingAction($"open_sell_36038_2")
             {
-                MaxAmount = Math.Min((int)trickbag.AdjustedBuyVelocity, (int)(corn.AdjustedSellVelocity / cornAmount)),
+                MaxIn = (int)trickbag.AdjustedBuyVelocity,
+                MaxOut = (int)(corn.AdjustedSellVelocity / cornAmount),
+                Inventory = (int)(cache.CurrentSells[36041] / cornAmount),
                 Description = $"(Highly Unsafe) Be lucky! Open trick or treat bag, sell corn, vendor trash",
                 Item = trickbag,
                 CostPer = trickbag.FlipBuy,
                 IncomePer = income + 100,
-                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
@@ -86,12 +88,13 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction($"open_sell_36038_3")
                 {
-                    MaxAmount = totalCount,
+                    MaxIn = totalCount,
+                    MaxOut = (int)(corn.AdjustedSellVelocity / cornAmount),
+                    Inventory = (int)(cache.CurrentSells[36041] / cornAmount),
                     Description = $"Instabuy trick or treat bag @{maxPrice.GoldFormat()}, sell corn, vendor trash",
                     Item = trickbag,
                     CostPer = totalPrice / totalCount,
                     IncomePer = income,
-                    BaseCost = Settings.HardTaskCost,
                     SafeProfitPercentage = 0
                 });
             }
@@ -105,12 +108,13 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction($"open_sell_36038_4")
                 {
-                    MaxAmount = Math.Min(totalCount, (int)(corn.AdjustedSellVelocity / cornAmount)),
+                    MaxIn = totalCount,
+                    MaxOut = (int)(corn.AdjustedSellVelocity / cornAmount),
+                    Inventory = (int)(cache.CurrentSells[36041] / cornAmount),
                     Description = $"(Highly Unsafe) Be lucky! Instabuy trick or treat bag @{maxPrice.GoldFormat()}, sell corn, vendor trash",
                     Item = trickbag,
                     CostPer = totalPrice / totalCount,
                     IncomePer = income +100,
-                    BaseCost = Settings.HardTaskCost,
                     SafeProfitPercentage = double.PositiveInfinity
                 });
             }

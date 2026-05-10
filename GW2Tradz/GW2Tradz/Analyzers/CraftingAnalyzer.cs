@@ -83,12 +83,12 @@ namespace GW2Tradz.Analyzers
                 var cost = recipe.Ingredients.Sum(i => i.Count * sources[i.ItemId]);
                 result.Add(new TradingAction($"crafting_{recipe.Id}_{item.Name}")
                 {
-                    MaxAmount = dailyRecipes.Contains(recipe.Id) ? 1 : (int)(item.AdjustedSellVelocity / recipe.OutputItemCount),
+                    MaxOut = dailyRecipes.Contains(recipe.Id) ? 1 : (int)(item.AdjustedSellVelocity / recipe.OutputItemCount),
+                    MaxIn = Settings.MaxSaneAmount,
                     Description = (spike ? "(spike) " : "") + $"{item.Name} - {string.Join(", ", recipe.Disciplines)} ({string.Join(", ", recipe.Ingredients.Select(i => $"({sourceDesc[i.ItemId]}) {(cache.Lookup.ContainsKey(i.ItemId) ? cache.Lookup[i.ItemId].Name : " ? ")}"))})",
                     Item = item,
                     CostPer = cost,
-                    IncomePer = (int)((float)(item.SellPrice) * recipe.OutputItemCount).AfterTP(),
-                    BaseCost = Settings.HardTaskCost,
+                    IncomePer = (int)(item.SellPrice * recipe.OutputItemCount).AfterTP(),
                     SafeProfitPercentage = (spike && (item.Type == "Weapon" || item.Type == "Armor")) ? float.PositiveInfinity : Settings.UnsafeMinimumMargin,
                     Inventory = cache.CurrentSells[recipe.OutputItemId] / (int)recipe.OutputItemCount
                 });
@@ -120,12 +120,12 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction($"crafting_instant_{recipe.Id}_{item.Name}")
                 {
-                    MaxAmount = dailyRecipes.Contains(recipe.Id) ? 1 : (int)(totalCount / recipe.OutputItemCount),
+                    MaxOut = dailyRecipes.Contains(recipe.Id) ? 1 : (int)(item.AdjustedSellVelocity / recipe.OutputItemCount),
+                    MaxIn = Settings.MaxSaneAmount,
                     Description = $"InstaSell ({minPrice.GoldFormat()}) <- { item.Name } - { string.Join(", ", recipe.Disciplines) } ({ string.Join(", ", recipe.Ingredients.Select(i => cache.Lookup.ContainsKey(i.ItemId) ? cache.Lookup[i.ItemId].Name : "?")) })",
                     Item = item,
                     CostPer = cost,
                     IncomePer = (int)(totalIncome / totalCount * recipe.OutputItemCount),
-                    BaseCost = 0,
                     SafeProfitPercentage = Settings.SafeMinimumMargin
                 });
             }

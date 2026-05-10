@@ -20,8 +20,8 @@ namespace GW2Tradz.Analyzers
                 {
                     Description = spike ? "(spike) Flip" : "Flip ",
                     Item = item,
-                    MaxAmount = (int)(item.Velocity),
-                    BaseCost = Settings.MediumTaskCost,
+                    MaxIn = (int)item.AdjustedBuyVelocity,
+                    MaxOut = (int)item.AdjustedSellVelocity,
                     CostPer = item.FlipBuy,
                     IncomePer = item.FlipSell.AfterTP(),
                     SafeProfitPercentage = (spike && (item.Type == "Weapon" || item.Type == "Armor")) ? float.PositiveInfinity : Settings.SafeMinimumMargin,

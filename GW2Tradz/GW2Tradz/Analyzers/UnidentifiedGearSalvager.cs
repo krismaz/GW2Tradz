@@ -42,45 +42,45 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction($"unid_use_use")
             {
-                MaxAmount = (int)rareGear.AdjustedBuyVelocity,
+                MaxIn = (int)rareGear.AdjustedBuyVelocity,
+                MaxOut = Settings.MaxSaneAmount,
                 Description = $"Rare gear, use mats, use ecto",
                 Item = rareGear,
                 CostPer = rareGear.FlipBuy + (int)(SalvageCost),
                 IncomePer = (int)(gearSales + useMats + useEctos),
-                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
             result.Add(new TradingAction($"unid_sell_use")
             {
-                MaxAmount = (int)rareGear.AdjustedBuyVelocity,
+                MaxIn = (int)rareGear.AdjustedBuyVelocity,
+                MaxOut = Settings.MaxSaneAmount,
                 Description = $"Rare gear, sell mats, use ecto",
                 Item = rareGear,
                 CostPer = rareGear.FlipBuy + (int)(SalvageCost),
                 IncomePer = (int)(gearSales + sellMats + useEctos),
-                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
             result.Add(new TradingAction($"unid_use_sell")
             {
-                MaxAmount = (int)rareGear.AdjustedBuyVelocity,
+                MaxIn = (int)rareGear.AdjustedBuyVelocity,
+                MaxOut = Settings.MaxSaneAmount,
                 Description = $"Rare gear, use mats, sell ecto",
                 Item = rareGear,
                 CostPer = rareGear.FlipBuy + (int)(SalvageCost),
                 IncomePer = (int)(gearSales + useMats + sellEctos),
-                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = float.PositiveInfinity
             });
 
             result.Add(new TradingAction($"unid_sell_sell")
             {
-                MaxAmount = (int)rareGear.AdjustedBuyVelocity,
+                MaxIn = (int)rareGear.AdjustedBuyVelocity,
+                MaxOut = Settings.MaxSaneAmount,
                 Description = $"Rare gear, sell mats, sell ecto",
                 Item = rareGear,
                 CostPer = rareGear.FlipBuy + (int)(SalvageCost),
                 IncomePer = (int)(gearSales + sellMats + sellEctos),
-                BaseCost = Settings.HardTaskCost,
                 SafeProfitPercentage = Settings.SafeMinimumMargin
             });
 

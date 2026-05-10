@@ -35,34 +35,34 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction($"fractal_use")
             {
-                MaxAmount = (int)(Math.Min(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
+                MaxIn = (int)(Math.Min(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
+                MaxOut = Settings.MaxSaneAmount,
                 Description = $"Fractal encryption and use",
                 Item = encryption,
                 CostPer = (int)cost,
-                IncomePer = 4300 + (int)(infusionIncome + t5sIncomeNoTPTax + mewIncome),
-                BaseCost = 0,
+                IncomePer = 4300 + (int)(infusionIncome + t5sIncomeNoTPTax + mewIncome) + Settings.EmpyrialShardValue,
                 SafeProfitPercentage = 10
             });
 
             result.Add(new TradingAction($"fractal_sell")
             {
-                MaxAmount = (int)(Math.Min(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
+                MaxIn = (int)(Math.Min(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
+                MaxOut = Settings.MaxSaneAmount,
                 Description = $"Fractal encryption and sell",
                 Item = encryption,
                 CostPer = (int)cost,
-                IncomePer = 4300 + (int)(infusionIncome + t5sIncomeWithTPTax + mewIncome),
-                BaseCost = 0,
+                IncomePer = 4300 + (int)(infusionIncome + t5sIncomeWithTPTax + mewIncome) + Settings.EmpyrialShardValue,
                 SafeProfitPercentage = 10
             });
 
             result.Add(new TradingAction($"fractal_median")
             {
-                MaxAmount = (int)(Math.Min(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
+                MaxIn = (int)(Math.Min(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
+                MaxOut = Settings.MaxSaneAmount,
                 Description = $"Fractal encryption and sell @median\n" + string.Join("\n", t5s.Select(i=>$"{i.Name} - {i.MedianFlipSellMax.GoldFormat()}")),
                 Item = encryption,
                 CostPer = (int)cost,
-                IncomePer = 4300 + (int)(infusionIncome + t5sMedians + mewIncome),
-                BaseCost = 0,
+                IncomePer = 4300 + (int)(infusionIncome + t5sMedians + mewIncome) + Settings.EmpyrialShardValue,
                 SafeProfitPercentage = 10
             });
 

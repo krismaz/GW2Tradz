@@ -19,6 +19,13 @@ namespace GW2Tradz.Analyzers
             var instantDyes = new List<Dye> { };
             cache.LoadListings(cache.Dyes.Where(d => d.ItemData != null).Select(i => i.ItemData.Id));
 
+            var stats = cache.Dyes.GroupBy(d => d.Hue).Select(g => new
+            {
+                Hue = g.Key,
+                Dyes = g.ToList(),
+                Count = g.Count()
+            }).ToList();
+
             foreach (var dye in cache.Dyes.Where(d => d.ItemData != null))
             {
                 if(!Dye.Salvages.ContainsKey(dye.Hue) || !Dye.SalvageRates.ContainsKey(dye.ItemData.Rarity))
@@ -33,12 +40,12 @@ namespace GW2Tradz.Analyzers
                 var inventory = (int)(salvage.Select(i => cache.CurrentSells[i.Id]).Max() / salvageRate);
                 result.Add(new TradingAction($"dyes_{dye.ItemData.Id}_{dye.ItemData.Name}")
                 {
-                    MaxAmount = (int)dye.ItemData.AdjustedBuyVelocity,
+                    MaxIn = (int)dye.ItemData.AdjustedBuyVelocity,
+                    MaxOut = (int)(salvage.Select(i => i.AdjustedSellVelocity).Min() / salvageRate),
                     Description = $"Buy and Salvage - {dye.Hue}",
                     Item = dye.ItemData,
                     IncomePer = (int)sale,
                     CostPer = cost,
-                    BaseCost = Settings.EasyTaskCost,
                     SafeProfitPercentage = Settings.SafeMinimumMargin,
                     Inventory = inventory
                 });
@@ -74,12 +81,12 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction($"dyes_instant_{dye.ItemData.Id}_{dye.ItemData.Name}")
                 {
-                    MaxAmount = totalCount,
+                    MaxIn = totalCount,
+                    MaxOut = (int)(salvage.Select(i => i.AdjustedSellVelocity).Min() / salvageRate),
                     Description = $"InstaBuy and Salvage ({maxPrice.GoldFormat()}) - {dye.Hue}",
                     Item = dye.ItemData,
                     CostPer = totalPrice / totalCount,
                     IncomePer = (int)sale,
-                    BaseCost = 0,
                     SafeProfitPercentage = 0,
                     Inventory = inventory
                 });

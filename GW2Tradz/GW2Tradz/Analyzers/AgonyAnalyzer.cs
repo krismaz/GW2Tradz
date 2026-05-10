@@ -31,12 +31,12 @@ namespace GW2Tradz.Analyzers
                     var count = (int)Math.Pow(2, i - j);
                     result.Add(new TradingAction($"agony_{i}_{j}")
                     {
-                        MaxAmount = (int)(Math.Min(target.AdjustedSellVelocity, source.AdjustedBuyVelocity/count)),
+                        MaxOut = (int)target.AdjustedSellVelocity,
+                        MaxIn = (int) source.AdjustedBuyVelocity / count,
                         Description = $"Buy Order {count} x {source.Name} -> {target.Name}",
                         Item = source,
                         CostPer = source.FlipBuy*count+ termoCat*(count-1),
                         IncomePer = target.FlipSell.AfterTP(),
-                        BaseCost = Settings.HardTaskCost,
                         SafeProfitPercentage = Settings.SafeMinimumMargin
                     });
 

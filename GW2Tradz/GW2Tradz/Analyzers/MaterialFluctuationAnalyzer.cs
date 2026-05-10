@@ -22,8 +22,8 @@ namespace GW2Tradz.Analyzers
                 {
                     Description = $"Sell @ {item.MedianFlipSellMax.GoldFormat()} (Experiment, plz be care!)" + (spike ? "(Spike!)" : ""),
                     Item = item,
-                    MaxAmount = (int)(item.Velocity),
-                    BaseCost = Settings.MediumTaskCost,
+                    MaxIn = (int) item.AdjustedBuyVelocity,
+                    MaxOut = (int) item.AdjustedSellVelocity,
                     CostPer = item.FlipBuy,
                     IncomePer = item.MedianFlipSellMax.AfterTP(),
                     SafeProfitPercentage = float.PositiveInfinity,

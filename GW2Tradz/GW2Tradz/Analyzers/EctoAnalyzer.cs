@@ -42,12 +42,12 @@ namespace GW2Tradz.Analyzers
 
             result.Add(new TradingAction($"ecto_use")
             {
-                MaxAmount = (int)ecto.AdjustedBuyVelocity,
+                MaxIn = (int)ecto.AdjustedBuyVelocity,
+                MaxOut = Settings.MaxSaneAmount,
                 Description = $"Ecto Salvage and Use",
                 Item = ecto,
                 CostPer = (int)Math.Ceiling(dustcost),
                 IncomePer = dust.FlipBuy,
-                BaseCost = 0,
                 SafeProfitPercentage = Settings.UnsafeMinimumMargin,
                 Inventory = 0
             });
@@ -56,14 +56,14 @@ namespace GW2Tradz.Analyzers
             {
                 result.Add(new TradingAction($"ecto_{item.Id}_{item.Name}")
                 {
-                    MaxAmount = (int)item.AdjustedSellVelocity / amount,
+                    MaxIn = Settings.MaxSaneAmount,
+                    MaxOut =  (int)item.AdjustedSellVelocity / amount,
                     Description = $"Ecto Salvage and Sell",
                     Item = item,
                     CostPer = cost,
                     IncomePer = amount * item.SellPrice.AfterTP(),
-                    BaseCost = 0,
                     SafeProfitPercentage = Settings.UnsafeMinimumMargin,
-                    Inventory = cache.CurrentSells[item.Id]/amount
+                    Inventory = cache.CurrentSells[item.Id] / amount
                 });
 
                 var goodListings = cache.BuyListings[item.Id].Where(l => l.Price.AfterTP() > cost / amount).ToList();
@@ -79,12 +79,12 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction($"ecto_instant_{item.Id}_{item.Name}")
                 {
-                    MaxAmount = totalCount / amount,
+                    MaxIn = Settings.MaxSaneAmount,
+                    MaxOut = totalCount / amount,
                     Description = $"Ecto Salvage and InstaSell ({minPrice.GoldFormat()})",
                     Item = item,
                     CostPer = cost,
                     IncomePer = totalIncome / totalCount * amount,
-                    BaseCost = 0,
                     SafeProfitPercentage = Settings.SafeMinimumMargin
                 });
             }

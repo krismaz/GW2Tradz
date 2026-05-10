@@ -45,14 +45,11 @@ namespace GW2Tradz.Viewmodels
             WeekBuyVelocity = other.WeekBuyVelocity ?? WeekBuyVelocity;
         }
 
-        public int FlipBuy => (BuyPrice != 0 ? BuyPrice : VendorValue * 6 / 5) + 1;
+        public int FlipBuy => BuyPrice != 0 ? BuyPrice + 1 : SellPrice;
         public int FlipSell => SellPrice - 1;
 
         public int FlippingProfit => FlipSell.AfterTP() - FlipBuy;
         public float FlippingPercentage => (float)(FlippingProfit) / (float)(FlipBuy);
-
-        public double Velocity => Math.Min(AdjustedBuyVelocity, AdjustedSellVelocity);
-        public int GoldPerDay => (int)(Velocity * FlippingProfit);
 
         public List<History> History { get; set; }
         public int MedianSellMax

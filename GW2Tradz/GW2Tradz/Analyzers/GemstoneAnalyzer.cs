@@ -27,12 +27,12 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction($"gemstone_{gemstone.Id}_{gemstone.Name}")
                 {
-                    MaxAmount = (int)gemstone.AdjustedBuyVelocity,
+                    MaxIn = (int)gemstone.AdjustedBuyVelocity,
+                    MaxOut = (int)amal.AdjustedSellVelocity,
                     Description = $"Mystic Forge {gemstone.Name}x75 + 5 Ecto",
                     Item = gemstone,
                     CostPer = totalCost / 75,
                     IncomePer = (int)(totalIncome / 75).AfterTP(),
-                    BaseCost = Settings.EasyTaskCost,
                     SafeProfitPercentage = Settings.SafeMinimumMargin,
                     Inventory = (int)(cache.CurrentSells[amal.Id] * 75 / 11.5)
                 });
@@ -51,12 +51,12 @@ namespace GW2Tradz.Analyzers
 
                 result.Add(new TradingAction($"gemstone_{crystal.Id}_{crystal.Name}")
                 {
-                    MaxAmount = (int)crystal.AdjustedBuyVelocity/2,
+                    MaxIn = (int)crystal.AdjustedBuyVelocity/2,
+                    MaxOut = (int)amal.AdjustedSellVelocity,
                     Description = $"Transmogrify {crystal.Name} and mystic forge to Amalgamated Gemstone",
                     Item = crystal,
                     CostPer = totalCost / 75,
                     IncomePer = (int)(totalIncome / 75).AfterTP(),
-                    BaseCost = Settings.HardTaskCost,
                     SafeProfitPercentage = Settings.SafeMinimumMargin,
                     Inventory = (int)(cache.CurrentSells[amal.Id]*75/11.5)
                 });

@@ -17,15 +17,6 @@ namespace GW2Tradz
         public static int Spread = 5; // Use at most 1/Spread of budget per action
 
         [JsonProperty]
-        public static int EasyTaskCost = 0; // Task cost will assume your time is worth money
-
-        [JsonProperty]
-        public static int MediumTaskCost = 0; // Different tasks are assigned different amounts of 'work'
-
-        [JsonProperty]
-        public static int HardTaskCost = 0; // Mostly usefulle when sorting by profit margin
-
-        [JsonProperty]
         public static double SafeMinimumMargin = 15.Percent(); // Safety margins hide risky transactions
 
         [JsonProperty]
@@ -42,6 +33,9 @@ namespace GW2Tradz
 
         [JsonProperty]
         public static int MaxSaneAmount = 15000; // Maximuum sell/buy velocity
+
+        [JsonProperty]
+        public static int EmpyrialShardValue = 30;
 
     }
 }

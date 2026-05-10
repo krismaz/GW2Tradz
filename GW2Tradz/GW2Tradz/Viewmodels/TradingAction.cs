@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Math;
 
 namespace GW2Tradz.Viewmodels
 {
@@ -22,16 +23,15 @@ namespace GW2Tradz.Viewmodels
         public string Description { get; set; }
         public Item Item { get; set; }
         public int IncomePer { get; set; }
-        private int _maxAmount;
-        public int MaxAmount { get => _maxAmount; set { _maxAmount = Math.Max(0, value); } }
+        public int MaxIn { get; set;  }
+        public int MaxOut { get; set; }
         public int CostPer { get; set; }
-        public int BaseCost { get; set; }
         public double SafeProfitPercentage { get; set; }
 
 
-        public int Amount => Math.Max(0, Math.Min(MaxAmount, (Settings.TotalCoins / Settings.Spread) / Math.Max(CostPer, 1) - Inventory) - Inventory);
+        public int Amount => Max(0, Min(MaxIn, Min((Settings.TotalCoins / Settings.Spread) / Max(CostPer, 1), MaxOut - Inventory)));
         public int TotalIncome => Amount * IncomePer;
-        public int TotalCost => Amount * CostPer + BaseCost;
+        public int TotalCost => Amount * CostPer ;
         public int Profit => TotalIncome - TotalCost;
         public double ProfitPercentage => Amount > 0 ? (double)Profit / (double)TotalCost : 0;
         public bool Safe => ProfitPercentage > SafeProfitPercentage;
