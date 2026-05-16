@@ -58,30 +58,22 @@ namespace GW2Tradz.Analyzers
 
 
                 var acc = 0;
-                var listings = cache.SellListings[input.Id].Where(l => l.Price < income).TakeWhile(l =>
-                {
-                    var acc0 = acc;
-                    acc += l.Quantity;
-                    return acc0 < max;
-                }).ToList(); ;
-                var quantity = listings.Sum(l => l.Quantity);
-                var totalcost = listings.Sum(l => l.Quantity * l.Price);
-                if (!listings.Any())
-                {
-                    continue;
-                }
+                var listings = cache.AccumulateSellListings(input, income, max);
 
-                result.Add(new TradingAction($"clicking_{input.Id}_{input.Name}_{recipe.Id}_2")
+                if (!listings.Valid)
                 {
-                    MaxOut = max,
-                    MaxIn = quantity,
-                    Description = $"Instabuy {input.Name} @ {listings.Max(l=>l.Price).GoldFormat()} -> {recipe.OutputItemCount} x {output.Name}",
-                    Item = input,
-                    CostPer = totalcost / quantity,
-                    IncomePer = income,
-                    SafeProfitPercentage = Settings.SafeMinimumMargin,
-                    Inventory = cache.CurrentSells[output.Id] / (int)recipe.OutputItemCount
-                });
+                    result.Add(new TradingAction($"clicking_{input.Id}_{input.Name}_{recipe.Id}_2")
+                    {
+                        MaxOut = max,
+                        MaxIn = listings.Amount,
+                        Description = $"Instabuy {input.Name} @ {listings.MaxPrice.GoldFormat()} -> {recipe.OutputItemCount} x {output.Name}",
+                        Item = input,
+                        CostPer = listings.Cost / listings.Amount,
+                        IncomePer = income,
+                        SafeProfitPercentage = Settings.SafeMinimumMargin,
+                        Inventory = cache.CurrentSells[output.Id] / (int)recipe.OutputItemCount
+                    });
+                }
             }
             return result;
         }

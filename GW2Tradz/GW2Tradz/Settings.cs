@@ -35,7 +35,15 @@ namespace GW2Tradz
         public static int MaxSaneAmount = 15000; // Maximuum sell/buy velocity
 
         [JsonProperty]
-        public static int EmpyrialShardValue = 30;
+        //https://fast.farming-community.eu/farming/calculator?item=empyreal-fragment
+        public static int EmpyrialShardValue = 27;
 
+        //https://fast.farming-community.eu/farming/calculator?item=salvaging-costs-per-research-note
+        [JsonProperty]
+        public static int ResearchNoteCost = 70;
+
+        //https://fast.farming-community.eu/conversions/fractal-relic
+        [JsonProperty]
+        public static int FractalValue = 200;
     }
 }

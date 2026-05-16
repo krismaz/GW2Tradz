@@ -40,6 +40,30 @@ namespace GW2Tradz.Networking
             }
         }
 
+        public ListingGroup AccumulateBuyListings(Item output, int cost, int maxAmount)
+        {
+            var acc = 0;
+            var listings = BuyListings[output.Id].Where(l => l.Price.AfterTP() > cost).TakeWhile(l =>
+            {
+                acc += l.Quantity;
+                return acc < maxAmount;
+            }).ToList();
+            return new ListingGroup(listings);
+        }
+
+        public ListingGroup AccumulateSellListings(Item output, int income, int maxAmount)
+        {
+            var acc = 0;
+            var acc1 = 0;
+            var listings = SellListings[output.Id].Where(l => l.Price < income).TakeWhile(l =>
+            {
+                acc += l.Quantity;
+                acc1 += l.Quantity*l.Price;
+                return acc < maxAmount && acc1 < Settings.TotalCoins / Settings.Spread;
+            }).ToList();
+            return new ListingGroup(listings);
+        }
+
 
 
         public void UpdateHistory(List<History> items)
@@ -105,8 +129,8 @@ namespace GW2Tradz.Networking
             var missing = ids.Except(BuyListings.Keys);
             foreach (var ld in _gw2.FetchListings(missing))
             {
-                BuyListings[ld.Id] = ld.Buys;
-                SellListings[ld.Id] = ld.Sells;
+                BuyListings[ld.Id] = ld.Buys.OrderByDescending(l=>l.Price).ToList();
+                SellListings[ld.Id] = ld.Sells.OrderBy(l => l.Price).ToList();
             }
         }
 

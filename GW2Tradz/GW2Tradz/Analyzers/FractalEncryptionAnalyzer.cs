@@ -24,11 +24,12 @@ namespace GW2Tradz.Analyzers
             cache.LoadHistory(t5s.Where(i => i.History == null).Select(i => i.Id));
 
 
-            var infusionIncome = 2.25 * infusion.FlipSell.AfterTP();
-            var t5sIncomeNoTPTax = 0.348 * t5s.Sum(i => i.FlipBuy);
-            var t5sIncomeWithTPTax = 0.348 * t5s.Sum(i => i.FlipSell.AfterTP());
-            var t5sMedians = 0.348 * t5s.Sum(i => Math.Max(i.MedianFlipSellMax, i.FlipSell).AfterTP());
-            var mewIncome = 0.015 * mew.FlipSell.AfterTP();
+            var infusionIncome = 2.26 * infusion.FlipSell.AfterTP();
+            var t5sIncomeNoTPTax = 0.3375 * t5s.Sum(i => i.FlipBuy);
+            var t5sIncomeWithTPTax = 0.3375 * t5s.Sum(i => i.FlipSell.AfterTP());
+            var t5sMedians = 0.3375 * t5s.Sum(i => Math.Max(i.MedianFlipSellMax, i.FlipSell).AfterTP());
+            var mewIncome = 0.02 * mew.FlipSell.AfterTP();
+            var relicIncome = 0.2 * Settings.FractalValue;
 
 
             var result = new List<TradingAction> { };
@@ -40,7 +41,7 @@ namespace GW2Tradz.Analyzers
                 Description = $"Fractal encryption and use",
                 Item = encryption,
                 CostPer = (int)cost,
-                IncomePer = 4300 + (int)(infusionIncome + t5sIncomeNoTPTax + mewIncome) + Settings.EmpyrialShardValue,
+                IncomePer = 4283 + (int)(infusionIncome + t5sIncomeNoTPTax + mewIncome + relicIncome) + Settings.EmpyrialShardValue,
                 SafeProfitPercentage = 10
             });
 
@@ -51,7 +52,7 @@ namespace GW2Tradz.Analyzers
                 Description = $"Fractal encryption and sell",
                 Item = encryption,
                 CostPer = (int)cost,
-                IncomePer = 4300 + (int)(infusionIncome + t5sIncomeWithTPTax + mewIncome) + Settings.EmpyrialShardValue,
+                IncomePer = 4283 + (int)(infusionIncome + t5sIncomeWithTPTax + mewIncome + relicIncome) + Settings.EmpyrialShardValue,
                 SafeProfitPercentage = 10
             });
 
@@ -59,10 +60,10 @@ namespace GW2Tradz.Analyzers
             {
                 MaxIn = (int)(Math.Min(encryption.AdjustedBuyVelocity, matrix.AdjustedBuyVelocity)),
                 MaxOut = Settings.MaxSaneAmount,
-                Description = $"Fractal encryption and sell @median\n" + string.Join("\n", t5s.Select(i=>$"{i.Name} - {i.MedianFlipSellMax.GoldFormat()}")),
+                Description = $"Fractal encryption and sell @median",
                 Item = encryption,
                 CostPer = (int)cost,
-                IncomePer = 4300 + (int)(infusionIncome + t5sMedians + mewIncome) + Settings.EmpyrialShardValue,
+                IncomePer = 4283 + (int)(infusionIncome + t5sMedians + mewIncome + relicIncome) + Settings.EmpyrialShardValue,
                 SafeProfitPercentage = 10
             });
 

@@ -66,27 +66,23 @@ namespace GW2Tradz.Analyzers
                     Inventory = cache.CurrentSells[item.Id] / amount
                 });
 
-                var goodListings = cache.BuyListings[item.Id].Where(l => l.Price.AfterTP() > cost / amount).ToList();
+                
 
-                if (!goodListings.Any())
+                var goodListings = cache.AccumulateBuyListings(item, cost / amount, Settings.MaxSaneAmount);
+
+                if (goodListings.Valid)
                 {
-                    return;
+                    result.Add(new TradingAction($"ecto_instant_{item.Id}_{item.Name}")
+                    {
+                        MaxIn = Settings.MaxSaneAmount,
+                        MaxOut = goodListings.Amount / amount,
+                        Description = $"Ecto Salvage and InstaSell ({goodListings.MinPrice.GoldFormat()})",
+                        Item = item,
+                        CostPer = cost,
+                        IncomePer = goodListings.Sell / goodListings.Amount * amount,
+                        SafeProfitPercentage = Settings.SafeMinimumMargin
+                    });
                 }
-
-                var totalCount = goodListings.Sum(l => l.Quantity);
-                var totalIncome = goodListings.Sum(l => l.Quantity * l.Price).AfterTP();
-                var minPrice = goodListings.Min(l => l.Price);
-
-                result.Add(new TradingAction($"ecto_instant_{item.Id}_{item.Name}")
-                {
-                    MaxIn = Settings.MaxSaneAmount,
-                    MaxOut = totalCount / amount,
-                    Description = $"Ecto Salvage and InstaSell ({minPrice.GoldFormat()})",
-                    Item = item,
-                    CostPer = cost,
-                    IncomePer = totalIncome / totalCount * amount,
-                    SafeProfitPercentage = Settings.SafeMinimumMargin
-                });
             }
 
             HandleItem(dust, (int)(dustcost), 1);

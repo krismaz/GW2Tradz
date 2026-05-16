@@ -78,42 +78,37 @@ namespace GW2Tradz.Analyzers
             });
 
             cache.LoadListings(new int[] { 36038 });
+            var trick = cache.Lookup[36038];
 
-            var goodListings = cache.SellListings[36038].Where(l => l.Price  < income).ToList();
-            if(goodListings.Any())
+            var goodListings = cache.AccumulateSellListings(trick, income, (int)(corn.AdjustedSellVelocity / cornAmount));
+            if (goodListings.Valid)
             {
-                var totalCount = goodListings.Sum(l => l.Quantity);
-                var totalPrice = goodListings.Sum(l => l.Quantity * l.Price);
-                var maxPrice = goodListings.Max(l => l.Price);
-
                 result.Add(new TradingAction($"open_sell_36038_3")
                 {
-                    MaxIn = totalCount,
+                    MaxIn = goodListings.Amount,
                     MaxOut = (int)(corn.AdjustedSellVelocity / cornAmount),
                     Inventory = (int)(cache.CurrentSells[36041] / cornAmount),
-                    Description = $"Instabuy trick or treat bag @{maxPrice.GoldFormat()}, sell corn, vendor trash",
+                    Description = $"Instabuy trick or treat bag @{goodListings.MaxPrice.GoldFormat()}, sell corn, vendor trash",
                     Item = trickbag,
-                    CostPer = totalPrice / totalCount,
+                    CostPer = goodListings.Cost / goodListings.Amount,
                     IncomePer = income,
                     SafeProfitPercentage = 0
                 });
             }
 
-            var luckyListings = cache.SellListings[36038].Where(l => l.Price < income +100).ToList();
-            if (luckyListings.Any())
+            var luckyListings = cache.AccumulateSellListings(trick, income+100, (int)(corn.AdjustedSellVelocity / cornAmount));
+
+            if (luckyListings.Valid)
             {
-                var totalCount = luckyListings.Sum(l => l.Quantity);
-                var totalPrice = luckyListings.Sum(l => l.Quantity * l.Price);
-                var maxPrice = luckyListings.Max(l => l.Price);
 
                 result.Add(new TradingAction($"open_sell_36038_4")
                 {
-                    MaxIn = totalCount,
+                    MaxIn = luckyListings.Amount,
                     MaxOut = (int)(corn.AdjustedSellVelocity / cornAmount),
                     Inventory = (int)(cache.CurrentSells[36041] / cornAmount),
-                    Description = $"(Highly Unsafe) Be lucky! Instabuy trick or treat bag @{maxPrice.GoldFormat()}, sell corn, vendor trash",
+                    Description = $"(Highly Unsafe) Be lucky! Instabuy trick or treat bag @{luckyListings.MaxPrice.GoldFormat()}, sell corn, vendor trash",
                     Item = trickbag,
-                    CostPer = totalPrice / totalCount,
+                    CostPer = luckyListings.Cost / luckyListings.Amount,
                     IncomePer = income +100,
                     SafeProfitPercentage = double.PositiveInfinity
                 });
